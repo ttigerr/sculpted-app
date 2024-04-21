@@ -95,7 +95,7 @@ android {
             keyPassword 'android'
         }
          release {
-            storeFile file('relase.keystore')
+            storeFile file('release.keystore')
             storePassword 'Sculpted'
             keyAlias 'Sculpted'
             keyPassword 'Sculpted'
