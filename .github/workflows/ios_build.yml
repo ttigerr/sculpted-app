@@ -1,4 +1,5 @@
 name: react-native-build-ios
+
 # description: GitHub Action to build React Native iOS app and publish to Testflight
 # author: Austin McGuinn
 # branding:
@@ -8,6 +9,9 @@ name: react-native-build-ios
 # This Action requires some initial project setup which can be found in the README here https://github.com/AustinMcGuinn/react-native-build-ios
 
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
   release:
     types: [published] # only run the workflow when a new release has been published
