@@ -83,3 +83,10 @@ To learn more about React Native, take a look at the following resources:
 Each new feature should reside in its own branch, which can be pushed to the central repository for backup/collaboration. But, instead of branching off of main, feature branches use develop as their parent branch. When a feature is complete, it gets merged back into develop. Features should never interact directly with main.
 
 More information can be found [in this tutorial](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow).
+
+## Creating a feature branch
+
+```
+git checkout develop
+git checkout -b feature_branch
+```
