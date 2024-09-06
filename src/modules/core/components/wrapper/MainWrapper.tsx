@@ -7,7 +7,6 @@ import styles from './styles';
 
 interface MainWrapperPropsType {
   children?: React.ReactNode;
-  theme: typeof theme;
 }
 
 const colorList = [

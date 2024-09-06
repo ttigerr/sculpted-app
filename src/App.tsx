@@ -1,14 +1,23 @@
 import * as React from 'react';
 import {PaperProvider} from 'react-native-paper';
-import {StyleSheet, Text, View} from 'react-native';
-import {theme} from './config/theme';
+import {StyleSheet, View} from 'react-native';
+import {theme} from '@theme';
 import MainWrapper from './modules/core/components/wrapper/MainWrapper';
+import {Button, Text} from '@ui-library';
 
 const App = () => {
   return (
     <MainWrapper>
       <View style={styles.container}>
-        <Text style={styles.text}>Sculpted</Text>
+        <Text variant="caption">Sculpted</Text>
+        <View style={{height: 60}} />
+        <View style={styles.buttonContainer}>
+          <Button
+            mode="outlined"
+            onPress={() => console.log('Hola')}
+            label="Pressme"
+          />
+        </View>
       </View>
     </MainWrapper>
   );
@@ -30,5 +39,9 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#F4F4F4',
+  },
+  buttonContainer: {
+    width: '100%',
+    paddingHorizontal: 20,
   },
 });
