@@ -68,7 +68,7 @@ const fontConfig = {
     }),
     fontWeight: '400',
     lineHeight: 19.09,
-    fontSize: 1,
+    fontSize: 15,
     letterSpacing: 0.2,
     color: '#F4F4F4'
   },
@@ -103,6 +103,7 @@ export const theme = {
     background: '#0C0D0E',
     gradientBackgroundTop: '#0E202CD6',
     gradientBackgroundBottom: '#3BD0D636',
+    outlinedButtonBorderColor: '#F4F4F4',
   },
   gradientColors: {
     button: ['#3BD0D6', '#428EC5'],

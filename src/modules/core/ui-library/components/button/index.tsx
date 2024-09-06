@@ -1,15 +1,17 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {
   Button as PaperButton,
   ButtonProps as PaperButtonProps,
 } from 'react-native-paper';
 import LinearGradient from 'react-native-linear-gradient';
 import {theme} from 'src/config/theme';
+import {Text} from '@ui-library';
 
 interface UIButtonProps extends React.FC<PaperButtonProps> {
   label?: string;
   loading?: boolean;
+  mode?: 'outlined' | 'contained';
 }
 
 const Button: React.FC<UIButtonProps & PaperButtonProps> = ({
@@ -22,7 +24,14 @@ const Button: React.FC<UIButtonProps & PaperButtonProps> = ({
   children,
   ...rest
 }) => {
-  return (
+  return mode == 'outlined' ? (
+    <PaperButton
+      mode="outlined"
+      onPress={onPress}
+      style={styles.outlinedContainer}>
+      {label ? <Text variant="paragraph">{label}</Text> : children}
+    </PaperButton>
+  ) : (
     <LinearGradient
       colors={theme.gradientColors.button}
       start={{x: 0, y: 0}}
@@ -43,6 +52,10 @@ export default Button;
 const styles = StyleSheet.create({
   containedContainer: {
     backgroundColor: '#FFFFFF00',
+  },
+  outlinedContainer: {
+    borderWidth: 1,
+    borderColor: theme.colors.outlinedButtonBorderColor,
   },
   gradientContainer: {
     borderRadius: 200,

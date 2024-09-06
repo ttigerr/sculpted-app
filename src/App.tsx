@@ -10,8 +10,13 @@ const App = () => {
     <MainWrapper>
       <View style={styles.container}>
         <Text variant="caption">Sculpted</Text>
+        <View style={{height: 60}} />
         <View style={styles.buttonContainer}>
-          <Button onPress={() => console.log('Hola')} label="Pressme" />
+          <Button
+            mode="outlined"
+            onPress={() => console.log('Hola')}
+            label="Pressme"
+          />
         </View>
       </View>
     </MainWrapper>
