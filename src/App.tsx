@@ -1,23 +1,16 @@
 import * as React from 'react';
 import {PaperProvider} from 'react-native-paper';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View,Text} from 'react-native';
 import {theme} from '@theme';
 import MainWrapper from './modules/core/components/wrapper/MainWrapper';
-import {Button, Text, Chip} from 'src/modules/core/ui-library';
+import i18next from './config/lang/useLocalization';
 
 const App = () => {
   const [isChipSelected, setIsChipSelected] = React.useState(false);
   return (
     <MainWrapper>
       <View style={styles.container}>
-        <Text variant="caption">Sculpted</Text>
-        <View style={{height: 60}} />
-        <View style={styles.buttonContainer}></View>
-        <Chip
-          selected={isChipSelected}
-          onPress={() => setIsChipSelected(!isChipSelected)}>
-          {'Honesty'}
-        </Chip>
+        <Text style={styles.text}>{i18next.t('ns:app-name')}</Text>
       </View>
     </MainWrapper>
   );
