@@ -7,6 +7,7 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import {theme} from 'src/config/theme';
 import {Text} from '@ui-library';
+import styles from './styles';
 
 interface UIButtonProps extends React.FC<PaperButtonProps> {
   label?: string;
@@ -48,20 +49,3 @@ const Button: React.FC<UIButtonProps & PaperButtonProps> = ({
 };
 
 export default Button;
-
-const styles = StyleSheet.create({
-  containedContainer: {
-    backgroundColor: '#FFFFFF00',
-  },
-  outlinedContainer: {
-    borderWidth: 1,
-    borderColor: theme.colors.outlinedButtonBorderColor,
-  },
-  gradientContainer: {
-    borderRadius: 200,
-  },
-  buttonText: {
-    fontSize: 16,
-    fontFamily: 'HelveticaNeueMedium',
-  },
-});
