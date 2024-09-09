@@ -1,0 +1,11 @@
+
+import { Dimensions, Platform } from 'react-native';
+
+export const IOS = Platform.OS === 'ios';
+export const ANDROID = Platform.OS === 'android';
+export const SCREEN_WIDTH = Dimensions.get('window').width;
+export const SCREEN_HEIGHT = Dimensions.get('window').height;
+export const REM = SCREEN_WIDTH / 375;
+
+
+export const SPLASH_SCREEN_DURATION = 2000;

@@ -1,47 +1,27 @@
-import * as React from 'react';
+import React, {useState, useEffect} from 'react';
 import {PaperProvider} from 'react-native-paper';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {theme} from '@theme';
-import MainWrapper from './modules/core/components/wrapper/MainWrapper';
-import {Button, Text, Chip} from 'src/modules/core/ui-library';
+import {SPLASH_SCREEN_DURATION} from './consts/constants';
+import MainNavigation from './navigation/main-navigation';
+import Splash from './modules/core/splash';
 
-const App = () => {
-  const [isChipSelected, setIsChipSelected] = React.useState(false);
-  return (
-    <MainWrapper>
-      <View style={styles.container}>
-        <Text variant="caption">Sculpted</Text>
-        <View style={{height: 60}} />
-        <View style={styles.buttonContainer}></View>
-        <Chip
-          selected={isChipSelected}
-          onPress={() => setIsChipSelected(!isChipSelected)}>
-          {'Honesty'}
-        </Chip>
-      </View>
-    </MainWrapper>
-  );
-};
+export default function App() {
+  const [showSplash, setShowSplash] = useState(true);
 
-export default function Main() {
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setShowSplash(false);
+  //   }, SPLASH_SCREEN_DURATION);
+  // }, []);
+
+  if (showSplash) {
+    return <Splash />;
+  }
+
   return (
     <PaperProvider theme={theme}>
-      <App />
+      <MainNavigation />
     </PaperProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  text: {
-    color: '#F4F4F4',
-  },
-  buttonContainer: {
-    width: '100%',
-    paddingHorizontal: 20,
-  },
-});
