@@ -3,21 +3,21 @@ import {PaperProvider} from 'react-native-paper';
 import {StyleSheet, View} from 'react-native';
 import {theme} from '@theme';
 import MainWrapper from './modules/core/components/wrapper/MainWrapper';
-import {Button, Text} from '@ui-library';
+import {Button, Text, Chip} from 'src/modules/core/ui-library';
 
 const App = () => {
+  const [isChipSelected, setIsChipSelected] = React.useState(false);
   return (
     <MainWrapper>
       <View style={styles.container}>
         <Text variant="caption">Sculpted</Text>
         <View style={{height: 60}} />
-        <View style={styles.buttonContainer}>
-          <Button
-            mode="outlined"
-            onPress={() => console.log('Hola')}
-            label="Pressme"
-          />
-        </View>
+        <View style={styles.buttonContainer}></View>
+        <Chip
+          selected={isChipSelected}
+          onPress={() => setIsChipSelected(!isChipSelected)}>
+          {'Honesty'}
+        </Chip>
       </View>
     </MainWrapper>
   );
