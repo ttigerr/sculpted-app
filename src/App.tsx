@@ -1,11 +1,12 @@
 import * as React from 'react';
 import {PaperProvider} from 'react-native-paper';
-import {StyleSheet, Text, View} from 'react-native';
-import {theme} from './config/theme';
+import {StyleSheet, View,Text} from 'react-native';
+import {theme} from '@theme';
 import MainWrapper from './modules/core/components/wrapper/MainWrapper';
 import i18next from './config/lang/useLocalization';
 
 const App = () => {
+  const [isChipSelected, setIsChipSelected] = React.useState(false);
   return (
     <MainWrapper>
       <View style={styles.container}>
@@ -31,5 +32,9 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#F4F4F4',
+  },
+  buttonContainer: {
+    width: '100%',
+    paddingHorizontal: 20,
   },
 });

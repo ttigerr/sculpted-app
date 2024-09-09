@@ -1,4 +1,92 @@
-import { MD3LightTheme as DefaultTheme } from "react-native-paper";
+import { Platform } from "react-native";
+import { configureFonts, MD3LightTheme as DefaultTheme, Paragraph } from "react-native-paper";
+
+export const fonts = {
+  helveticaNeueMedium: 'HelveticaNeueMedium',
+  helveticaNeueRoman: 'HelveticaNeueRoman',
+};
+
+const fontConfig = {
+  h1: {
+    fontFamily: Platform.select({
+      web: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif',
+      ios: fonts.helveticaNeueMedium,
+      android: fonts.helveticaNeueMedium,
+      default: fonts.helveticaNeueMedium,
+    }),
+    fontWeight: '500',
+    lineHeight: 53.33,
+    fontSize: 36,
+    letterSpacing: 0.5,
+    color: '#F4F4F4'
+  },
+  h2: {
+    fontFamily: Platform.select({
+      web: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif',
+      ios: fonts.helveticaNeueMedium,
+      android: fonts.helveticaNeueMedium,
+      default: fonts.helveticaNeueMedium,
+    }),
+    fontWeight: '500',
+    lineHeight: 32.33,
+    fontSize: 28,
+    letterSpacing: 0.5,
+    color: '#F4F4F4'
+  },
+  h3: {
+    fontFamily: Platform.select({
+      web: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif',
+      ios: fonts.helveticaNeueMedium,
+      android: fonts.helveticaNeueMedium,
+      default: fonts.helveticaNeueMedium,
+    }),
+    fontWeight: '500',
+    lineHeight: 24.24,
+    fontSize: 20,
+    letterSpacing: 0.5,
+    color: '#F4F4F4'
+  },
+  body: {
+    fontFamily: Platform.select({
+      web: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif',
+      ios: fonts.helveticaNeueRoman,
+      android: fonts.helveticaNeueRoman,
+      default: fonts.helveticaNeueRoman,
+    }),
+    fontWeight: '400',
+    lineHeight: 19.09,
+    fontSize: 16,
+    letterSpacing: 0.2,
+    color: '#F4F4F4'
+  },
+  paragraph: {
+    fontFamily: Platform.select({
+      web: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif',
+      ios: fonts.helveticaNeueRoman,
+      android: fonts.helveticaNeueRoman,
+      default: fonts.helveticaNeueRoman,
+    }),
+    fontWeight: '400',
+    lineHeight: 19.09,
+    fontSize: 15,
+    letterSpacing: 0.2,
+    color: '#F4F4F4'
+  },
+  caption: {
+    fontFamily: Platform.select({
+      web: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif',
+      ios: fonts.helveticaNeueMedium,
+      android: fonts.helveticaNeueMedium,
+      default: fonts.helveticaNeueMedium,
+    }),
+    fontWeight: '500',
+    lineHeight: 14.65,
+    fontSize: 12,
+    letterSpacing: 0.2,
+    color: '#F4F4F494'
+  },
+};
+
 
 export const theme = {
   ...DefaultTheme,
@@ -9,15 +97,17 @@ export const theme = {
     h1: '#F4F4F4',
     h2: '#F4F4F4',
     h3: '#F4F4F4',
-    button: '#0C0D0E',
+    buttonText: '#0C0D0E',
     paragraph: '#919191',
     caption: '#919191',
     background: '#0C0D0E',
     gradientBackgroundTop: '#0E202CD6',
     gradientBackgroundBottom: '#3BD0D636',
+    outlinedButtonBorderColor: '#F4F4F4',
   },
   gradientColors: {
-    primary: ['#3BD0D6', '#428EC5'],
+    button: ['#3BD0D6', '#428EC5'],
     gradientBackgroundTop: ['#428EC5D6','#428EC500', '#428EC500']
-  }
+  },
+  fonts: configureFonts({config: fontConfig}),
 }
