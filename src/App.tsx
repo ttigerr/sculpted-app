@@ -1,40 +1,27 @@
-import * as React from 'react';
+import React, {useState, useEffect} from 'react';
 import {PaperProvider} from 'react-native-paper';
-import {StyleSheet, View,Text} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {theme} from '@theme';
-import MainWrapper from './modules/core/components/wrapper/MainWrapper';
-import i18next from './config/lang/useLocalization';
+import {SPLASH_SCREEN_DURATION} from './consts/constants';
+import MainNavigation from './navigation/main-navigation';
+import Splash from './modules/core/splash';
 
-const App = () => {
-  const [isChipSelected, setIsChipSelected] = React.useState(false);
-  return (
-    <MainWrapper>
-      <View style={styles.container}>
-        <Text style={styles.text}>{i18next.t('ns:app-name')}</Text>
-      </View>
-    </MainWrapper>
-  );
-};
+export default function App() {
+  const [showSplash, setShowSplash] = useState(true);
 
-export default function Main() {
+  useEffect(() => {
+    setTimeout(() => {
+      setShowSplash(false);
+    }, SPLASH_SCREEN_DURATION);
+  }, []);
+
+  if (showSplash) {
+    return <Splash onAnimationFinished={() => setShowSplash(false)} />;
+  }
+
   return (
     <PaperProvider theme={theme}>
-      <App />
+      <MainNavigation />
     </PaperProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  text: {
-    color: '#F4F4F4',
-  },
-  buttonContainer: {
-    width: '100%',
-    paddingHorizontal: 20,
-  },
-});

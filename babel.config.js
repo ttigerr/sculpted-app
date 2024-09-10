@@ -3,10 +3,10 @@ module.exports = {
     [
       'module-resolver',
       {
-        root: ['./src'],
+        root: ['./'],
         alias: {
           src: './src',
-          '@assets': './src/assets',
+          '@assets': './assets',
           '@components': './src/components',
           '@ui-library': './src/modules/core/ui-library',
           '@constants': './src/constants',
@@ -19,9 +19,11 @@ module.exports = {
           '@services': './src/services',
           '@theme': './src/config/theme',
           '@utils': './src/utils',
+          '@img': './assets/img',
         },
       },
     ],
+    'react-native-reanimated/plugin',
   ],
   presets: ['module:@react-native/babel-preset'],
 };

@@ -12,12 +12,12 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		18EDD808FB913B386335442B /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A78B0394099F3D233A995A /* ExpoModulesProvider.swift */; };
+		4049AD73E5BA4796A4750E29 /* HelveticaNeueMedium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 978E1D0903ED4607BDAD4047 /* HelveticaNeueMedium.otf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		B51C31D5160C4849A35F3966 /* HelveticaNeueRoman.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7455A114379A40E1AD213202 /* HelveticaNeueRoman.otf */; };
 		E012F209614429609E13A9BD /* libPods-Scultpted-ScultptedTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40D18C6B476B047CF1CC481F /* libPods-Scultpted-ScultptedTests.a */; };
 		E43BC22FECC6F4805850B966 /* libPods-Scultpted.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B208A736B517E06DDCD6C310 /* libPods-Scultpted.a */; };
 		EC8EB540AD040EE41265D367 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D62F3C84959C54A458F9004 /* ExpoModulesProvider.swift */; };
-		4049AD73E5BA4796A4750E29 /* HelveticaNeueMedium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 978E1D0903ED4607BDAD4047 /* HelveticaNeueMedium.otf */; };
-		B51C31D5160C4849A35F3966 /* HelveticaNeueRoman.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7455A114379A40E1AD213202 /* HelveticaNeueRoman.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,14 +44,14 @@
 		40D18C6B476B047CF1CC481F /* libPods-Scultpted-ScultptedTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Scultpted-ScultptedTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5268F8A4238421F2BE05BFBB /* Pods-Scultpted.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Scultpted.release.xcconfig"; path = "Target Support Files/Pods-Scultpted/Pods-Scultpted.release.xcconfig"; sourceTree = "<group>"; };
 		5EDB17E39FCFDAA905B8DF0C /* Pods-Scultpted-ScultptedTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Scultpted-ScultptedTests.release.xcconfig"; path = "Target Support Files/Pods-Scultpted-ScultptedTests/Pods-Scultpted-ScultptedTests.release.xcconfig"; sourceTree = "<group>"; };
+		7455A114379A40E1AD213202 /* HelveticaNeueRoman.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = HelveticaNeueRoman.otf; path = ../assets/fonts/HelveticaNeueRoman.otf; sourceTree = "<group>"; };
 		7FFB756DAECA9B9BF6D487A0 /* Pods-Scultpted-ScultptedTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Scultpted-ScultptedTests.debug.xcconfig"; path = "Target Support Files/Pods-Scultpted-ScultptedTests/Pods-Scultpted-ScultptedTests.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Scultpted/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		978E1D0903ED4607BDAD4047 /* HelveticaNeueMedium.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = HelveticaNeueMedium.otf; path = ../assets/fonts/HelveticaNeueMedium.otf; sourceTree = "<group>"; };
 		A2A78B0394099F3D233A995A /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-Scultpted/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 		B208A736B517E06DDCD6C310 /* libPods-Scultpted.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Scultpted.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAF975D02AF89735E1F42A90 /* Pods-Scultpted.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Scultpted.debug.xcconfig"; path = "Target Support Files/Pods-Scultpted/Pods-Scultpted.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		978E1D0903ED4607BDAD4047 /* HelveticaNeueMedium.otf */ = {isa = PBXFileReference; name = "HelveticaNeueMedium.otf"; path = "../assets/fonts/HelveticaNeueMedium.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		7455A114379A40E1AD213202 /* HelveticaNeueRoman.otf */ = {isa = PBXFileReference; name = "HelveticaNeueRoman.otf"; path = "../assets/fonts/HelveticaNeueRoman.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +164,16 @@
 			name = ExpoModulesProviders;
 			sourceTree = "<group>";
 		};
+		B44E861947804D71999F7C4D /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				978E1D0903ED4607BDAD4047 /* HelveticaNeueMedium.otf */,
+				7455A114379A40E1AD213202 /* HelveticaNeueRoman.otf */,
+			);
+			name = Resources;
+			path = "";
+			sourceTree = "<group>";
+		};
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -182,16 +192,6 @@
 			);
 			name = Scultpted;
 			sourceTree = "<group>";
-		};
-		B44E861947804D71999F7C4D /* Resources */ = {
-			isa = "PBXGroup";
-			children = (
-				978E1D0903ED4607BDAD4047 /* HelveticaNeueMedium.otf */,
-				7455A114379A40E1AD213202 /* HelveticaNeueRoman.otf */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-			path = "";
 		};
 /* End PBXGroup section */
 
