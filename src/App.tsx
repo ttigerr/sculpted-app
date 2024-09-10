@@ -9,14 +9,14 @@ import Splash from './modules/core/splash';
 export default function App() {
   const [showSplash, setShowSplash] = useState(true);
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     setShowSplash(false);
-  //   }, SPLASH_SCREEN_DURATION);
-  // }, []);
+  useEffect(() => {
+    setTimeout(() => {
+      setShowSplash(false);
+    }, SPLASH_SCREEN_DURATION);
+  }, []);
 
   if (showSplash) {
-    return <Splash />;
+    return <Splash onAnimationFinished={() => setShowSplash(false)} />;
   }
 
   return (
