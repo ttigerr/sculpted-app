@@ -1,5 +1,8 @@
-import {customText} from 'react-native-paper';
+import React from 'react';
+import {customText, TextProps} from 'react-native-paper';
 
-export const Text = customText<
+const Text = customText<
   'h1' & 'h2' & 'h3' & 'body' & 'paragraph' & 'caption'
 >();
+
+export default Text;

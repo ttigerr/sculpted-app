@@ -104,6 +104,10 @@ export const theme = {
     gradientBackgroundTop: '#0E202CD6',
     gradientBackgroundBottom: '#3BD0D636',
     outlinedButtonBorderColor: '#F4F4F4',
+    // TextInput
+    textInputColor: '#F4F4F4',
+    textInputBorderColor: '#606060',
+    textInputFocusBorderColor: '#F4F4F4'
   },
   gradientColors: {
     button: ['#3BD0D6', '#428EC5'],
