@@ -1,10 +1,10 @@
 const iconSize = {
   xsmall: 8,
   small: 16,
-  normal: 24,
-  medium: 54,
-  large: 76,
-  xlarge: 112,
+  normal: 20,
+  medium: 28,
+  large: 36,
+  xlarge: 46,
 };
 
 export default iconSize;
