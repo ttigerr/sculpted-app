@@ -1,7 +1,7 @@
 import React from "react";
 import MainWrapper from "src/modules/core/components/wrapper/MainWrapper";
 import {StyleSheet, View, ScrollView, SafeAreaView} from 'react-native';
-import {Text, Avartar, ListItem, ListItems, IconButton, AlertDialog} from 'src/modules/core/ui-library';
+import {Text, Avartar, ListItem, IconButton, AlertDialog} from 'src/modules/core/ui-library';
 import {NavigationPropsType} from 'src/utils/types';
 import Icon from 'src/modules/core/components/icon';
 import { List } from "react-native-paper";
@@ -29,7 +29,7 @@ const ProfileMain = (navigationProps:NavigationPropsType) => {
                     {/* <IconButton name="edit" size="normal"/> */}
                     <View style={styles.editContainer}>
                       <Text variant="body">{'Edit'}</Text>
-                      <IconButton name="edit" size="small" onPress={goToEditScreen}/>
+                      <IconButton name="edit" size="small" onPress={goToEditScreen} style={styles.iconButton}/>
                     </View>
                 </View>
                 <View style={styles.userNameContainer}>
@@ -57,7 +57,7 @@ const ProfileMain = (navigationProps:NavigationPropsType) => {
                 </List.Section>              
                 <List.Section style={styles.listContainer}>
                   <ListItem title="Help & Support" variant="body" left={<Icon name="question-mark" size="normal" />} right={<Icon name="right-arrow" size="small" />}/>
-                  <ListItems title="Sign Out" variant="body" left={<Icon name="signout" size="normal" />}/>
+                  <ListItem title="Sign Out" variant="body" left={<Icon name="signout" size="normal"/>} style={styles.listItems}/>
                   <ListItem title="Delete" variant="delete" left={<Icon name="delete" size="normal"/>} onPress={showDialog}/>
                 </List.Section>
               </ScrollView>             
@@ -118,5 +118,14 @@ const styles = StyleSheet.create({
       backgroundColor: theme.colors.listItemColor,
       borderRadius:20,
       marginVertical: 10,
+    },
+    iconButton: {
+      margin: -10,
+    },
+    listItems: {
+      borderColor: theme.colors.listItemBorderColor,
+      borderTopWidth: 1,
+      borderBottomWidth: 1,
+      borderRadius: 0,
     },
   });

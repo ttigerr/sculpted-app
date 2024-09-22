@@ -17,6 +17,7 @@ const ListItem : React.FC<ListItemProps & ListProps> = ({
     variant,
     left,
     right,
+    style,
     onPress,
 }) => {
     return (
@@ -24,7 +25,7 @@ const ListItem : React.FC<ListItemProps & ListProps> = ({
             title={<Text variant={variant}>{title}</Text>}
             left={() => <List.Icon icon={() => left} />} 
             right={() => <List.Icon icon={() => right} />}
-            style={styles.container}
+            style={[styles.container, style]}
             onPress={onPress}
         />
     );

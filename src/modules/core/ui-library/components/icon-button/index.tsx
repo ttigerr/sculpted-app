@@ -15,21 +15,17 @@ const IconButton : React.FC<IconButtonProps & IconBttnProps> = ({
     name,
     size,
     onPress,
+    style,
 
 }) => {
     return (
         <IconBttn 
             icon={() => <Icon name={name} size={size}/>}
             onPress={onPress}
-            style={styles.container}
+            style={style}
         />
     );
 }
 
 export default IconButton;
 
-const styles = StyleSheet.create ({
-    container: {
-        margin: -10,
-    }
-});
