@@ -21,7 +21,7 @@ const ProfileEdit = (props: NavigationPropsType) => {
                     {/* Header   */}
                     <View style={styles.headerContainer}>
                         <Text variant="h3">{'General Details'}</Text>
-                        <IconButton name='cancel' size="small" onPress={goToProfileScreen}/>
+                        <IconButton name='cancel' size="small" onPress={goToProfileScreen} style={styles.iconButton}/>
                     </View>
                     <EditTextInput
                     control={control}
@@ -71,5 +71,8 @@ const styles = StyleSheet.create ({
         flexDirection:'row',
         justifyContent:'space-between',
         marginBottom: 25,
+    },
+    iconButton: {
+        margin: -10,
     },
 });
