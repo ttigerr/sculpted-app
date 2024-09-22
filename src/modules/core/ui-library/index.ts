@@ -2,10 +2,22 @@ import Button from "./components/button";
 import Text from "./components/text";
 import Chip from "./components/chip";
 import TextInput from "./components/text-input";
+import Avartar from "./components/avatar";
+import ListItem from "./components/list-item";
+import ListItems from "./components/list-items";
+import IconButton from "./components/icon-button";
+import AlertDialog from "./components/dialog";
+import EditTextInput from "./components/edit-text-input";
 
 export {
   Button,
   Text,
   Chip,
-  TextInput
+  TextInput,
+  Avartar,
+  ListItem,
+  ListItems,
+  IconButton,
+  AlertDialog,
+  EditTextInput,
 }

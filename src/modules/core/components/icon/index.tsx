@@ -6,6 +6,15 @@ import Lock from 'assets/icons/ic-lock.tsx';
 import EyeHide from 'assets/icons/ic-eye-hide.tsx';
 import Thick from 'assets/icons/ic-eye-hide.tsx';
 import LockOutlined from 'assets/icons/ic-lock-outlined.tsx';
+import NotificationOutlined from 'assets/icons/ic-notification-outlined.tsx';
+import QuestionMark from 'assets/icons/ic-question-mark.tsx';
+import SignOut from 'assets/icons/ic-signout.tsx';
+import Delete from 'assets/icons/ic-delete.tsx';
+import Edit from 'assets/icons/ic-edit.tsx';
+import Return from 'assets/icons/ic-return.tsx';
+import RightArrow from 'assets/icons/ic-right-arrow.tsx';
+import Cancel from 'assets/icons/ic-cancel.tsx';
+import Calendar from 'assets/icons/ic-calendar.tsx';
 import IconProps from './types/iconTypes';
 import iconSize from './styles/size';
 
@@ -65,6 +74,24 @@ const Icon = ({
       return <Thick {...localProps} />;
     case 'lock-outlined':
       return <LockOutlined {...localProps} />;
+    case 'notification-outlined':
+      return <NotificationOutlined {...localProps} />;
+    case 'question-mark':
+      return <QuestionMark {...localProps} />;
+    case 'signout':
+      return <SignOut {...localProps} />;
+    case 'delete':
+      return <Delete {...localProps} />;
+    case 'edit':
+      return <Edit {...localProps} />;
+    case 'return':
+      return <Return {...localProps} />;
+    case 'right-arrow':
+      return <RightArrow {...localProps} />;
+    case 'cancel':
+      return <Cancel {...localProps} />;
+    case 'calendar':
+      return <Calendar {...localProps} />;
     default:
       return <View />;
   }

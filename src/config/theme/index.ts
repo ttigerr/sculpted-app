@@ -85,6 +85,19 @@ const fontConfig = {
     letterSpacing: 0.2,
     color: '#F4F4F494'
   },
+  delete: {
+    fontFamily: Platform.select({
+      web: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif',
+      ios: fonts.helveticaNeueMedium,
+      android: fonts.helveticaNeueMedium,
+      default: fonts.helveticaNeueMedium,
+    }),
+    fontWeight: '400',
+    lineHeight: 19.09,
+    fontSize: 16,
+    letterSpacing: 0.2,
+    color: '#FF505A'
+  },
 };
 
 
@@ -107,7 +120,16 @@ export const theme = {
     // TextInput
     textInputColor: '#F4F4F4',
     textInputBorderColor: '#606060',
-    textInputFocusBorderColor: '#F4F4F4'
+    textInputFocusBorderColor: '#F4F4F4',
+    editTextInputColor: '#BDC1C3',
+
+    // ListItem
+    listItemColor: '#161616',
+    listItemBorderColor: '#2C2C2C',
+
+    // Avatar
+    avartarBorderColor: '#3A4045',
+    avartarBadgeDefaultColor: '#D9D9D9',
   },
   gradientColors: {
     button: ['#3BD0D6', '#428EC5'],

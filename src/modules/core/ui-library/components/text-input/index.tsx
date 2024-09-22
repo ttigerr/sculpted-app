@@ -15,7 +15,7 @@ type MtxInputPropsType = {
   errorMessage?: string;
   disabled?: boolean;
   success?: boolean;
-  phonePrefix?: number;
+  phonePrefix?: number; 
   keyboardType?:
     | 'default'
     | 'numeric'
@@ -44,6 +44,8 @@ type MtxInputPropsType = {
   isPasswordRepeat?: boolean;
   bottomLabel?: string;
   left?: React.ReactNode;
+  right?: React.ReactNode;
+  icon?:  React.ReactNode;
 };
 
 const TextInput: React.FC<MtxInputPropsType> = ({
@@ -69,6 +71,7 @@ const TextInput: React.FC<MtxInputPropsType> = ({
   hasBorderError,
   bottomLabel,
   left,
+  right,
 }) => {
   return (
     <View style={styles.container}>
@@ -94,6 +97,7 @@ const TextInput: React.FC<MtxInputPropsType> = ({
               onChangeText={onChange}
               onBlur={onBlur}
               left={<PaperTextInput.Icon icon={() => left} />}
+              right={<PaperTextInput.Icon icon={() => right} />}
             />
             {error && (
               <Text style={styles.errorLabel} variant="caption">
