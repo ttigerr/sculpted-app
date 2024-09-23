@@ -1,11 +1,18 @@
-import {StyleSheet, View, TextStyle} from 'react-native';
-import {TextInput as PaperTextInput, Icon, MD3Colors} from 'react-native-paper';
+import {
+  StyleSheet,
+  View,
+  TextStyle,
+  TextInput as TextInputBase,
+  TouchableOpacity,
+} from 'react-native';
+import {TextInput as PaperTextInput} from 'react-native-paper';
 import {Controller, FieldValues, Control, FieldError} from 'react-hook-form';
 import {theme} from 'src/config/theme';
 import Text from '../text';
-import React from 'react';
+import React, {useState} from 'react';
+import Icon from 'src/modules/core/components/icon';
 
-type MtxInputPropsType = {
+type MtxInputPropsType = React.ComponentPropsWithRef<typeof TextInputBase> & {
   placeholder?: string;
   label: string;
   name: string;
@@ -15,7 +22,7 @@ type MtxInputPropsType = {
   errorMessage?: string;
   disabled?: boolean;
   success?: boolean;
-  phonePrefix?: number; 
+  phonePrefix?: number;
   keyboardType?:
     | 'default'
     | 'numeric'
@@ -44,8 +51,6 @@ type MtxInputPropsType = {
   isPasswordRepeat?: boolean;
   bottomLabel?: string;
   left?: React.ReactNode;
-  right?: React.ReactNode;
-  icon?:  React.ReactNode;
 };
 
 const TextInput: React.FC<MtxInputPropsType> = ({
@@ -61,18 +66,16 @@ const TextInput: React.FC<MtxInputPropsType> = ({
   control,
   rules,
   maxLength,
-  autoCapitalize,
   testID,
   autoFocus,
   prevPassword,
-  isPasswordRepeat,
-  validate,
-  defaultValue,
   hasBorderError,
   bottomLabel,
   left,
-  right,
+  ...rest
 }) => {
+  const isPassword = type == 'password';
+  const [showPassword, setShowPassword] = useState(isPassword);
   return (
     <View style={styles.container}>
       <Text style={styles.label} variant="caption">
@@ -97,7 +100,21 @@ const TextInput: React.FC<MtxInputPropsType> = ({
               onChangeText={onChange}
               onBlur={onBlur}
               left={<PaperTextInput.Icon icon={() => left} />}
-              right={<PaperTextInput.Icon icon={() => right} />}
+              right={
+                isPassword && (
+                  <PaperTextInput.Icon
+                    icon={() => (
+                      <Icon
+                        name={showPassword ? 'email' : 'eye-hide'}
+                        size="normal"
+                      />
+                    )}
+                    onPress={() => setShowPassword(!showPassword)}
+                  />
+                )
+              }
+              secureTextEntry={showPassword}
+              {...rest}
             />
             {error && (
               <Text style={styles.errorLabel} variant="caption">
@@ -132,5 +149,8 @@ const styles = StyleSheet.create({
     color: 'red',
     alignSelf: 'flex-end',
     marginTop: 8,
+  },
+  passwordVisibleContainer: {
+    padding: 4,
   },
 });
