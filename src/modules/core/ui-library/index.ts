@@ -10,6 +10,7 @@ import EditTextInput from "./components/edit-text-input";
 import Link from "./components/link";
 import Separator from "./components/separator";
 import CheckBox from "./components/check-box";
+import ProgressBar from "./components/progress-bar";
 
 export {
   Button,
@@ -23,5 +24,6 @@ export {
   EditTextInput,
   Link,
   Separator,
-  CheckBox
+  CheckBox,
+  ProgressBar
 }

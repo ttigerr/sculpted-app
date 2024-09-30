@@ -3,4 +3,6 @@ export const navigationScreenNames = {
   login: 'Login',
   profile: 'ProfileMain',
   edit: 'ProfileEdit',
+  onboardingFirstStep: 'OnboardingFirstStep',
+  onboardingSecondStep: 'OnboardingSecondStep',
 }
