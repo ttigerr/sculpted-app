@@ -15,6 +15,7 @@ import Return from 'assets/icons/ic-return.tsx';
 import RightArrow from 'assets/icons/ic-right-arrow.tsx';
 import Cancel from 'assets/icons/ic-cancel.tsx';
 import Calendar from 'assets/icons/ic-calendar.tsx';
+import BackButton from 'assets/icons/ic-back-button.tsx';
 import IconProps from './types/iconTypes';
 import iconSize from './styles/size';
 
@@ -92,6 +93,8 @@ const Icon = ({
       return <Cancel {...localProps} />;
     case 'calendar':
       return <Calendar {...localProps} />;
+    case 'back-button':
+      return <BackButton {...localProps} />;
     default:
       return <View />;
   }

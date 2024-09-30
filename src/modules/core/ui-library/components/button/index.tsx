@@ -9,13 +9,13 @@ import {theme} from 'src/config/theme';
 import {Text} from '@ui-library';
 import styles from './styles';
 
-interface UIButtonProps extends React.FC<PaperButtonProps> {
+type UIButtonProps = PaperButtonProps & {
   label?: string;
   loading?: boolean;
   mode?: 'outlined' | 'contained';
-}
+};
 
-const Button: React.FC<UIButtonProps & PaperButtonProps> = ({
+const Button: React.FC<UIButtonProps> = ({
   onPress,
   label,
   disabled,
@@ -29,7 +29,8 @@ const Button: React.FC<UIButtonProps & PaperButtonProps> = ({
     <PaperButton
       mode="outlined"
       onPress={onPress}
-      style={styles.outlinedContainer}>
+      style={styles.outlinedContainer}
+      {...rest}>
       {label ? <Text variant="paragraph">{label}</Text> : children}
     </PaperButton>
   ) : (
@@ -41,7 +42,8 @@ const Button: React.FC<UIButtonProps & PaperButtonProps> = ({
       <PaperButton
         mode={mode}
         onPress={onPress}
-        style={styles.containedContainer}>
+        style={styles.containedContainer}
+        {...rest}>
         {label ? <Text style={styles.buttonText}>{label}</Text> : children}
       </PaperButton>
     </LinearGradient>

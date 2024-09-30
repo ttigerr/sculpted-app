@@ -9,3 +9,5 @@ export const REM = SCREEN_WIDTH / 375;
 
 
 export const SPLASH_SCREEN_DURATION = 2000;
+
+export const VIRTUES_MAX_SELECTION = 3;

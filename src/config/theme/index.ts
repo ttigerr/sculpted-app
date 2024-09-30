@@ -1,5 +1,6 @@
 import { Platform } from "react-native";
 import { configureFonts, MD3LightTheme as DefaultTheme, Paragraph } from "react-native-paper";
+import { RFValue } from "react-native-responsive-fontsize";
 
 export const fonts = {
   helveticaNeueMedium: 'HelveticaNeueMedium',
@@ -15,8 +16,8 @@ const fontConfig = {
       default: fonts.helveticaNeueMedium,
     }),
     fontWeight: '500',
-    lineHeight: 53.33,
-    fontSize: 36,
+    lineHeight: 43.33,
+    fontSize: 32,
     letterSpacing: 0.5,
     color: '#F4F4F4'
   },
@@ -29,7 +30,7 @@ const fontConfig = {
     }),
     fontWeight: '500',
     lineHeight: 32.33,
-    fontSize: 28,
+    fontSize: RFValue(28),
     letterSpacing: 0.5,
     color: '#F4F4F4'
   },
@@ -42,7 +43,7 @@ const fontConfig = {
     }),
     fontWeight: '500',
     lineHeight: 24.24,
-    fontSize: 20,
+    fontSize: RFValue(20),
     letterSpacing: 0.5,
     color: '#F4F4F4'
   },
@@ -55,7 +56,7 @@ const fontConfig = {
     }),
     fontWeight: '400',
     lineHeight: 19.09,
-    fontSize: 16,
+    fontSize: RFValue(16),
     letterSpacing: 0.2,
     color: '#F4F4F4'
   },
@@ -68,7 +69,7 @@ const fontConfig = {
     }),
     fontWeight: '400',
     lineHeight: 19.09,
-    fontSize: 15,
+    fontSize: RFValue(15),
     letterSpacing: 0.2,
     color: '#F4F4F4'
   },
@@ -81,7 +82,7 @@ const fontConfig = {
     }),
     fontWeight: '500',
     lineHeight: 14.65,
-    fontSize: 12,
+    fontSize: RFValue(12),
     letterSpacing: 0.2,
     color: '#F4F4F494'
   },
@@ -121,6 +122,8 @@ export const theme = {
     textInputColor: '#F4F4F4',
     textInputBorderColor: '#606060',
     textInputFocusBorderColor: '#F4F4F4',
+    progressBarColor: '#F4F4F4',
+    progressBarBackgroundColor: '#E7E7E745',,
     editTextInputColor: '#BDC1C3',
 
     // ListItem

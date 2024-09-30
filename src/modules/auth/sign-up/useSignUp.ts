@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { NavigationPropsType } from 'src/utils/types';
 import { useForm, FieldValues } from 'react-hook-form';
-
+import { navigationScreenNames } from 'src/utils/navigation-screen-names';
 type SignUpFormData = {
   email: string;
   password: string;
@@ -12,9 +12,9 @@ const useSignUp = (navigationProps: NavigationPropsType) => {
   const { navigation } = navigationProps;
   const { control, handleSubmit, formState: { errors, isValid }, getValues } = useForm<FieldValues | SignUpFormData>({
     defaultValues: {
-      email: '',
-      password: '',
-      confirmPassword: ''
+      email: 'juansebastianp21@gmail.com',
+      password: 'Matrix-123',
+      confirmPassword: 'Matrix-123'
     }
   })
 
@@ -37,10 +37,10 @@ const useSignUp = (navigationProps: NavigationPropsType) => {
     }
   }
 
-  const onSubmit = handleSubmit(data => console.log('Submit: ', data))
+  const onSubmit = handleSubmit(data => navigation.navigate(navigationScreenNames.onboardingFirstStep))
 
   const goToLogin = () => {
-    navigation.navigate('Login')
+    navigation.navigate(navigationScreenNames.login)
   }
 
   return {
