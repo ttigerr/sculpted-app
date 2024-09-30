@@ -123,7 +123,7 @@ export const theme = {
     textInputBorderColor: '#606060',
     textInputFocusBorderColor: '#F4F4F4',
     progressBarColor: '#F4F4F4',
-    progressBarBackgroundColor: '#E7E7E745',,
+    progressBarBackgroundColor: '#E7E7E745',
     editTextInputColor: '#BDC1C3',
 
     // ListItem
