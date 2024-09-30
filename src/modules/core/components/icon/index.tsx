@@ -6,6 +6,7 @@ import Lock from 'assets/icons/ic-lock.tsx';
 import EyeHide from 'assets/icons/ic-eye-hide.tsx';
 import Thick from 'assets/icons/ic-eye-hide.tsx';
 import LockOutlined from 'assets/icons/ic-lock-outlined.tsx';
+import BackButton from 'assets/icons/ic-back-button.tsx';
 import IconProps from './types/iconTypes';
 import iconSize from './styles/size';
 
@@ -65,6 +66,8 @@ const Icon = ({
       return <Thick {...localProps} />;
     case 'lock-outlined':
       return <LockOutlined {...localProps} />;
+    case 'back-button':
+      return <BackButton {...localProps} />;
     default:
       return <View />;
   }

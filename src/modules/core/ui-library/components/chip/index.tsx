@@ -12,12 +12,13 @@ const Chip: React.FC<PaperChipProps> = ({
   children,
   selected,
   onPress,
+  style,
   ...rest
 }) => {
   return selected ? (
     <LinearGradient
       colors={theme.gradientColors.button}
-      style={styles.gradientContainer}>
+      style={[styles.gradientContainer, style]}>
       <PaperChip mode="flat" style={styles.container} onPress={onPress}>
         <Text style={styles.text} variant="paragraph">
           {children}
@@ -27,7 +28,7 @@ const Chip: React.FC<PaperChipProps> = ({
   ) : (
     <PaperChip
       mode="outlined"
-      style={styles.outlinedContainer}
+      style={[styles.outlinedContainer, style]}
       onPress={onPress}>
       <Text style={styles.outlinedText} variant="paragraph">
         {children}
@@ -51,8 +52,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: theme.colors.outlinedButtonBorderColor,
     borderRadius: 100,
+    alignItems: 'center',
   },
   outlinedText: {
     color: theme.colors.outlinedButtonBorderColor,
+    textAlign: 'center',
   },
 });
