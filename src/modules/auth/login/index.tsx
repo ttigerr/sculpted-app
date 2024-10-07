@@ -1,5 +1,5 @@
 import {StyleSheet, ScrollView, View, Image} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import MainWrapper from 'src/modules/core/components/wrapper/MainWrapper';
 import {
   TextInput,
@@ -17,6 +17,7 @@ import useLogin from './useLogin';
 import {GoogleLogo, AppleLogo} from 'assets/img';
 
 const Login = (props: NavigationPropsType) => {
+  const [checked, setChecked] = useState<boolean>(false);
   const {
     onSubmit,
     control,
@@ -25,6 +26,7 @@ const Login = (props: NavigationPropsType) => {
     goToSignUp,
     emailRules,
     passwordRules,
+    goToForgotPassword,
   } = useLogin(props);
   return (
     <MainWrapper>
@@ -41,6 +43,7 @@ const Login = (props: NavigationPropsType) => {
           left={<Icon name="email" size="normal" />}
           autoCapitalize="none"
         />
+        <Separator height={RFValue(14)} />
         <TextInput
           control={control}
           name="password"
@@ -50,6 +53,20 @@ const Login = (props: NavigationPropsType) => {
           left={<Icon name="lock" size="normal" />}
           type="password"
         />
+        <View style={styles.rememberMeContainer}>
+          <CheckBox
+            status={checked ? 'checked' : 'unchecked'}
+            onPress={() => {
+              setChecked(!checked);
+            }}>
+            <Text variant="caption">{'Remember me'}</Text>
+          </CheckBox>
+          <Link
+            label="Forgot password?"
+            onPress={goToForgotPassword}
+            style={styles.forgotPasswordLink}
+          />
+        </View>
         <Separator height={RFValue(32)} />
         <Button onPress={onSubmit} label="Login" />
         <Separator height={RFValue(14)} />
@@ -85,6 +102,15 @@ const styles = StyleSheet.create({
   bottomLink: {
     alignSelf: 'center',
     marginTop: 15,
+    color: theme.colors.caption,
+  },
+  rememberMeContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  forgotPasswordLink: {
+    fontSize: RFValue(12),
     color: theme.colors.caption,
   },
 });

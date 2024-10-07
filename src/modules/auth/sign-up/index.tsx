@@ -25,7 +25,7 @@ const SignUp = (props: NavigationPropsType) => {
     passwordRules,
     confirmPasswordRules,
   } = useSignUp(props);
-  const [checked, setChecked] = React.useState(false);
+  const [checked, setChecked] = React.useState(true);
   return (
     <MainWrapper>
       <ScrollView style={styles.container}>
@@ -41,6 +41,7 @@ const SignUp = (props: NavigationPropsType) => {
           left={<Icon name="email" size="normal" />}
           autoCapitalize="none"
         />
+        <Separator height={RFValue(18)} />
         <TextInput
           control={control}
           name="password"
@@ -50,6 +51,7 @@ const SignUp = (props: NavigationPropsType) => {
           left={<Icon name="lock" size="normal" />}
           type="password"
         />
+        <Separator height={RFValue(18)} />
         <TextInput
           control={control}
           name="confirmPassword"
@@ -59,6 +61,7 @@ const SignUp = (props: NavigationPropsType) => {
           left={<Icon name="lock" size="normal" />}
           type="password"
         />
+        <Separator height={RFValue(24)} />
         <CheckBox
           status={checked ? 'checked' : 'unchecked'}
           onPress={() => {

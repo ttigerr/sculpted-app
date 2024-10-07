@@ -7,4 +7,7 @@ export const navigationScreenNames = {
   profileNavigation: 'ProfileNavigation',
   onboardingFirstStep: 'OnboardingFirstStep',
   onboardingSecondStep: 'OnboardingSecondStep',
+  emailVerification: 'EmailVerification',
+  otpVerification: 'OTPVerification',
+  newPassword: 'NewPassword',
 }
