@@ -31,6 +31,8 @@ const useLogin = (navigationProps: NavigationPropsType) => {
 
   const goToSignUp = () => navigation.navigate(navigationScreenNames.signUp)
 
+  const goToForgotPassword = () => navigation.navigate(navigationScreenNames.emailVerification)
+
   const onSubmit = handleSubmit(data => console.log('Submit: ', data))
   return {
     onSubmit,
@@ -40,6 +42,7 @@ const useLogin = (navigationProps: NavigationPropsType) => {
     goToSignUp,
     emailRules,
     passwordRules,
+    goToForgotPassword,
   }
 }
 

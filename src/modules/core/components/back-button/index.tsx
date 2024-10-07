@@ -5,7 +5,7 @@ import Icon from '../icon';
 const BackButton: React.FC<PressableProps> = props => {
   return (
     <Pressable {...props}>
-      <Icon name="back-button" size="normal" />
+      <Icon name="back-button" size="medium" />
     </Pressable>
   );
 };

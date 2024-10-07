@@ -108,7 +108,7 @@ const TextInput: React.FC<MtxInputPropsType> = ({
                   <PaperTextInput.Icon
                     icon={() => (
                       <Icon
-                        name={showPassword ? 'email' : 'eye-hide'}
+                        name={showPassword ? 'eye-show' : 'eye-hide'}
                         size="normal"
                       />
                     )}
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   container: {
-    marginBottom: 25,
+    // marginBottom: 25,
   },
   input: {
     fontSize: 16,
