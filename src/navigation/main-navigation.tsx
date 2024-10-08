@@ -16,7 +16,7 @@ const MainNavigation = () => {
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={defaultConfig}
-        initialRouteName={navigationScreenNames.authNavigation}>
+        initialRouteName={navigationScreenNames.profileNavigation}>
         <Stack.Screen
           name={navigationScreenNames.profileNavigation}
           component={ProfileNavigation}

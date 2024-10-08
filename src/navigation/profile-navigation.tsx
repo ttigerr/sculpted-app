@@ -11,11 +11,14 @@ const defaultConfig = {
 };
 
 const ProfileNavigation = () => {
-    return (
-        <Stack.Navigator screenOptions={defaultConfig}>
-            <Stack.Screen name={navigationScreenNames.profile} component={ProfileMain} />
-            <Stack.Screen name={navigationScreenNames.edit} component={ProfileEdit} />
-        </Stack.Navigator>
-    );
+  return (
+    <Stack.Navigator screenOptions={defaultConfig}>
+      <Stack.Screen name={navigationScreenNames.edit} component={ProfileEdit} />
+      <Stack.Screen
+        name={navigationScreenNames.profile}
+        component={ProfileMain}
+      />
+    </Stack.Navigator>
+  );
 };
 export default ProfileNavigation;

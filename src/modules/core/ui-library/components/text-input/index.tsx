@@ -102,7 +102,7 @@ const TextInput: React.FC<MtxInputPropsType> = ({
               value={value}
               onChangeText={onChange}
               onBlur={onBlur}
-              left={<PaperTextInput.Icon icon={() => left} />}
+              left={left && <PaperTextInput.Icon icon={() => left} />}
               right={
                 isPassword && (
                   <PaperTextInput.Icon
