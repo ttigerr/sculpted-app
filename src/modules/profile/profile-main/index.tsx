@@ -1,7 +1,7 @@
 import React from "react";
 import MainWrapper from "src/modules/core/components/wrapper/MainWrapper";
-import {StyleSheet, View, ScrollView, SafeAreaView} from 'react-native';
-import {Text, Avartar, ListItem, IconButton, AlertDialog} from 'src/modules/core/ui-library';
+import {StyleSheet, View, ScrollView, SafeAreaView, TouchableOpacity} from 'react-native';
+import {Text, Avartar, ListItem, AlertDialog} from 'src/modules/core/ui-library';
 import {NavigationPropsType} from 'src/utils/types';
 import Icon from 'src/modules/core/components/icon';
 import { List } from "react-native-paper";
@@ -25,11 +25,17 @@ const ProfileMain = (navigationProps:NavigationPropsType) => {
                 {/* Header container included return, avartar and edit buttion */}
                 <View style={styles.headerContainer}>
                     <Icon name="return" size="normal" />
-                    <Avartar source={require('assets/img/profile.jpeg')}/>
+                    <View style={styles.avartarBorder}>
+                      <Avartar size={76} source={require('assets/img/profile.jpeg')}/>
+                        {/* Fake icon */}
+                      <View style={styles.icon}/>
+                    </View>
                     {/* <IconButton name="edit" size="normal"/> */}
                     <View style={styles.editContainer}>
                       <Text variant="body">{'Edit'}</Text>
-                      <IconButton name="edit" size="small" onPress={goToEditScreen} style={styles.iconButton}/>
+                      <TouchableOpacity onPress={goToEditScreen}>
+                        <Icon name="edit" size="small"/>
+                      </TouchableOpacity>
                     </View>
                 </View>
                 <View style={styles.userNameContainer}>
@@ -119,13 +125,26 @@ const styles = StyleSheet.create({
       borderRadius:20,
       marginVertical: 10,
     },
-    iconButton: {
-      margin: -10,
-    },
     listItems: {
       borderColor: theme.colors.listItemBorderColor,
       borderTopWidth: 1,
       borderBottomWidth: 1,
       borderRadius: 0,
     },
+    avartarBorder: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems:'flex-end',
+        borderWidth: 8,
+        borderColor: theme.colors.avartarBorderColor,
+        borderRadius: 50,
+    },
+    icon: {
+      borderRadius: 50,
+      height:28,
+      width: 28,
+      backgroundColor: theme.colors.avartarBadgeDefaultColor,
+      marginLeft: -28,
+      marginBottom: -10,
+    }
   });
