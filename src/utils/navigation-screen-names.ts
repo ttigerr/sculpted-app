@@ -3,6 +3,8 @@ export const navigationScreenNames = {
   login: 'Login',
   profile: 'ProfileMain',
   edit: 'ProfileEdit',
+  dashborad: 'Dashboard',
+  journal: 'Journal',
   authNavigation: 'AuthNavigation',
   profileNavigation: 'ProfileNavigation',
   onboardingFirstStep: 'OnboardingFirstStep',
@@ -10,4 +12,6 @@ export const navigationScreenNames = {
   emailVerification: 'EmailVerification',
   otpVerification: 'OTPVerification',
   newPassword: 'NewPassword',
+  bottomNavigation: 'BottomNavigation',
+  homeNavigation: 'HomeNavigation',
 }

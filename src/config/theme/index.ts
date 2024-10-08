@@ -47,6 +47,19 @@ const fontConfig = {
     letterSpacing: 0.5,
     color: '#F4F4F4'
   },
+  h4: {
+    fontFamily: Platform.select({
+      web: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif',
+      ios: fonts.helveticaNeueMedium,
+      android: fonts.helveticaNeueMedium,
+      default: fonts.helveticaNeueMedium,
+    }),
+    fontWeight: '500',
+    lineHeight: 24.24,
+    fontSize: RFValue(14),
+    letterSpacing: 0.5,
+    color: '#F4F4F4'
+  },
   body: {
     fontFamily: Platform.select({
       web: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif',
@@ -57,6 +70,32 @@ const fontConfig = {
     fontWeight: '400',
     lineHeight: 19.09,
     fontSize: RFValue(16),
+    letterSpacing: 0.2,
+    color: '#F4F4F4'
+  },
+  body1: {
+    fontFamily: Platform.select({
+      web: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif',
+      ios: fonts.helveticaNeueRoman,
+      android: fonts.helveticaNeueRoman,
+      default: fonts.helveticaNeueRoman,
+    }),
+    fontWeight: '400',
+    lineHeight: 19.09,
+    fontSize: RFValue(14),
+    letterSpacing: 0.2,
+    color: '#F4F4F4'
+  },
+  body2: {
+    fontFamily: Platform.select({
+      web: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif',
+      ios: fonts.helveticaNeueRoman,
+      android: fonts.helveticaNeueRoman,
+      default: fonts.helveticaNeueRoman,
+    }),
+    fontWeight: '400',
+    lineHeight: 19.09,
+    fontSize: RFValue(12),
     letterSpacing: 0.2,
     color: '#F4F4F4'
   },
@@ -99,6 +138,19 @@ const fontConfig = {
     letterSpacing: 0.2,
     color: '#FF505A'
   },
+  greeting: {
+    fontFamily: Platform.select({
+      web: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif',
+      ios: fonts.helveticaNeueMedium,
+      android: fonts.helveticaNeueMedium,
+      default: fonts.helveticaNeueMedium,
+    }),
+    fontWeight: '500',
+    lineHeight: 42.48,
+    fontSize: RFValue(32),
+    letterSpacing: 0.5,
+    color: '#F4F4F4'
+  },
 };
 
 
@@ -136,7 +188,10 @@ export const theme = {
   },
   gradientColors: {
     button: ['#3BD0D6', '#428EC5'],
-    gradientBackgroundTop: ['#428EC5D6','#428EC500', '#428EC500']
+    cardBorder: ['#71727E', '#161618'],
+    journalBorder: ['#14191F', '#FFFFFF'],
+    gradientBackgroundTop: ['#428EC5D6','#428EC500', '#428EC500'],
+    gradientBottomNav: ['#535456', '#696E75'],
   },
   fonts: configureFonts({config: fontConfig}),
 }

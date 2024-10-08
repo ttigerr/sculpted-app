@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { StyleSheet, View, SafeAreaView, ScrollView} from 'react-native';
+import { StyleSheet, View, SafeAreaView, ScrollView, TouchableOpacity} from 'react-native';
 import MainWrapper from "src/modules/core/components/wrapper/MainWrapper";
-import {IconButton, Text, TextInput, Button, EditTextInput} from 'src/modules/core/ui-library';
+import {Text, TextInput, Button, EditTextInput} from 'src/modules/core/ui-library';
 import Icon from 'src/modules/core/components/icon';
 import {NavigationPropsType} from 'src/utils/types';
 import useSignUp from 'src/modules/auth/sign-up/useSignUp';
@@ -11,7 +11,7 @@ const ProfileEdit = (props: NavigationPropsType) => {
     const {control} = useSignUp(props);
 
     const goToProfileScreen = ( )=> {
-        navigation.navigate('ProfileMain')
+        navigation.goBack()
     }
 
     return (
@@ -21,7 +21,9 @@ const ProfileEdit = (props: NavigationPropsType) => {
                     {/* Header   */}
                     <View style={styles.headerContainer}>
                         <Text variant="h3">{'General Details'}</Text>
-                        <IconButton name='cancel' size="small" onPress={goToProfileScreen} style={styles.iconButton}/>
+                        <TouchableOpacity onPress={goToProfileScreen}>
+                            <Icon name='cancel' size="small"/>
+                        </TouchableOpacity>
                     </View>
                     <EditTextInput
                     control={control}
@@ -71,8 +73,5 @@ const styles = StyleSheet.create ({
         flexDirection:'row',
         justifyContent:'space-between',
         marginBottom: 25,
-    },
-    iconButton: {
-        margin: -10,
     },
 });

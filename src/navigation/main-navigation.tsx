@@ -3,6 +3,10 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import AuthNavigation from './auth-navigation';
 import ProfileNavigation from './profile-navigation';
+import HomeNavigation from './home-navigation';
+import BottomNavigation from './bottom-navigation';
+import ProfileEdit from 'src/modules/profile/profile-edit';
+import Journal from 'src/modules/homepage/journal';
 import {navigationScreenNames} from 'src/utils/navigation-screen-names';
 
 const Stack = createNativeStackNavigator();
@@ -16,7 +20,7 @@ const MainNavigation = () => {
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={defaultConfig}
-        initialRouteName={navigationScreenNames.authNavigation}>
+        initialRouteName={navigationScreenNames.bottomNavigation}>
         <Stack.Screen
           name={navigationScreenNames.profileNavigation}
           component={ProfileNavigation}
@@ -24,6 +28,18 @@ const MainNavigation = () => {
         <Stack.Screen
           name={navigationScreenNames.authNavigation}
           component={AuthNavigation}
+        />
+        <Stack.Screen 
+          name={navigationScreenNames.bottomNavigation} 
+          component={BottomNavigation} 
+        />
+        <Stack.Screen 
+          name={navigationScreenNames.edit} 
+          component={ProfileEdit} 
+        />
+        <Stack.Screen 
+          name={navigationScreenNames.journal} 
+          component={Journal} 
         />
       </Stack.Navigator>
     </NavigationContainer>

@@ -1,8 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import {View} from 'react-native';
-import IconProps from './types/iconTypes';
-import iconSize from './styles/size';
 import Email from 'assets/icons/ic-email.tsx';
 import Lock from 'assets/icons/ic-lock.tsx';
 import EyeHide from 'assets/icons/ic-eye-hide.tsx';
@@ -18,6 +16,17 @@ import Return from 'assets/icons/ic-return.tsx';
 import RightArrow from 'assets/icons/ic-right-arrow.tsx';
 import Cancel from 'assets/icons/ic-cancel.tsx';
 import Calendar from 'assets/icons/ic-calendar.tsx';
+import Stat from 'assets/icons/ic-stat.tsx';
+import Profile from 'assets/icons/ic-profile.tsx';
+import Home from 'assets/icons/ic-home.tsx';
+import ToDo from 'assets/icons/ic-to-do.tsx';
+import Compass from 'assets/icons/ic-compass.tsx';
+import Bookmark from 'assets/icons/ic-bookmark.tsx'
+import Add from 'assets/icons/ic-add.tsx';
+import Tick from 'assets/icons/ic-tick.tsx';
+import Cross from 'assets/icons/ic-cross.tsx';
+import IconProps from './types/iconTypes';
+import iconSize from './styles/size';
 import BackButton from 'assets/icons/ic-back-button.tsx';
 import FilledLock from 'assets/icons/ic-filled-lock.tsx';
 import Key from 'assets/icons/ic-key.tsx';
@@ -102,6 +111,24 @@ const Icon = ({
       return <Cancel {...localProps} />;
     case 'calendar':
       return <Calendar {...localProps} />;
+    case 'stat':
+      return <Stat {...localProps} />;
+    case 'home':
+      return <Home {...localProps} />;
+    case 'profile': 
+      return <Profile {...localProps} />;
+    case 'to-do':
+      return <ToDo {...localProps} />;
+    case 'compass':
+      return <Compass {...localProps} />;
+    case 'bookmark':
+      return <Bookmark {...localProps} />;
+    case 'add':
+      return <Add {...localProps} />;
+    case 'tick':
+      return <Tick {...localProps} />;
+    case 'cross':
+      return <Cross {...localProps} />;
     case 'back-button':
       return <BackButton {...localProps} />;
     case 'filled-lock':
