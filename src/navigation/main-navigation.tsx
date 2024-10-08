@@ -20,7 +20,7 @@ const MainNavigation = () => {
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={defaultConfig}
-        initialRouteName={navigationScreenNames.authNavigation}>
+        initialRouteName={navigationScreenNames.homeNavigation}>
         <Stack.Screen
           name={navigationScreenNames.profileNavigation}
           component={ProfileNavigation}
@@ -28,6 +28,22 @@ const MainNavigation = () => {
         <Stack.Screen
           name={navigationScreenNames.authNavigation}
           component={AuthNavigation}
+        />
+         <Stack.Screen 
+          name={navigationScreenNames.homeNavigation} 
+          component={HomeNavigation} 
+        />
+        <Stack.Screen 
+          name={navigationScreenNames.bottomNavigation} 
+          component={BottomNavigation} 
+        />
+        <Stack.Screen 
+          name={navigationScreenNames.profile} 
+          component={ProfileEdit} 
+        />
+        <Stack.Screen 
+          name={navigationScreenNames.journal} 
+          component={Journal} 
         />
       </Stack.Navigator>
     </NavigationContainer>

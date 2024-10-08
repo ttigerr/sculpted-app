@@ -1,13 +1,11 @@
 import React, { useCallback, useState } from "react";
 import { View, SafeAreaView, ScrollView, FlatList,} from 'react-native';
-import {Text, Avartar, Card, ProgressBar} from 'src/modules/core/ui-library';
+import {Text, Avartar, Card, CustomProgressBar} from 'src/modules/core/ui-library';
 import MainWrapper from "src/modules/core/components/wrapper/MainWrapper";
 import {NavigationPropsType} from 'src/utils/types';
 import {theme} from 'src/config/theme';
 import Icon from 'src/modules/core/components/icon';
 import styles from './styles';
-import LinearGradient from 'react-native-linear-gradient';
-import {RadialGradient} from 'react-native-gradients';
 
 // Data for compass's content
 const COMPPASS_DATA = [
@@ -125,7 +123,7 @@ const Dashboard = (navigationProps:NavigationPropsType) => {
                                         <View style={styles.progressBar}>
                                             
                                         </View>
-                                        <ProgressBar color="#EE7933" progress={0.5}/>
+                                        <CustomProgressBar color="#EE7933" progress={0.5}/>
                                 </Card>
                             </View>
                             {/* To-do List's content */}
@@ -144,7 +142,7 @@ const Dashboard = (navigationProps:NavigationPropsType) => {
                                         data={TODO_DATA}
                                         renderItem={({item}) => <ToDoProps title={item.title} status={item.status}/>}
                                     />
-                                    <ProgressBar color="#FDDF38" progress={0.5}/>
+                                    <CustomProgressBar color="#FDDF38" progress={0.5}/>
                             </Card>
                             </View>
                         </View>

@@ -12,4 +12,6 @@ export const navigationScreenNames = {
   emailVerification: 'EmailVerification',
   otpVerification: 'OTPVerification',
   newPassword: 'NewPassword',
+  bottomNavigation: 'BottomNavigation',
+  homeNavigation: 'HomeNavigation',
 }

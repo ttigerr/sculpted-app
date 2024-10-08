@@ -13,6 +13,7 @@ import Card from "./components/card";
 import ProgressBar from "./components/progress-bar";
 import CustomCheckBox from "./components/custom-check-box";
 import Sliders from "./components/slider";
+import CustomProgressBar from "./components/custom-progress-bar";
 
 export {
   Button,
@@ -30,4 +31,5 @@ export {
   ProgressBar,
   CustomCheckBox,
   Sliders,
+  CustomProgressBar,
 }
