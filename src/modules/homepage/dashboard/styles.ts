@@ -59,7 +59,7 @@ const styles = StyleSheet.create ({
     innerCardTitleContainer: {
         flex: 1,
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     compassBorder: {
         height: 28,

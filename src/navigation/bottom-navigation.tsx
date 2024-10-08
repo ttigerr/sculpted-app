@@ -5,6 +5,7 @@ import ProfileNavigation from './profile-navigation';
 import Icon from 'src/modules/core/components/icon';
 import { theme } from 'src/config/theme';
 import LinearGradient from 'react-native-linear-gradient';
+import { RFValue } from 'react-native-responsive-fontsize';
 
 const Tab = createBottomTabNavigator();
 
@@ -77,7 +78,7 @@ export default BottomNavigation;
 
 const styles = StyleSheet.create ({
     tabBarStyle: {
-        height: 90,
+        height: RFValue(70),
         borderRadius: 25,
         position: 'absolute',
     },

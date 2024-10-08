@@ -21,7 +21,7 @@ const Sliders = () => {
                 trackStyle={{ height: 3, width: 369 }}
                 thumbStyle={{ height: 16, width: 29, backgroundColor: '#42DBF0', borderWidth: 3, borderColor: '#FFFFFF' }}
             />
-            <Text variant="body">{Math.floor(value)}</Text>
+            <Text variant="body2">{Math.floor(value)}</Text>
         </View>
     )
 }

@@ -35,11 +35,9 @@ const styles = StyleSheet.create ({
     text: {
         color: "#9BA0A5",
         marginRight: 10,
-        fontSize: 18,
     },
     text1: {
         marginRight: 10,
-        fontSize: 18,
     },
     sliderContainer: {
         flexDirection:'row',

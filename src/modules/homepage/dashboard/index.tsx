@@ -6,6 +6,7 @@ import {NavigationPropsType} from 'src/utils/types';
 import {theme} from 'src/config/theme';
 import Icon from 'src/modules/core/components/icon';
 import styles from './styles';
+import { RFValue } from "react-native-responsive-fontsize";
 
 // Data for compass's content
 const COMPPASS_DATA = [
@@ -35,9 +36,9 @@ const CompassItem = ({title, score, status}: compassProps) => (
     <View style={styles.cardTitleContainer}>
         <View style={styles.innerCardTitleContainer}>
             {status? (<View style={styles.compassDot}/>) : (<View style={styles.defaultDot}/>)}
-            <Text variant="body">{title}</Text>
+            <Text variant="body2">{title}</Text>
         </View>
-        <Text variant="body">{score}</Text>
+        <Text variant="body2">{score}</Text>
     </View>
 );
 
@@ -64,7 +65,7 @@ type toDoProps = { title:string, status:boolean };
 const ToDoProps = ({title, status}: toDoProps) => (
     <View style={styles.cardTitleContainer}>
         {status? (<View style={styles.toDoDot}/>) : (<View style={styles.defaultDot}/>)}
-        <Text variant="body">{title}</Text>
+        <Text variant="body2">{title}</Text>
     </View>
 );
 const colorList = [
@@ -110,7 +111,7 @@ const Dashboard = (navigationProps:NavigationPropsType) => {
                                         <View style={styles.cardTitleContainer}>
                                             <View style={styles.innerCardTitleContainer}>
                                                 <View style={styles.compassBorder}/>
-                                                <Text variant="body">{"Compass"}</Text>
+                                                <Text variant="body1">{"Compass"}</Text>
                                             </View>
                                             <View style={styles.iconContainer}>
                                                     <Icon name="compass" size="normal"/>
@@ -132,7 +133,7 @@ const Dashboard = (navigationProps:NavigationPropsType) => {
                                     <View style={styles.cardTitleContainer}>
                                         <View style={styles.innerCardTitleContainer}>
                                             <View style={styles.toDoBorder}/>
-                                            <Text variant="body">{"To-Do"}</Text>
+                                            <Text variant="body1">{"To-Do"}</Text>
                                         </View>
                                         <View style={styles.iconContainer}>
                                             <Icon name="to-do" size="normal"/>
@@ -152,8 +153,8 @@ const Dashboard = (navigationProps:NavigationPropsType) => {
                         <Card style={styles.journalCard} onPress={goToJournalScreen}>
                             <View style={styles.journalContainer}>
                                 <View style={styles.cardInner}>
-                                    <Text variant="h3" style={{marginBottom: 10}}>{"Fill out your journal"}</Text>
-                                    <Text variant="caption">{"Daily discipline, starts from doing the basics. Let’s make sure, we fill out our Journals & build from here"}</Text>
+                                    <Text variant="h4" style={{marginBottom: 10}}>{"Fill out your journal"}</Text>
+                                    <Text variant="caption" style={{fontSize: RFValue(10)}}>{"Daily discipline, starts from doing the basics. Let’s make sure, we fill out our Journals & build from here"}</Text>
                                 </View>
                                 <View style={styles.bookmark}>
                                     {focused? (<Icon name="bookmark" size="xlarge" strokeColor="#747272" fill="#514F4E"/>) : (<Icon name="bookmark" size="xlarge" strokeColor="#FFFFFF" fill="#888786"/>)}

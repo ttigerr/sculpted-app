@@ -12,7 +12,7 @@ const CustomProgressBar: React.FC<ProgressBarProps> = ({
         <View style={styles.container}>
             <ProgressBars progress={progress} color={color} style={[styles.progressBar, style]} />
         </View>
-        <Text variant="body">{"50%"}</Text>
+        <Text variant="body2">{ progress * 100 }{"%"}</Text>
     </View>
   
 );
