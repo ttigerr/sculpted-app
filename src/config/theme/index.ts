@@ -98,6 +98,19 @@ const fontConfig = {
     letterSpacing: 0.2,
     color: '#FF505A'
   },
+  greeting: {
+    fontFamily: Platform.select({
+      web: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif',
+      ios: fonts.helveticaNeueMedium,
+      android: fonts.helveticaNeueMedium,
+      default: fonts.helveticaNeueMedium,
+    }),
+    fontWeight: '500',
+    lineHeight: 42.48,
+    fontSize: 43,
+    letterSpacing: 0.5,
+    color: '#F4F4F4'
+  },
 };
 
 
@@ -133,7 +146,10 @@ export const theme = {
   },
   gradientColors: {
     button: ['#3BD0D6', '#428EC5'],
-    gradientBackgroundTop: ['#428EC5D6','#428EC500', '#428EC500']
+    cardBorder: ['#71727E', '#161618'],
+    journalBorder: ['#14191F', '#FFFFFF'],
+    gradientBackgroundTop: ['#428EC5D6','#428EC500', '#428EC500'],
+    gradientBottomNav: ['#535456', '#696E75'],
   },
   fonts: configureFonts({config: fontConfig}),
 }
