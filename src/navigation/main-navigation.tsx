@@ -7,6 +7,7 @@ import HomeNavigation from './home-navigation';
 import BottomNavigation from './bottom-navigation';
 import ProfileEdit from 'src/modules/profile/profile-edit';
 import Journal from 'src/modules/homepage/journal';
+import {navigationScreenNames} from 'src/utils/navigation-screen-names';
 
 const Stack = createNativeStackNavigator();
 
@@ -17,13 +18,17 @@ const defaultConfig = {
 const MainNavigation = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={defaultConfig} initialRouteName="BottomNavigation">
-        <Stack.Screen name="ProfileNavigation" component={ProfileNavigation} />
-        <Stack.Screen name="AuthNavigation" component={AuthNavigation} />
-        <Stack.Screen name="HomeNavigation" component={HomeNavigation} />
-        <Stack.Screen name="BottomNavigation" component={BottomNavigation} />
-        <Stack.Screen name="ProfileEdit" component={ProfileEdit} />
-        <Stack.Screen name="Journal" component={Journal} />
+      <Stack.Navigator
+        screenOptions={defaultConfig}
+        initialRouteName={navigationScreenNames.authNavigation}>
+        <Stack.Screen
+          name={navigationScreenNames.profileNavigation}
+          component={ProfileNavigation}
+        />
+        <Stack.Screen
+          name={navigationScreenNames.authNavigation}
+          component={AuthNavigation}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

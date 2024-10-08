@@ -14,3 +14,5 @@ export type NavigationPropsType = {
     name: string;
   };
 };
+
+export type OtpValue = [string, string, string, string];

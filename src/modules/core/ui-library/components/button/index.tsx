@@ -6,16 +6,17 @@ import {
 } from 'react-native-paper';
 import LinearGradient from 'react-native-linear-gradient';
 import {theme} from 'src/config/theme';
-import {Text} from '@ui-library';
+import {Text} from '../../';
 import styles from './styles';
+import {RFValue} from 'react-native-responsive-fontsize';
 
-interface UIButtonProps extends React.FC<PaperButtonProps> {
+type UIButtonProps = PaperButtonProps & {
   label?: string;
   loading?: boolean;
   mode?: 'outlined' | 'contained';
-}
+};
 
-const Button: React.FC<UIButtonProps & PaperButtonProps> = ({
+const Button: React.FC<UIButtonProps> = ({
   onPress,
   label,
   disabled,
@@ -29,8 +30,17 @@ const Button: React.FC<UIButtonProps & PaperButtonProps> = ({
     <PaperButton
       mode="outlined"
       onPress={onPress}
-      style={styles.outlinedContainer}>
-      {label ? <Text variant="paragraph">{label}</Text> : children}
+      style={styles.outlinedContainer}
+      {...rest}>
+      {label ? (
+        <Text
+          style={[styles.buttonText, {fontSize: RFValue(14)}]}
+          variant="paragraph">
+          {label}
+        </Text>
+      ) : (
+        children
+      )}
     </PaperButton>
   ) : (
     <LinearGradient
@@ -41,7 +51,8 @@ const Button: React.FC<UIButtonProps & PaperButtonProps> = ({
       <PaperButton
         mode={mode}
         onPress={onPress}
-        style={styles.containedContainer}>
+        style={styles.containedContainer}
+        {...rest}>
         {label ? <Text style={styles.buttonText}>{label}</Text> : children}
       </PaperButton>
     </LinearGradient>

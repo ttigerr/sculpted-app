@@ -5,4 +5,11 @@ export const navigationScreenNames = {
   edit: 'ProfileEdit',
   dashborad: 'Dashboard',
   journal: 'Journal',
+  authNavigation: 'AuthNavigation',
+  profileNavigation: 'ProfileNavigation',
+  onboardingFirstStep: 'OnboardingFirstStep',
+  onboardingSecondStep: 'OnboardingSecondStep',
+  emailVerification: 'EmailVerification',
+  otpVerification: 'OTPVerification',
+  newPassword: 'NewPassword',
 }

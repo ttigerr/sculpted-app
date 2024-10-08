@@ -30,6 +30,7 @@
     "react-hook-form": "^7.53.0",
     "react-i18next": "^15.0.1",
     "react-native": "0.73.7",
+    "react-native-date-picker": "^5.0.7",
     "react-native-gradients": "^2.1.1",
     "react-native-gradle-plugin": "^0.71.19",
     "react-native-linear-gradient": "^2.8.3",

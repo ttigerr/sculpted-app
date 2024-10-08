@@ -4,6 +4,7 @@ import {View} from 'react-native';
 import Email from 'assets/icons/ic-email.tsx';
 import Lock from 'assets/icons/ic-lock.tsx';
 import EyeHide from 'assets/icons/ic-eye-hide.tsx';
+import EyeShow from 'assets/icons/ic-eye-show.tsx';
 import Thick from 'assets/icons/ic-eye-hide.tsx';
 import LockOutlined from 'assets/icons/ic-lock-outlined.tsx';
 import NotificationOutlined from 'assets/icons/ic-notification-outlined.tsx';
@@ -26,6 +27,10 @@ import Tick from 'assets/icons/ic-tick.tsx';
 import Cross from 'assets/icons/ic-cross.tsx';
 import IconProps from './types/iconTypes';
 import iconSize from './styles/size';
+import BackButton from 'assets/icons/ic-back-button.tsx';
+import FilledLock from 'assets/icons/ic-filled-lock.tsx';
+import Key from 'assets/icons/ic-key.tsx';
+import OpenLock from 'assets/icons/ic-open-lock.tsx';
 
 const Icon = ({
   name,
@@ -58,6 +63,9 @@ const Icon = ({
     case 'xlarge':
       localSize = iconSize.xlarge;
       break;
+    case 'xxlarge':
+      localSize = iconSize.xxlarge;
+      break;
     default:
       localSize = iconSize.normal;
       break;
@@ -79,6 +87,8 @@ const Icon = ({
       return <Lock {...localProps} />;
     case 'eye-hide':
       return <EyeHide {...localProps} />;
+    case 'eye-show':
+      return <EyeShow {...localProps} />;
     case 'thick':
       return <Thick {...localProps} />;
     case 'lock-outlined':
@@ -119,6 +129,14 @@ const Icon = ({
       return <Tick {...localProps} />;
     case 'cross':
       return <Cross {...localProps} />;
+    case 'back-button':
+      return <BackButton {...localProps} />;
+    case 'filled-lock':
+      return <FilledLock {...localProps} />;
+    case 'key':
+      return <Key {...localProps} />;
+    case 'open-lock':
+      return <OpenLock {...localProps} />;
     default:
       return <View />;
   }
