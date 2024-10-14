@@ -29,17 +29,17 @@ const MainNavigation = () => {
           name={navigationScreenNames.authNavigation}
           component={AuthNavigation}
         />
-        <Stack.Screen 
-          name={navigationScreenNames.bottomNavigation} 
-          component={BottomNavigation} 
+        <Stack.Screen
+          name={navigationScreenNames.bottomNavigation}
+          component={BottomNavigation}
         />
-        <Stack.Screen 
-          name={navigationScreenNames.edit} 
-          component={ProfileEdit} 
+        <Stack.Screen
+          name={navigationScreenNames.edit}
+          component={ProfileEdit}
         />
-        <Stack.Screen 
-          name={navigationScreenNames.journal} 
-          component={Journal} 
+        <Stack.Screen
+          name={navigationScreenNames.journal}
+          component={Journal}
         />
       </Stack.Navigator>
     </NavigationContainer>
