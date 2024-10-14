@@ -14,6 +14,7 @@ import {NavigationPropsType} from 'src/utils/types';
 import {theme} from 'src/config/theme';
 import {onboardingTenses} from 'src/consts/arrays';
 import DatePicker from 'react-native-date-picker';
+import {navigationScreenNames} from 'src/utils/navigation-screen-names';
 
 type ItemProps = {label: string; selected: boolean};
 const FirstStep = (props: NavigationPropsType) => {
@@ -26,7 +27,9 @@ const FirstStep = (props: NavigationPropsType) => {
       </Chip>
     );
   };
-  const onSubmit = () => console.log('Hola');
+  const onSubmit = () => {
+    props.navigation.navigate(navigationScreenNames.bottomNavigation);
+  };
   return (
     <MainWrapper>
       <ScrollView style={styles.container}>

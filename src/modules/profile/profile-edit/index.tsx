@@ -1,8 +1,14 @@
 import * as React from 'react';
-import {StyleSheet, View, SafeAreaView, ScrollView} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  SafeAreaView,
+  ScrollView,
+  Pressable,
+} from 'react-native';
 import MainWrapper from 'src/modules/core/components/wrapper/MainWrapper';
 import {
-  IconButton,
+  // IconButton,
   Text,
   TextInput,
   Button,
@@ -19,8 +25,8 @@ const ProfileEdit = (props: NavigationPropsType) => {
   const {navigation} = props;
   const {control} = useSignUp(props);
 
-  const goToProfileScreen = () => {
-    navigation.navigate('ProfileMain');
+  const onCancelButtonPressed = () => {
+    navigation.goBack();
   };
 
   return (
@@ -30,12 +36,9 @@ const ProfileEdit = (props: NavigationPropsType) => {
           <Separator height={RFValue(48)} />
           <View style={styles.headerContainer}>
             <Text variant="h3">{'General Details'}</Text>
-            <IconButton
-              name="cancel"
-              size="small"
-              onPress={goToProfileScreen}
-              style={styles.iconButton}
-            />
+            <Pressable onPress={onCancelButtonPressed}>
+              <Icon name="cancel" size="small" style={styles.iconButton} />
+            </Pressable>
           </View>
           <TextInput
             control={control}
