@@ -168,6 +168,7 @@ export const theme = {
     caption: '#919191',
     background: '#0C0D0E',
     gradientBackgroundTop: '#0E202CD6',
+    gradientBackgroundTopSecondary: '#352013FF',
     gradientBackgroundBottom: '#3BD0D636',
     outlinedButtonBorderColor: '#F4F4F4',
     // TextInput

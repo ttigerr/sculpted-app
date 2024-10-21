@@ -1,3 +1,5 @@
+import { theme } from "src/config/theme";
+
 export const onboardingTenses = [
 ' Honesty',
 'Integrity',
@@ -19,4 +21,10 @@ export const onboardingTenses = [
 'Empathy',
 'Diligence',
 'Dedication',
-]
+];
+
+export const secondaryGradientColorList = [
+  {offset: '0%', color: theme.colors.gradientBackgroundTopSecondary, opacity: '1'},
+  {offset: '87%', color: theme.colors.background, opacity: '1'},
+  {offset: '100%', color: theme.colors.background, opacity: '1'},
+];

@@ -14,4 +14,8 @@ export const navigationScreenNames = {
   newPassword: 'NewPassword',
   bottomNavigation: 'BottomNavigation',
   homeNavigation: 'HomeNavigation',
+  todoHome: 'TodoHome',
+  todoIncomplete: 'TodoIncomplete',
+  todoSchedule: 'TodoSchedule',
+  todoTaskList: 'TodoTaskList',
 }
