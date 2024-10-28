@@ -32,6 +32,8 @@ import FilledLock from 'assets/icons/ic-filled-lock.tsx';
 import Key from 'assets/icons/ic-key.tsx';
 import OpenLock from 'assets/icons/ic-open-lock.tsx';
 import Search from 'assets/icons/ic-search.tsx';
+import Schedule from 'assets/icons/ic-schedule.tsx';
+import TickSquare from 'assets/icons/ic-tick-square.tsx';
 
 const Icon = ({
   name,
@@ -140,6 +142,10 @@ const Icon = ({
       return <OpenLock {...localProps} />;
     case 'search':
       return <Search {...localProps} />;
+    case 'schedule':
+      return <Schedule {...localProps} />;
+    case 'tick-square':
+      return <TickSquare {...localProps} />;
     default:
       return <View />;
   }

@@ -9,6 +9,9 @@ import useTodoHome from './useTodoHome';
 import {secondaryGradientColorList} from 'src/consts/arrays';
 import SearchBar from '../components/search-bar';
 import DayPicker from '../components/day-picker';
+import TaskProgress from '../components/task-progress';
+import TodayTask from '../components/today-task';
+import InfoCard from '../components/info-card';
 
 const TodoHome = (props: NavigationPropsType) => {
   const {goBack} = useTodoHome(props);
@@ -25,6 +28,23 @@ const TodoHome = (props: NavigationPropsType) => {
         <SearchBar />
         <Separator height={RFValue(16)} />
         <DayPicker />
+        <Separator height={RFValue(16)} />
+        <TaskProgress date={new Date()} completedTasks={30} totalTasks={40} />
+        <Separator height={RFValue(16)} />
+        <View style={styles.cardsContainer}>
+          <TodayTask taskCount={30} />
+          <Separator width={RFValue(10)} />
+          <View style={styles.infoCardsContainer}>
+            <InfoCard iconName="schedule" taskCount={5} infoText="Scheduled" />
+            <Separator height={RFValue(10)} />
+            <InfoCard
+              iconName="tick-square"
+              taskCount={7}
+              infoText="Incomplete"
+            />
+          </View>
+        </View>
+        <Separator height={RFValue(220)} />
       </ScrollView>
     </MainWrapper>
   );
@@ -46,5 +66,11 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: RFValue(0),
   },
-  navigationTitle: {},
+  cardsContainer: {
+    flexDirection: 'row',
+    height: RFValue(200),
+  },
+  infoCardsContainer: {
+    flex: 1,
+  },
 });

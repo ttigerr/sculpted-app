@@ -167,6 +167,7 @@ export const theme = {
     paragraph: '#919191',
     caption: '#919191',
     background: '#0C0D0E',
+    primaryTextColor: '#F4F4F4',
     gradientBackgroundTop: '#0E202CD6',
     gradientBackgroundTopSecondary: '#352013FF',
     gradientBackgroundBottom: '#3BD0D636',
@@ -186,6 +187,8 @@ export const theme = {
     // Avatar
     avartarBorderColor: '#3A4045',
     avartarBadgeDefaultColor: '#D9D9D9',
+    // Dashboard
+    dashboardCardBackground: '#15151593',
   },
   gradientColors: {
     button: ['#3BD0D6', '#428EC5'],

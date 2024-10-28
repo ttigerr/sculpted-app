@@ -1,13 +1,14 @@
+export type IconSize =
+  | 'xsmall'
+  | 'small'
+  | 'normal'
+  | 'medium'
+  | 'large'
+  | 'xlarge'
+  | 'xxlarge';
 interface IconProps {
   name?: string;
-  size?:
-    | 'xsmall'
-    | 'small'
-    | 'normal'
-    | 'medium'
-    | 'large'
-    | 'xlarge'
-    | 'xxlarge';
+  size?: IconSize;
   disabled?: boolean;
   width?: number;
   height?: number;

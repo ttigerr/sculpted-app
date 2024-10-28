@@ -1,10 +1,14 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
-// import {ProgressCircle} from 'react-native-svg-charts';
+import {ProgressCircle} from 'react-native-svg-charts';
 import moment from 'moment';
-
+import {RFValue} from 'react-native-responsive-fontsize';
+import {Chip} from 'react-native-paper';
+import {Separator} from 'src/modules/core/ui-library';
+import {CARD_BORDER_RADIUS} from 'src/consts/constants';
+import {theme} from 'src/config/theme';
 interface TaskProgressProps {
-  date: string; // Fecha
+  date: Date; // Fecha
   completedTasks: number; // Número de tareas completadas
   totalTasks: number; // Número total de tareas
 }
@@ -18,28 +22,29 @@ const TaskProgress: React.FC<TaskProgressProps> = ({
 
   return (
     <View style={styles.container}>
-      {/* Fecha */}
-      <View style={styles.dateContainer}>
-        <Text style={styles.dateText}>{moment(date).format('MMM DD')}</Text>
-      </View>
-
-      {/* Información de progreso */}
-      <View style={styles.taskInfoContainer}>
+      <View style={styles.leftContainer}>
+        <View style={styles.dateContainer}>
+          <Text style={styles.dateText}>{moment(date).format('MMM DD')}</Text>
+        </View>
         <Text style={styles.taskProgressText}>Task Progress</Text>
-        <Text style={styles.taskDoneText}>
-          {completedTasks}/{totalTasks} Done
-        </Text>
+        <View style={styles.doneTextContainer}>
+          <Text style={styles.taskProportionText}>
+            {completedTasks}/{totalTasks}
+          </Text>
+          <Text style={styles.taskDoneText}>Done</Text>
+        </View>
       </View>
 
-      {/* Barra circular de progreso */}
-      {/* <ProgressCircle
-        style={styles.progressCircle}
-        progress={progress}
-        progressColor={'#FFD700'} // Color del progreso (gradiente simulado con amarillo)
-        backgroundColor={'#333'}
-        strokeWidth={12}>
+      <View style={styles.rigthContainer}>
+        <ProgressCircle
+          style={styles.progressCircle}
+          progress={progress}
+          progressColor={'#FFD700'}
+          backgroundColor={'#333'}
+          strokeWidth={14}
+        />
         <Text style={styles.progressText}>{Math.round(progress * 100)}%</Text>
-      </ProgressCircle> */}
+      </View>
     </View>
   );
 };
@@ -47,49 +52,65 @@ const TaskProgress: React.FC<TaskProgressProps> = ({
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    backgroundColor: '#222',
-    borderRadius: 20,
-    padding: 15,
+    backgroundColor: theme.colors.dashboardCardBackground,
+    borderRadius: CARD_BORDER_RADIUS,
+    paddingVertical: 16,
+    paddingHorizontal: 18,
     alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  leftContainer: {
     justifyContent: 'space-between',
   },
   dateContainer: {
     backgroundColor: '#444',
-    borderRadius: 10,
-    paddingVertical: 5,
-    paddingHorizontal: 10,
+    borderRadius: 100,
+    height: 24,
+    width: RFValue(62),
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: RFValue(15),
   },
   dateText: {
-    color: '#aaa',
+    color: theme.colors.primaryTextColor,
     fontSize: 14,
   },
-  taskInfoContainer: {
-    flex: 1,
-    marginLeft: 15,
-  },
   taskProgressText: {
-    color: '#fff',
-    fontSize: 18,
+    color: theme.colors.primaryTextColor,
+    fontSize: RFValue(16),
     fontWeight: '600',
+    maxWidth: RFValue(100),
+    marginBottom: RFValue(22),
+  },
+  doneTextContainer: {
+    flexDirection: 'row',
+    alignItems: 'baseline',
   },
   taskDoneText: {
-    color: '#fff',
-    fontSize: 20,
-    fontWeight: 'bold',
+    color: theme.colors.primaryTextColor,
+    fontSize: 14,
+    marginLeft: 8,
   },
   progressCircle: {
     height: 100,
     width: 100,
   },
+  rigthContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   progressText: {
-    fontSize: 24,
-    color: '#fff',
+    fontSize: RFValue(16),
+    color: theme.colors.primaryTextColor,
     fontWeight: 'bold',
     textAlign: 'center',
     position: 'absolute',
-    width: '100%',
-    height: '100%',
     textAlignVertical: 'center',
+  },
+  taskProportionText: {
+    color: '#fff',
+    fontSize: 32,
+    fontWeight: 'bold',
   },
 });
 
