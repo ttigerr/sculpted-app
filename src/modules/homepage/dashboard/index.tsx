@@ -11,6 +11,7 @@ import {
   Avartar,
   Card,
   CustomProgressBar,
+  Separator,
 } from 'src/modules/core/ui-library';
 import MainWrapper from 'src/modules/core/components/wrapper/MainWrapper';
 import {NavigationPropsType} from 'src/utils/types';
@@ -19,6 +20,7 @@ import Icon from 'src/modules/core/components/icon';
 import styles from './styles';
 import {RFValue} from 'react-native-responsive-fontsize';
 import {navigationScreenNames} from 'src/utils/navigation-screen-names';
+import {SCREEN_WIDTH} from 'src/consts/constants';
 
 // Data for compass's content
 const COMPPASS_DATA = [
@@ -92,6 +94,8 @@ const colorList = [
   {offset: '100%', color: '#14191F', opacity: '0'},
 ];
 
+const CARD_WIDTH = SCREEN_WIDTH / 2 - 20;
+
 const Dashboard = (navigationProps: NavigationPropsType) => {
   const [focused, setFocused] = useState(false);
 
@@ -133,7 +137,7 @@ const Dashboard = (navigationProps: NavigationPropsType) => {
             <View style={styles.cardContent}>
               {/* compass's content */}
               <View style={styles.cardInner}>
-                <Card style={styles.cardContainer} width={193}>
+                <Card style={styles.cardContainer} width={CARD_WIDTH}>
                   {/* Header's part */}
                   <View style={styles.cardTitleContainer}>
                     <View style={styles.innerCardTitleContainer}>
@@ -160,7 +164,12 @@ const Dashboard = (navigationProps: NavigationPropsType) => {
               </View>
               {/* To-do List's content */}
               <View style={styles.cardInner}>
-                <Card style={styles.cardContainer} width={193}>
+                <Card
+                  style={styles.cardContainer}
+                  width={CARD_WIDTH}
+                  onPress={() =>
+                    navigation.navigate(navigationScreenNames.todoHome)
+                  }>
                   <View style={styles.cardTitleContainer}>
                     <View style={styles.innerCardTitleContainer}>
                       <View style={styles.toDoBorder} />
@@ -215,6 +224,7 @@ const Dashboard = (navigationProps: NavigationPropsType) => {
               </View>
             </Card>
           </View>
+          <Separator height={100} />
         </ScrollView>
       </SafeAreaView>
     </MainWrapper>
