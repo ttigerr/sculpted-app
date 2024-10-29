@@ -1,9 +1,9 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Pressable} from 'react-native';
 import {ProgressCircle} from 'react-native-svg-charts';
 import moment from 'moment';
 import {RFValue} from 'react-native-responsive-fontsize';
-import {Chip} from 'react-native-paper';
+import {TouchableRipple} from 'react-native-paper';
 import {Separator} from 'src/modules/core/ui-library';
 import {CARD_BORDER_RADIUS} from 'src/consts/constants';
 import {theme} from 'src/config/theme';
@@ -11,45 +11,53 @@ interface TaskProgressProps {
   date: Date; // Fecha
   completedTasks: number; // Número de tareas completadas
   totalTasks: number; // Número total de tareas
+  onPress?: () => void;
 }
 
 const TaskProgress: React.FC<TaskProgressProps> = ({
   date,
   completedTasks,
   totalTasks,
+  onPress,
 }) => {
   const progress = completedTasks / totalTasks; // Porcentaje de progreso
 
   return (
-    <View style={styles.container}>
-      <View style={styles.leftContainer}>
-        <View style={styles.dateContainer}>
-          <Text style={styles.dateText}>{moment(date).format('MMM DD')}</Text>
+    <TouchableRipple onPress={onPress} style={styles.touchable}>
+      <View style={styles.container}>
+        <View style={styles.leftContainer}>
+          <View style={styles.dateContainer}>
+            <Text style={styles.dateText}>{moment(date).format('MMM DD')}</Text>
+          </View>
+          <Text style={styles.taskProgressText}>Task Progress</Text>
+          <View style={styles.doneTextContainer}>
+            <Text style={styles.taskProportionText}>
+              {completedTasks}/{totalTasks}
+            </Text>
+            <Text style={styles.taskDoneText}>Done</Text>
+          </View>
         </View>
-        <Text style={styles.taskProgressText}>Task Progress</Text>
-        <View style={styles.doneTextContainer}>
-          <Text style={styles.taskProportionText}>
-            {completedTasks}/{totalTasks}
-          </Text>
-          <Text style={styles.taskDoneText}>Done</Text>
-        </View>
-      </View>
 
-      <View style={styles.rigthContainer}>
-        <ProgressCircle
-          style={styles.progressCircle}
-          progress={progress}
-          progressColor={'#FFD700'}
-          backgroundColor={'#333'}
-          strokeWidth={14}
-        />
-        <Text style={styles.progressText}>{Math.round(progress * 100)}%</Text>
+        <View style={styles.rigthContainer}>
+          <ProgressCircle
+            style={styles.progressCircle}
+            progress={progress}
+            progressColor={'#FFD700'}
+            backgroundColor={'#333'}
+            strokeWidth={14}
+          />
+          <Text style={styles.progressText}>{Math.round(progress * 100)}%</Text>
+        </View>
       </View>
-    </View>
+    </TouchableRipple>
   );
 };
 
 const styles = StyleSheet.create({
+  touchable: {
+    borderRadius: CARD_BORDER_RADIUS,
+    overflow: 'hidden',
+  },
   container: {
     flexDirection: 'row',
     backgroundColor: theme.colors.dashboardCardBackground,

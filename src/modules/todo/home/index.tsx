@@ -12,9 +12,10 @@ import DayPicker from '../components/day-picker';
 import TaskProgress from '../components/task-progress';
 import TodayTask from '../components/today-task';
 import InfoCard from '../components/info-card';
+import CompassScore from 'src/modules/compass/components/compass-info-card';
 
 const TodoHome = (props: NavigationPropsType) => {
-  const {goBack} = useTodoHome(props);
+  const {goBack, onTaskProgressPress} = useTodoHome(props);
   return (
     <MainWrapper colorArray={secondaryGradientColorList}>
       <ScrollView style={styles.container}>
@@ -29,7 +30,12 @@ const TodoHome = (props: NavigationPropsType) => {
         <Separator height={RFValue(16)} />
         <DayPicker />
         <Separator height={RFValue(16)} />
-        <TaskProgress date={new Date()} completedTasks={30} totalTasks={40} />
+        <TaskProgress
+          date={new Date()}
+          completedTasks={30}
+          totalTasks={40}
+          onPress={onTaskProgressPress}
+        />
         <Separator height={RFValue(16)} />
         <View style={styles.cardsContainer}>
           <TodayTask taskCount={30} />
@@ -44,6 +50,8 @@ const TodoHome = (props: NavigationPropsType) => {
             />
           </View>
         </View>
+        <Separator height={RFValue(30)} />
+        <CompassScore />
         <Separator height={RFValue(220)} />
       </ScrollView>
     </MainWrapper>

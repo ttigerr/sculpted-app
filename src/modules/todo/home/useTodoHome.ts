@@ -1,12 +1,17 @@
 import React, {useState} from 'react';
 import { NavigationPropsType } from 'src/utils/types';
 import { VIRTUES_MAX_SELECTION } from 'src/consts/constants';
+import { navigationScreenNames } from 'src/utils/navigation-screen-names';
 
 const useTodoHome = (props: NavigationPropsType) => {
 
-  const goBack = () => props.navigation.goBack();
+  const { navigation } = props
+
+  const goBack = () => navigation.goBack();
+  const onTaskProgressPress = () => navigation.navigate(navigationScreenNames.todoTaskList)
   return {
-    goBack
+    goBack,
+    onTaskProgressPress
   }
 }
 
