@@ -21,7 +21,7 @@ export default function App() {
 
   return (
     <PaperProvider theme={theme}>
-      <MainNavigation />
+        <MainNavigation />
     </PaperProvider>
   );
 }
