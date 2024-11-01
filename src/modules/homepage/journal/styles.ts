@@ -67,6 +67,12 @@ const styles = StyleSheet.create ({
         alignItems: 'center',
         marginBottom: 30
     },
+    addTaskContainer: {
+        flexDirection:'row',
+        justifyContent:'space-between',
+        alignItems: 'center',
+        marginVertical: 10,
+    }
 });
 
 export default styles;
