@@ -21,7 +21,7 @@ import Profile from 'assets/icons/ic-profile.tsx';
 import Home from 'assets/icons/ic-home.tsx';
 import ToDo from 'assets/icons/ic-to-do.tsx';
 import Compass from 'assets/icons/ic-compass.tsx';
-import Bookmark from 'assets/icons/ic-bookmark.tsx'
+import Bookmark from 'assets/icons/ic-bookmark.tsx';
 import Add from 'assets/icons/ic-add.tsx';
 import Tick from 'assets/icons/ic-tick.tsx';
 import Cross from 'assets/icons/ic-cross.tsx';
@@ -31,6 +31,9 @@ import BackButton from 'assets/icons/ic-back-button.tsx';
 import FilledLock from 'assets/icons/ic-filled-lock.tsx';
 import Key from 'assets/icons/ic-key.tsx';
 import OpenLock from 'assets/icons/ic-open-lock.tsx';
+import Search from 'assets/icons/ic-search.tsx';
+import Schedule from 'assets/icons/ic-schedule.tsx';
+import TickSquare from 'assets/icons/ic-tick-square.tsx';
 
 const Icon = ({
   name,
@@ -115,7 +118,7 @@ const Icon = ({
       return <Stat {...localProps} />;
     case 'home':
       return <Home {...localProps} />;
-    case 'profile': 
+    case 'profile':
       return <Profile {...localProps} />;
     case 'to-do':
       return <ToDo {...localProps} />;
@@ -137,6 +140,12 @@ const Icon = ({
       return <Key {...localProps} />;
     case 'open-lock':
       return <OpenLock {...localProps} />;
+    case 'search':
+      return <Search {...localProps} />;
+    case 'schedule':
+      return <Schedule {...localProps} />;
+    case 'tick-square':
+      return <TickSquare {...localProps} />;
     default:
       return <View />;
   }

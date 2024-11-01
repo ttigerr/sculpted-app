@@ -13,8 +13,8 @@ const useLogin = (navigationProps: NavigationPropsType) => {
   const { navigation } = navigationProps;
   const { control, handleSubmit, formState: { errors, isValid }, getValues } = useForm<FieldValues | LoginFormData>({
     defaultValues: {
-      email: '',
-      password: '',
+      email: 'email@email.com',
+      password: 'Matrix123',
       rememberMe: false
     }
   })
@@ -33,7 +33,10 @@ const useLogin = (navigationProps: NavigationPropsType) => {
 
   const goToForgotPassword = () => navigation.navigate(navigationScreenNames.emailVerification)
 
-  const onSubmit = handleSubmit(data => console.log('Submit: ', data))
+  const onSubmit = handleSubmit(data => {
+    console.log('Login: ', data)
+    navigation.navigate(navigationScreenNames.bottomNavigation)
+  })
   return {
     onSubmit,
     control,

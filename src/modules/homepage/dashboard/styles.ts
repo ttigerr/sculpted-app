@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet} from "react-native";
 import { theme } from "src/config/theme";
+import { SCREEN_WIDTH } from "src/consts/constants";
 
 const styles = StyleSheet.create ({
     mainContainer: {
@@ -33,7 +34,7 @@ const styles = StyleSheet.create ({
         marginVertical: 10,
     },
     cardContainer: {
-        width: 189,
+        // width: (SCREEN_WIDTH / 2) - 10,
         height: 232,
         justifyContent: 'center',
         alignContent: 'center',

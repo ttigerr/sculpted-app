@@ -16,3 +16,9 @@ export type NavigationPropsType = {
 };
 
 export type OtpValue = [string, string, string, string];
+
+export type Color = {
+  offset: string;
+  color: string;
+  opacity: string;
+}
