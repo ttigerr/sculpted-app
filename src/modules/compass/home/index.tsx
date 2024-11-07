@@ -1,0 +1,71 @@
+import React from "react";
+import {StyleSheet, ScrollView, View, SafeAreaView} from 'react-native';
+import MainWrapper from 'src/modules/core/components/wrapper/MainWrapper';
+import {RFValue} from 'react-native-responsive-fontsize';
+import {Separator, Text} from 'src/modules/core/ui-library';
+import BackButton from 'src/modules/core/components/back-button';
+import {NavigationPropsType} from 'src/utils/types';
+import {secondaryGradientColorList, tertiaryGradientColorList} from 'src/consts/arrays';
+import DayPicker from "src/modules/todo/components/day-picker";
+import CompassScore from "../components/compass-info-card";
+import CompassItem from "../components/compass-item-card";
+
+const CompassHome = (props: NavigationPropsType) => {
+    const { navigation } = props
+    const VIRTUE_ITEM = [
+        {
+            id: 1,
+            name: "Professionalism"
+        },
+        {
+            id: 2,
+            name: "Dedication"
+        },
+        {
+            id: 3,
+            name: "Effort"
+        }
+    ]
+    return (
+        <MainWrapper colorArray={tertiaryGradientColorList}>
+            <ScrollView style={styles.container}>
+                <View style={styles.navigationBarContainer}>
+                    <BackButton style={styles.backButton} onPress={() => navigation.goBack()}/>
+                    <Text variant="paragraph">
+                        {'Compass'}
+                    </Text>
+                </View>
+                <Separator height={RFValue(16)} />
+                <DayPicker/>
+                <Separator height={RFValue(16)} />
+                <CompassScore/>
+                <Separator height={RFValue(16)} />
+                {VIRTUE_ITEM.map((virtue)=>(
+                    <CompassItem name={virtue.name}/>
+                ))}
+            </ScrollView>
+        </MainWrapper>
+    )
+}
+
+export default CompassHome;
+
+const styles = StyleSheet.create({
+    container: {
+      paddingTop: RFValue(82),
+      paddingHorizontal: RFValue(16),
+      flex: 1,
+    },
+    navigationBarContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    backButton: {
+      position: 'absolute',
+      left: RFValue(0),
+    },
+    infoCardsContainer: {
+      flex: 1,
+    },
+  });

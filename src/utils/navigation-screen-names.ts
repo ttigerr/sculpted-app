@@ -18,4 +18,5 @@ export const navigationScreenNames = {
   todoIncomplete: 'TodoIncomplete',
   todoSchedule: 'TodoSchedule',
   todoTaskList: 'TodoTaskList',
+  compassHome: 'CompassHome',
 }

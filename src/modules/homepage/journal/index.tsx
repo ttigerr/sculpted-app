@@ -8,6 +8,7 @@ import {NavigationPropsType} from 'src/utils/types';
 import { Divider } from 'react-native-paper';
 import { RFValue } from "react-native-responsive-fontsize";
 import useSignUp from "src/modules/auth/sign-up/useSignUp";
+import AddNotesButton from "src/modules/compass/components/add-notes-button";
 
 
 const Journal = (props:NavigationPropsType) => {
@@ -17,9 +18,9 @@ const Journal = (props:NavigationPropsType) => {
     const Tasks = task;
     const [nextId, setNextId] = useState(0)
 
-    const [scale1, setScale1] = useState(0);
-    const [scale2, setScale2] = useState(0);
-    const [scale3, setScale3] = useState(0);
+    // const [scale1, setScale1] = useState(0);
+    // const [scale2, setScale2] = useState(0);
+    // const [scale3, setScale3] = useState(0);
 
     // Handle click functions
     const { navigation } = props;
@@ -28,10 +29,10 @@ const Journal = (props:NavigationPropsType) => {
     }
 
     const setUpdate = () => {
-        console.log(Tasks);
         navigation.goBack();
     }
 
+    // Data lists
     const VIRTUE_DATA = [
         {
             id: 1,
@@ -76,37 +77,18 @@ const Journal = (props:NavigationPropsType) => {
                             <Text variant="body2">{virtue.label}</Text>
                             <Sliders/>
                             {/* Add note's button */}
-                            <AddNotes/>
+                            <AddNotesButton color={"#42DBF0"}/>
                         </View>
                     ) : (
                         <View style={{marginTop: 30}}>
                             <Text variant="body2">{virtue.label}</Text>
                             <Sliders/>
                             {/* Add note's button */}
-                            <AddNotes/>
+                            <AddNotesButton color={"#42DBF0"}/>
                         </View>
                     )
                 ))}
             </>
-        )
-    }
-
-    // Add note button's component
-    const AddNotes = () => {
-
-        const [show, setShow] = useState(false);
-        const handleClick = () => {
-            setShow(!show)
-        }
-        return (
-            <View>
-                {!show && (<TouchableOpacity style={styles.noteContainer} onPress={handleClick}>
-                    <Icon name="add" size="small"/>
-                    <Text variant="body" style={{fontSize: RFValue(9)}}>{'Notes...'}</Text>
-                    </TouchableOpacity>)
-                }
-                {show && (<Text variant="body">{"This is text input"}</Text>)}
-            </View>
         )
     }
     
@@ -120,17 +102,7 @@ const Journal = (props:NavigationPropsType) => {
         const handleClick = () => {
             setShow(!show)
         }
-        // const dispatch = useTasksDispatch();
-        // const handleKeyPress = (e) => {
-        //     if (e.nativeEvent.key === 'Enter') {
-        //         setText('');
-        //         dispatch({
-        //             type: "added",
-        //             id: id++,
-        //             name: text,
-        //         });
-        //     }
-        // }
+
         const onSubmitTask = () => {
             if (text !== "") {
                 setNextId(nextId + 1)
@@ -289,7 +261,7 @@ const Journal = (props:NavigationPropsType) => {
                         <Text variant="h4" style={styles.text}>{"REFLECTIONS"}</Text>
                         <Divider style={styles.divider}/>
                     </View>
-                    <AddNotes/>
+                    <AddNotesButton color={"#42DBF0"}/>
 
                     {/* To-Do list's add task content */}
                     <View style={styles.dividerContainer}>

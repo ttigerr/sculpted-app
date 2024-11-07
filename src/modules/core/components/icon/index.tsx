@@ -34,6 +34,8 @@ import OpenLock from 'assets/icons/ic-open-lock.tsx';
 import Search from 'assets/icons/ic-search.tsx';
 import Schedule from 'assets/icons/ic-schedule.tsx';
 import TickSquare from 'assets/icons/ic-tick-square.tsx';
+import Plus from 'assets/icons/ic-plus.tsx';
+import Minus from 'assets/icons/ic-minus.tsx';
 
 const Icon = ({
   name,
@@ -146,6 +148,10 @@ const Icon = ({
       return <Schedule {...localProps} />;
     case 'tick-square':
       return <TickSquare {...localProps} />;
+    case 'plus':
+      return <Plus {...localProps}/>;
+    case 'minus': 
+      return <Minus {...localProps}/>
     default:
       return <View />;
   }

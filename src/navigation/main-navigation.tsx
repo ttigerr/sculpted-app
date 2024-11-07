@@ -7,6 +7,7 @@ import HomeNavigation from './home-navigation';
 import BottomNavigation from './bottom-navigation';
 import ProfileEdit from 'src/modules/profile/profile-edit';
 import Journal from 'src/modules/homepage/journal';
+import CompassHome from 'src/modules/compass/home';
 import {navigationScreenNames} from 'src/utils/navigation-screen-names';
 
 const Stack = createNativeStackNavigator();
@@ -40,6 +41,10 @@ const MainNavigation = () => {
         <Stack.Screen
           name={navigationScreenNames.journal}
           component={Journal}
+        />
+        <Stack.Screen
+          name={navigationScreenNames.compassHome}
+          component={CompassHome}
         />
       </Stack.Navigator>
     </NavigationContainer>
