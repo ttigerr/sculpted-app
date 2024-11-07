@@ -1,5 +1,5 @@
 import { Platform } from "react-native";
-import { configureFonts, MD3LightTheme as DefaultTheme, Paragraph } from "react-native-paper";
+import { configureFonts, MD3LightTheme as DefaultTheme } from "react-native-paper";
 import { RFValue } from "react-native-responsive-fontsize";
 
 export const fonts = {
@@ -156,8 +156,10 @@ const fontConfig = {
 
 export const theme = {
   ...DefaultTheme,
+  elevation: 3,
   dark: true,
   colors: {
+    ...DefaultTheme.colors,
     primary: '#42DBF0',
     secondary: '#0C0D0E',
     h1: '#F4F4F4',
@@ -179,6 +181,7 @@ export const theme = {
     progressBarColor: '#F4F4F4',
     progressBarBackgroundColor: '#E7E7E745',
     editTextInputColor: '#BDC1C3',
+    floatButtonBackgroundColor: '#E1E1E19F',
 
     // ListItem
     listItemColor: '#161616',
@@ -189,6 +192,8 @@ export const theme = {
     avartarBadgeDefaultColor: '#D9D9D9',
     // Dashboard
     dashboardCardBackground: '#15151593',
+    dashboardCardFilledBackground: '#151515',
+    todoScreenTextColor: '#FDDF38',
   },
   gradientColors: {
     button: ['#3BD0D6', '#428EC5'],

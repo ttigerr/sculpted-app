@@ -1,4 +1,4 @@
-
+import { Moment } from "moment";
 export type NavigationType = {
   navigate: Function;
   goBack: Function;
@@ -22,3 +22,18 @@ export type Color = {
   color: string;
   opacity: string;
 }
+
+export type Task = {
+  id: string;
+  creationDate: Date | number;
+  scheduledDate: Date | number;
+  title: string;
+  description: string;
+  isCompleted: boolean;
+  isTemporary?: boolean;
+};
+
+export type DayListItem = {
+  title: string;
+  date: Moment | null;
+};

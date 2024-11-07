@@ -7,12 +7,14 @@ import {Text} from 'src/modules/core/ui-library';
 import {theme} from 'src/config/theme';
 import {Separator} from 'src/modules/core/ui-library';
 import {IconSize} from 'src/modules/core/components/icon/types/iconTypes';
+import {TouchableRipple} from 'react-native-paper';
 
 interface InfoCardProps {
   taskCount: number;
   iconName: string;
   iconSize?: IconSize;
   infoText: string;
+  onPress?: () => void;
 }
 
 const InfoCard: React.FC<InfoCardProps> = ({
@@ -20,26 +22,34 @@ const InfoCard: React.FC<InfoCardProps> = ({
   iconName,
   infoText,
   iconSize = 'small',
+  onPress,
 }) => {
   return (
-    <View style={styles.container}>
-      <View style={styles.iconContainer}>
-        <View style={styles.iconBackground}>
-          <Icon name={iconName} size={iconSize} />
+    <TouchableRipple onPress={onPress} style={styles.touchable}>
+      <View style={styles.container}>
+        <View style={styles.iconContainer}>
+          <View style={styles.iconBackground}>
+            <Icon name={iconName} size={iconSize} />
+          </View>
+          <Text variant="paragraph" style={styles.taskCount}>
+            {taskCount}
+          </Text>
         </View>
-        <Text variant="paragraph" style={styles.taskCount}>
-          {taskCount}
+        <Separator height={RFValue(16)} />
+        <Text variant="caption" style={styles.infoText}>
+          {infoText}
         </Text>
       </View>
-      <Separator height={RFValue(16)} />
-      <Text variant="caption" style={styles.infoText}>
-        {infoText}
-      </Text>
-    </View>
+    </TouchableRipple>
   );
 };
 
 const styles = StyleSheet.create({
+  touchable: {
+    flex: 1,
+    borderRadius: CARD_BORDER_RADIUS,
+    overflow: 'hidden',
+  },
   container: {
     flex: 1,
     backgroundColor: theme.colors.dashboardCardBackground,

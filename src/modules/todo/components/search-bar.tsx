@@ -5,15 +5,25 @@ import {RFValue} from 'react-native-responsive-fontsize';
 import {TextInput as PaperTextInput} from 'react-native-paper';
 import Icon from 'src/modules/core/components/icon';
 import {Separator} from 'src/modules/core/ui-library';
+import {IOS} from 'src/consts/constants';
 
-const SearchBar = () => {
+type SearchBarProps = {
+  placeholder: string;
+  onChangeText: (query: string) => void;
+};
+const SearchBar = ({placeholder, onChangeText}: SearchBarProps) => {
   return (
     <View style={styles.container}>
       <Icon name="search" size="normal" />
       <TextInput
-        placeholder="Find your tasks"
+        placeholder={placeholder}
         style={styles.textInput}
         placeholderTextColor={theme.colors.editTextInputColor}
+        onChangeText={onChangeText}
+        autoComplete="off"
+        autoCorrect={false}
+        keyboardType="default"
+        spellCheck={false}
       />
     </View>
   );
@@ -27,7 +37,8 @@ const styles = StyleSheet.create({
     borderWidth: RFValue(1),
     borderRadius: 100,
     flexDirection: 'row',
-    padding: RFValue(10),
+    paddingHorizontal: 10,
+    paddingVertical: IOS ? 10 : 0,
     alignItems: 'center',
   },
   textInput: {

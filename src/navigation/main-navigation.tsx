@@ -7,6 +7,10 @@ import HomeNavigation from './home-navigation';
 import BottomNavigation from './bottom-navigation';
 import ProfileEdit from 'src/modules/profile/profile-edit';
 import Journal from 'src/modules/homepage/journal';
+import TodoHome from 'src/modules/todo/home';
+import TodoIncomplete from 'src/modules/todo/incomplete';
+import TodoSchedule from 'src/modules/todo/schedule';
+import TodoTaskList from 'src/modules/todo/task-list';
 import {navigationScreenNames} from 'src/utils/navigation-screen-names';
 
 const Stack = createNativeStackNavigator();
@@ -40,6 +44,22 @@ const MainNavigation = () => {
         <Stack.Screen
           name={navigationScreenNames.journal}
           component={Journal}
+        />
+        <Stack.Screen
+          name={navigationScreenNames.todoHome}
+          component={TodoHome}
+        />
+        <Stack.Screen
+          name={navigationScreenNames.todoIncomplete}
+          component={TodoIncomplete}
+        />
+        <Stack.Screen
+          name={navigationScreenNames.todoSchedule}
+          component={TodoSchedule}
+        />
+        <Stack.Screen
+          name={navigationScreenNames.todoTaskList}
+          component={TodoTaskList}
         />
       </Stack.Navigator>
     </NavigationContainer>

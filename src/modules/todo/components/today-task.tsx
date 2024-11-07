@@ -5,26 +5,35 @@ import {CARD_BORDER_RADIUS} from 'src/consts/constants';
 import Icon from 'src/modules/core/components/icon';
 import {Text} from 'src/modules/core/ui-library';
 import {theme} from 'src/config/theme';
+import {TouchableRipple} from 'react-native-paper';
 
 interface TodayTaskProps {
   taskCount: number;
+  onPress?: () => void;
 }
 
-const TodayTask: React.FC<TodayTaskProps> = ({taskCount}) => {
+const TodayTask: React.FC<TodayTaskProps> = ({taskCount, onPress}) => {
   return (
-    <View style={styles.container}>
-      <View style={styles.iconContainer}>
-        <Icon name="to-do" size="small" />
+    <TouchableRipple onPress={onPress} style={styles.touchable}>
+      <View style={styles.container}>
+        <View style={styles.iconContainer}>
+          <Icon name="to-do" size="small" />
+        </View>
+        <Text style={styles.title}>Today's task</Text>
+        <Text variant="h1" style={styles.taskCount}>
+          {taskCount}
+        </Text>
       </View>
-      <Text style={styles.title}>Today's task</Text>
-      <Text variant="h1" style={styles.taskCount}>
-        {taskCount}
-      </Text>
-    </View>
+    </TouchableRipple>
   );
 };
 
 const styles = StyleSheet.create({
+  touchable: {
+    flex: 1,
+    borderRadius: CARD_BORDER_RADIUS,
+    overflow: 'hidden',
+  },
   container: {
     flex: 1,
     backgroundColor: theme.colors.dashboardCardBackground,

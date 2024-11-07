@@ -1,5 +1,11 @@
-import {StyleSheet, ScrollView, View} from 'react-native';
-import React from 'react';
+import {
+  StyleSheet,
+  ScrollView,
+  View,
+  KeyboardAvoidingView,
+  Platform,
+} from 'react-native';
+import React, {useRef} from 'react';
 import MainWrapper from 'src/modules/core/components/wrapper/MainWrapper';
 import {RFValue} from 'react-native-responsive-fontsize';
 import {Separator, Text} from 'src/modules/core/ui-library';
@@ -7,55 +13,75 @@ import BackButton from 'src/modules/core/components/back-button';
 import {NavigationPropsType} from 'src/utils/types';
 import {secondaryGradientColorList} from 'src/consts/arrays';
 import SearchBar from '../components/search-bar';
-import DayPicker from '../components/day-picker';
-import TaskProgress from '../components/task-progress';
-import TodayTask from '../components/today-task';
-import InfoCard from '../components/info-card';
 import TaskList from '../components/task-list';
+import useTaskList from './useTaskList';
+import FloatingButton from 'src/modules/core/components/float-button';
+import {Appbar, Button} from 'react-native-paper';
+import {theme} from 'src/config/theme';
 
-const tasks = [
-  {
-    id: '1',
-    title: 'Team Meeting',
-    description: 'Sculpted App',
-    isCompleted: true,
-  },
-  {
-    id: '2',
-    title: 'Training',
-    description: '• 5km Run\n• Swimming\n... more',
-    isCompleted: false,
-  },
-  {
-    id: '3',
-    title: 'Training',
-    description: 'Upper Body Strength',
-    isCompleted: false,
-  },
-  {
-    id: '4',
-    title: 'Research',
-    description: 'How to grow users to 200,000+ Downloads',
-    isCompleted: false,
-  },
-];
-
-const TodoTaskList = () => {
+const TodoTaskList = (props: NavigationPropsType) => {
+  const {
+    goBack,
+    handleSearch,
+    toggleTaskCompletion,
+    taskList,
+    handleAddTask,
+    newTask,
+    setNewTask,
+    scrollViewRef,
+    isAdding,
+    handleSaveTask,
+    handleCancelEdit,
+    handleDeleteTask,
+    isShowingCompleted,
+    handleShowCompleted,
+  } = useTaskList(props);
   return (
     <MainWrapper colorArray={secondaryGradientColorList}>
-      <ScrollView style={styles.container}>
-        <View style={styles.navigationBarContainer}>
-          <BackButton style={styles.backButton} onPress={() => {}} />
-          <Text variant="paragraph">{'Today’s Task'}</Text>
-        </View>
-        <Separator height={RFValue(24)} />
-        <SearchBar />
-        <Separator height={RFValue(16)} />
-        <DayPicker />
-        <Separator height={RFValue(16)} />
-        <TaskList tasks={tasks} onTaskPress={task => console.log(task)} />
-        <Separator height={RFValue(220)} />
-      </ScrollView>
+      {isAdding && (
+        <Appbar.Header style={styles.appBar}>
+          <Button
+            textColor={theme.colors.h1}
+            mode="text"
+            onPress={handleCancelEdit}>
+            {'Cancel'}
+          </Button>
+          <Button
+            textColor={theme.colors.todoScreenTextColor}
+            mode="text"
+            onPress={handleSaveTask}>
+            {'Done'}
+          </Button>
+        </Appbar.Header>
+      )}
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={{flex: 1}}>
+        <ScrollView style={styles.container} ref={scrollViewRef}>
+          <View style={styles.navigationBarContainer}>
+            <BackButton style={styles.backButton} onPress={goBack} />
+            <Text variant="paragraph">{'Today’s Task'}</Text>
+          </View>
+          <Separator height={RFValue(24)} />
+          <SearchBar
+            placeholder="Find your tasks"
+            onChangeText={handleSearch}
+          />
+          <Separator height={RFValue(16)} />
+          <TaskList
+            isShowingCompleted={isShowingCompleted}
+            onShowCompletedPressed={handleShowCompleted}
+            taskList={taskList}
+            onTaskPress={task => console.log(task)}
+            handleToggleComplete={toggleTaskCompletion}
+            newTask={newTask}
+            setNewTask={setNewTask}
+            onTaskDelete={handleDeleteTask}
+          />
+          <Separator height={RFValue(220)} />
+        </ScrollView>
+      </KeyboardAvoidingView>
+      {!isAdding && <FloatingButton onPress={handleAddTask} />}
     </MainWrapper>
   );
 };
@@ -82,5 +108,9 @@ const styles = StyleSheet.create({
   },
   infoCardsContainer: {
     flex: 1,
+  },
+  appBar: {
+    backgroundColor: theme.colors.background,
+    justifyContent: 'space-between',
   },
 });
