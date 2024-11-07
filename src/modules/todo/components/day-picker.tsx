@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -8,30 +8,41 @@ import {
 } from 'react-native';
 import moment from 'moment';
 import {RFValue} from 'react-native-responsive-fontsize';
+import {DayListItem} from 'src/utils/types';
 
 interface DayPickerProps {
-  numberOfDays?: number; // Número de días a mostrar (opcional, por defecto será 7)
+  numberOfDays?: number;
+  onItemPressed: (item: DayListItem) => void;
 }
 
-const DayPicker: React.FC<DayPickerProps> = ({numberOfDays = 7}) => {
-  // Estado para la fecha seleccionada, por defecto el día actual
-  const [selectedDate, setSelectedDate] = useState(
-    moment().format('YYYY-MM-DD'),
-  );
+const DayPicker: React.FC<DayPickerProps> = ({
+  numberOfDays = 7,
+  onItemPressed,
+}) => {
+  const [selectedDate, setSelectedDate] = useState<DayListItem>({
+    title: 'All',
+    date: null,
+  });
 
-  // Generar las fechas más cercanas al día actual
-  const generateDates = () => {
-    let dates = [];
-    for (let i = 0; i < numberOfDays; i++) {
-      dates.push(moment().add(i, 'days'));
+  const generateDaysList = (num: number) => {
+    const daysList: DayListItem[] = [{title: 'All', date: null}];
+
+    for (let i = 1; i <= num; i++) {
+      const day = moment().add(i, 'days').startOf('day');
+      daysList.push({
+        title: `${day.format('ddd')}\n${day.format('DD')}`,
+        date: day,
+      });
     }
-    return dates;
+
+    return daysList;
   };
 
-  const dates = generateDates();
+  const dates = generateDaysList(numberOfDays);
 
-  const handleDateSelection = (date: string) => {
+  const handleDateSelection = (date: DayListItem) => {
     setSelectedDate(date);
+    onItemPressed(date);
   };
 
   return (
@@ -39,28 +50,20 @@ const DayPicker: React.FC<DayPickerProps> = ({numberOfDays = 7}) => {
       horizontal
       showsHorizontalScrollIndicator={false}
       contentContainerStyle={styles.scrollContainer}>
-      {dates.map(date => (
+      {dates.map((day, index) => (
         <TouchableOpacity
-          key={date.format('YYYY-MM-DD')}
+          key={index}
           style={[
             styles.dateContainer,
-            selectedDate === date.format('YYYY-MM-DD') &&
-              styles.selectedDateContainer,
+            selectedDate.title === day.title && styles.selectedDateContainer,
           ]}
-          onPress={() => handleDateSelection(date.format('YYYY-MM-DD'))}>
+          onPress={() => handleDateSelection(day)}>
           <Text
             style={[
               styles.dayText,
-              selectedDate === date.format('YYYY-MM-DD') && styles.selectedText,
+              selectedDate.title === day.title && styles.selectedText,
             ]}>
-            {date.format('ddd')} {/* Abreviatura del día (ej: Sun, Mon) */}
-          </Text>
-          <Text
-            style={[
-              styles.dateText,
-              selectedDate === date.format('YYYY-MM-DD') && styles.selectedText,
-            ]}>
-            {date.format('DD')} {/* Día del mes */}
+            {day.title}
           </Text>
         </TouchableOpacity>
       ))}
@@ -73,7 +76,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   dateContainer: {
-    width: RFValue(60),
+    width: 60,
     paddingVertical: 14,
     backgroundColor: '#33333348',
     borderRadius: 16,
@@ -85,9 +88,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   dayText: {
-    fontSize: 14,
+    fontSize: 16,
     color: '#999',
     fontWeight: 'bold',
+    textAlign: 'center',
   },
   dateText: {
     fontSize: 16,

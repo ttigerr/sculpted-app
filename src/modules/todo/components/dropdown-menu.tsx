@@ -5,11 +5,26 @@ import {
   IconButton,
   Divider,
   Text,
-  MD3Elevation,
+  MD3DarkTheme,
 } from 'react-native-paper';
 import {theme} from 'src/config/theme';
+import {PaperProvider} from 'react-native-paper';
+import {RFValue} from 'react-native-responsive-fontsize';
+import Icon from 'src/modules/core/components/icon';
 
-const DropdownMenu = ({onSelectShowCompleted, onSelectAll}) => {
+type DropdownMenuProps = {
+  onShowCompletedPressed: (showCompleteValue: boolean) => void;
+  onSelectAllPressed: (selectAllValue: boolean) => void;
+  isShowingCompleted: boolean;
+  isSelectedAll: boolean;
+};
+
+const DropdownMenu = ({
+  onShowCompletedPressed,
+  onSelectAllPressed,
+  isShowingCompleted,
+  isSelectedAll,
+}: DropdownMenuProps) => {
   const [visible, setVisible] = useState(false);
 
   const openMenu = () => setVisible(true);
@@ -20,35 +35,63 @@ const DropdownMenu = ({onSelectShowCompleted, onSelectAll}) => {
       visible={visible}
       onDismiss={closeMenu}
       theme={theme}
+      style={styles.menuContent}
       anchor={
         <IconButton
-          icon="dots-horizontal"
+          icon="dots-horizontal-circle-outline"
           size={24}
           iconColor="gray"
           onPress={openMenu}
-          style={styles.menuButton}
         />
       }
       contentStyle={styles.menuContent}>
       <Menu.Item
         onPress={() => {
           closeMenu();
-          onSelectShowCompleted();
+          onShowCompletedPressed(isShowingCompleted);
         }}
         title="Show Completed"
+        style={styles.item}
         titleStyle={styles.menuText}
-        leadingIcon="checkbox-blank-outline"
+        trailingIcon={() => (
+          <View style={styles.selectedIconContainer}>
+            <View
+              style={[
+                styles.selectedIconDot,
+                {
+                  backgroundColor: isShowingCompleted
+                    ? theme.colors.todoScreenTextColor
+                    : theme.colors.avartarBadgeDefaultColor,
+                },
+              ]}
+            />
+          </View>
+        )}
       />
-      <Divider />
+      {/* <Divider bold />
       <Menu.Item
         onPress={() => {
           closeMenu();
-          onSelectAll();
+          onSelectAllPressed(isSelectedAll);
         }}
         title="Select All"
         titleStyle={styles.menuText}
-        leadingIcon="check"
-      />
+        style={styles.item}
+        trailingIcon={() => (
+          <View style={styles.selectedIconContainer}>
+            <Icon
+              name="tick"
+              strokeColor={
+                isSelectedAll
+                  ? theme.colors.todoScreenTextColor
+                  : theme.colors.avartarBadgeDefaultColor
+              }
+              width={RFValue(12)}
+              height={RFValue(12)}
+            />
+          </View>
+        )}
+      /> */}
     </Menu>
   );
 };
@@ -59,12 +102,35 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   menuText: {
-    color: 'white',
+    color: theme.colors.textInputColor,
+    fontWeight: '600',
+    marginRight: 12,
   },
   anchorContainer: {
     borderRadius: 50,
     borderWidth: 1,
     borderColor: theme.colors.caption,
+  },
+  item: {
+    flexDirection: 'row',
+    color: theme.colors.textInputColor,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    paddingHorizontal: 10,
+  },
+  selectedIconContainer: {
+    height: RFValue(20),
+    width: undefined,
+    aspectRatio: 1 / 1,
+    padding: RFValue(3),
+    borderWidth: 1,
+    borderColor: theme.colors.listItemColor,
+    borderRadius: 20,
+    // marginLeft: 10,
+  },
+  selectedIconDot: {
+    flex: 1,
+    borderRadius: 20,
   },
 });
 

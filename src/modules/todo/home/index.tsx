@@ -15,7 +15,8 @@ import InfoCard from '../components/info-card';
 import CompassScore from 'src/modules/compass/components/compass-info-card';
 
 const TodoHome = (props: NavigationPropsType) => {
-  const {goBack, onTaskProgressPress} = useTodoHome(props);
+  const {goBack, onTaskProgressPress, onIncompletePress, onScheduledPress} =
+    useTodoHome(props);
   return (
     <MainWrapper colorArray={secondaryGradientColorList}>
       <ScrollView style={styles.container}>
@@ -26,32 +27,27 @@ const TodoHome = (props: NavigationPropsType) => {
           </Text>
         </View>
         <Separator height={RFValue(24)} />
-        <SearchBar />
-        <Separator height={RFValue(16)} />
-        <DayPicker />
-        <Separator height={RFValue(16)} />
-        <TaskProgress
-          date={new Date()}
-          completedTasks={30}
-          totalTasks={40}
-          onPress={onTaskProgressPress}
-        />
+        <TaskProgress date={new Date()} completedTasks={30} totalTasks={40} />
         <Separator height={RFValue(16)} />
         <View style={styles.cardsContainer}>
-          <TodayTask taskCount={30} />
+          <TodayTask taskCount={30} onPress={onTaskProgressPress} />
           <Separator width={RFValue(10)} />
           <View style={styles.infoCardsContainer}>
-            <InfoCard iconName="schedule" taskCount={5} infoText="Scheduled" />
+            <InfoCard
+              iconName="schedule"
+              taskCount={5}
+              infoText="Scheduled"
+              onPress={onScheduledPress}
+            />
             <Separator height={RFValue(10)} />
             <InfoCard
               iconName="tick-square"
               taskCount={7}
               infoText="Incomplete"
+              onPress={onIncompletePress}
             />
           </View>
         </View>
-        <Separator height={RFValue(30)} />
-        <CompassScore />
         <Separator height={RFValue(220)} />
       </ScrollView>
     </MainWrapper>
