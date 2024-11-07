@@ -7,6 +7,7 @@ import TodoHome from 'src/modules/todo/home';
 import TodoIncomplete from 'src/modules/todo/incomplete';
 import TodoSchedule from 'src/modules/todo/schedule';
 import TodoTaskList from 'src/modules/todo/task-list';
+import CompassHome from 'src/modules/compass/home';
 
 const Stack = createNativeStackNavigator();
 
@@ -38,6 +39,10 @@ const HomeNavigation = () => {
         name={navigationScreenNames.todoTaskList}
         component={TodoTaskList}
       />
+      {/* <Stack.Screen
+        name={navigationScreenNames.compassHome}
+        component={CompassHome}
+      /> */}
     </Stack.Navigator>
   );
 };

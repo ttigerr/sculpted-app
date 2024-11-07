@@ -28,3 +28,9 @@ export const secondaryGradientColorList = [
   {offset: '87%', color: theme.colors.background, opacity: '1'},
   {offset: '100%', color: theme.colors.background, opacity: '1'},
 ];
+
+export const tertiaryGradientColorList = [
+  {offset: '0%', color: theme.colors.gradientBackgroundTopTertiary, opacity: '1'},
+  {offset: '80%', color: theme.colors.background, opacity: '1'},
+  {offset: '100%', color: theme.colors.background, opacity: '1'},
+];

@@ -99,6 +99,19 @@ const fontConfig = {
     letterSpacing: 0.2,
     color: '#F4F4F4'
   },
+  body3: {
+    fontFamily: Platform.select({
+      web: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif',
+      ios: fonts.helveticaNeueRoman,
+      android: fonts.helveticaNeueRoman,
+      default: fonts.helveticaNeueRoman,
+    }),
+    fontWeight: '400',
+    lineHeight: 19.09,
+    fontSize: RFValue(10),
+    letterSpacing: 0.2,
+    color: '#F4F4F4'
+  },
   paragraph: {
     fontFamily: Platform.select({
       web: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif',
@@ -170,6 +183,7 @@ export const theme = {
     primaryTextColor: '#F4F4F4',
     gradientBackgroundTop: '#0E202CD6',
     gradientBackgroundTopSecondary: '#352013FF',
+    gradientBackgroundTopTertiary: '#251A14',
     gradientBackgroundBottom: '#3BD0D636',
     outlinedButtonBorderColor: '#F4F4F4',
     // TextInput

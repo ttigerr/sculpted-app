@@ -137,7 +137,13 @@ const Dashboard = (navigationProps: NavigationPropsType) => {
             <View style={styles.cardContent}>
               {/* compass's content */}
               <View style={styles.cardInner}>
-                <Card style={styles.cardContainer} width={CARD_WIDTH}>
+                <Card 
+                    style={styles.cardContainer} 
+                    width={CARD_WIDTH}
+                    onPress={() =>
+                        navigation.navigate(navigationScreenNames.compassHome)
+                    }
+                >
                   {/* Header's part */}
                   <View style={styles.cardTitleContainer}>
                     <View style={styles.innerCardTitleContainer}>
