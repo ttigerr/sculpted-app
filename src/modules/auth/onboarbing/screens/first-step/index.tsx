@@ -16,11 +16,13 @@ import {onboardingTenses} from 'src/consts/arrays';
 import {navigationScreenNames} from 'src/utils/navigation-screen-names';
 import useOnboardingFirstStep from './useOnboardingFirst';
 import SkillsChip from '../../components/skills-chip';
+import Toast from 'react-native-toast-message';
+import {toastConfig} from 'src/modules/core/ui-library/components/toast';
 
 const FirstStep = (props: NavigationPropsType) => {
-  const {goBack, toggleChip, selectedChips} = useOnboardingFirstStep(props);
-  const onSubmit = () =>
-    props.navigation.navigate(navigationScreenNames.onboardingSecondStep);
+  const {goBack, toggleChip, selectedChips, onSubmit} =
+    useOnboardingFirstStep(props);
+
   return (
     <MainWrapper>
       <ScrollView style={styles.container}>
@@ -62,10 +64,12 @@ const FirstStep = (props: NavigationPropsType) => {
             ListFooterComponent={() => <Separator height={RFValue(180)} />}
           />
         </View>
+        <Separator height={RFValue(100)} />
       </ScrollView>
       <View style={styles.buttonContainer}>
         <Button onPress={onSubmit} label="Continue" />
       </View>
+      <Toast config={toastConfig} />
     </MainWrapper>
   );
 };

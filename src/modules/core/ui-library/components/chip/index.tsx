@@ -40,7 +40,9 @@ const Chip: React.FC<PaperChipProps> = ({
 export default Chip;
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    backgroundColor: '#00000000',
+  },
   gradientContainer: {
     borderRadius: 100,
     borderWidth: 1,
@@ -53,6 +55,7 @@ const styles = StyleSheet.create({
     borderColor: theme.colors.outlinedButtonBorderColor,
     borderRadius: 100,
     alignItems: 'center',
+    backgroundColor: '#00000000',
   },
   outlinedText: {
     color: theme.colors.outlinedButtonBorderColor,

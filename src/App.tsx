@@ -6,6 +6,7 @@ import {SPLASH_SCREEN_DURATION} from './consts/constants';
 import MainNavigation from './navigation/main-navigation';
 import Splash from './modules/core/splash';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import {AppProvider} from './config/api/context/app-context';
 
 export default function App() {
   const [showSplash, setShowSplash] = useState(true);
@@ -21,10 +22,12 @@ export default function App() {
   }
 
   return (
-    <PaperProvider theme={theme}>
-      <GestureHandlerRootView style={{flex: 1}}>
-        <MainNavigation />
-      </GestureHandlerRootView>
-    </PaperProvider>
+    <AppProvider>
+      <PaperProvider theme={theme}>
+        <GestureHandlerRootView style={{flex: 1}}>
+          <MainNavigation />
+        </GestureHandlerRootView>
+      </PaperProvider>
+    </AppProvider>
   );
 }

@@ -14,3 +14,10 @@ export const SPLASH_SCREEN_DURATION = 2000;
 export const VIRTUES_MAX_SELECTION = 3;
 
 export const CARD_BORDER_RADIUS = RFValue(20)
+
+export const TOAST_BASE_CONFIG = {
+  type: 'success',
+  text1: 'Please select exactly 3 virtues to proceed.',
+  text2: 'Unselect or add virtues to continue',
+  visibilityTime: 2000
+}

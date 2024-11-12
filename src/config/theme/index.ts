@@ -174,6 +174,7 @@ export const theme = {
   colors: {
     ...DefaultTheme.colors,
     primary: '#42DBF0',
+    primaryContainer: '#42DBF0',
     secondary: '#0C0D0E',
     h1: '#F4F4F4',
     h2: '#F4F4F4',

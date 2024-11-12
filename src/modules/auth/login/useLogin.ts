@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import { NavigationPropsType } from 'src/utils/types';
 import { useForm, FieldValues } from 'react-hook-form';
 import { navigationScreenNames } from 'src/utils/navigation-screen-names';
+import { ScrollView, TextInput } from 'react-native';
 
 type LoginFormData = {
   email: string;
@@ -11,6 +12,11 @@ type LoginFormData = {
 
 const useLogin = (navigationProps: NavigationPropsType) => {
   const { navigation } = navigationProps;
+  const inputRefs = useRef<Array<TextInput | null>>([]);
+  const inputRef = useRef(null);
+  const scrollViewRef = useRef<ScrollView>(null);
+  const [inputPositions, setInputPositions] = useState<{ [key: string]: number }>({});
+  
   const { control, handleSubmit, formState: { errors, isValid }, getValues } = useForm<FieldValues | LoginFormData>({
     defaultValues: {
       email: 'email@email.com',
@@ -37,6 +43,24 @@ const useLogin = (navigationProps: NavigationPropsType) => {
     console.log('Login: ', data)
     navigation.navigate(navigationScreenNames.bottomNavigation)
   })
+
+  const handleInputFocus = (inputKey: string) => {
+    const inputOffsetY = inputPositions[inputKey];
+    if (inputOffsetY !== undefined) {
+      scrollViewRef.current?.scrollTo({
+        y: inputOffsetY + 100,
+        animated: true,
+      });
+    }
+  };
+
+  const storeInputPosition = (key: string, yPosition: number) => {
+    setInputPositions((prevPositions) => ({
+      ...prevPositions,
+      [key]: yPosition,
+    }));
+  };
+
   return {
     onSubmit,
     control,
@@ -46,6 +70,10 @@ const useLogin = (navigationProps: NavigationPropsType) => {
     emailRules,
     passwordRules,
     goToForgotPassword,
+    handleInputFocus,
+    inputRefs,
+    scrollViewRef,
+    storeInputPosition
   }
 }
 

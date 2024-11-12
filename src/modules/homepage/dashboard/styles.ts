@@ -118,6 +118,16 @@ const styles = StyleSheet.create ({
     },
     bookmark: {
         marginLeft: 20
+    },
+    spiralTextDecorationContainer: {
+        position: 'absolute',
+        bottom: 0,
+        left: 0
+    },
+    ovalTextDecorationContainer: {
+        position: 'absolute',
+        bottom: 0,
+        right: 0
     }
 });
 

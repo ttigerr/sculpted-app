@@ -1,3 +1,4 @@
+import React, {useState, forwardRef} from 'react';
 import {
   StyleSheet,
   View,
@@ -6,10 +7,9 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {TextInput as PaperTextInput} from 'react-native-paper';
-import {Controller, FieldValues, Control, FieldError} from 'react-hook-form';
+import {Controller, FieldValues, Control} from 'react-hook-form';
 import {theme} from 'src/config/theme';
 import Text from '../text';
-import React, {useState} from 'react';
 import Icon from 'src/modules/core/components/icon';
 
 type MtxInputPropsType = React.ComponentPropsWithRef<typeof TextInputBase> & {
@@ -18,7 +18,6 @@ type MtxInputPropsType = React.ComponentPropsWithRef<typeof TextInputBase> & {
   name: string;
   type?: 'password' | 'phone' | 'text';
   style?: TextStyle;
-  // error?: FieldError;
   errorMessage?: string;
   disabled?: boolean;
   success?: boolean;
@@ -53,83 +52,90 @@ type MtxInputPropsType = React.ComponentPropsWithRef<typeof TextInputBase> & {
   left?: React.ReactNode;
 };
 
-const TextInput: React.FC<MtxInputPropsType> = ({
-  placeholder,
-  label,
-  name,
-  type,
-  success,
-  disabled,
-  phonePrefix,
-  keyboardType,
-  customFunction,
-  control,
-  rules,
-  maxLength,
-  testID,
-  autoFocus,
-  prevPassword,
-  isPasswordRepeat,
-  validate,
-  defaultValue,
-  hasBorderError,
-  bottomLabel,
-  left,
-  ...rest
-}) => {
-  const isPassword = type == 'password';
-  const [showPassword, setShowPassword] = useState(isPassword);
-  return (
-    <View style={styles.container}>
-      <Text style={styles.label} variant="caption">
-        {label}
-      </Text>
-      <Controller
-        name={name}
-        control={control}
-        rules={rules}
-        render={({field: {onChange, onBlur, value}, fieldState: {error}}) => (
-          <>
-            <PaperTextInput
-              mode="outlined"
-              outlineColor={theme.colors.textInputBorderColor}
-              activeOutlineColor={theme.colors.textInputFocusBorderColor}
-              textColor={theme.colors.textInputColor}
-              placeholderTextColor={theme.colors.textInputBorderColor}
-              placeholder={placeholder}
-              theme={{roundness: 200}}
-              style={styles.input}
-              value={value}
-              onChangeText={onChange}
-              onBlur={onBlur}
-              left={left && <PaperTextInput.Icon icon={() => left} />}
-              right={
-                isPassword && (
-                  <PaperTextInput.Icon
-                    icon={() => (
-                      <Icon
-                        name={showPassword ? 'eye-show' : 'eye-hide'}
-                        size="normal"
-                      />
-                    )}
-                    onPress={() => setShowPassword(!showPassword)}
-                  />
-                )
-              }
-              secureTextEntry={showPassword}
-              {...rest}
-            />
-            {error && (
-              <Text style={styles.errorLabel} variant="caption">
-                {error.message}
-              </Text>
-            )}
-          </>
-        )}
-      />
-    </View>
-  );
-};
+const TextInput = forwardRef<TextInputBase, MtxInputPropsType>(
+  (
+    {
+      placeholder,
+      label,
+      name,
+      type,
+      success,
+      disabled,
+      phonePrefix,
+      keyboardType,
+      customFunction,
+      control,
+      rules,
+      maxLength,
+      testID,
+      autoFocus,
+      prevPassword,
+      isPasswordRepeat,
+      validate,
+      defaultValue,
+      hasBorderError,
+      bottomLabel,
+      left,
+      ...rest
+    },
+    ref,
+  ) => {
+    const isPassword = type == 'password';
+    const [showPassword, setShowPassword] = useState(isPassword);
+
+    return (
+      <View style={styles.container}>
+        <Text style={styles.label} variant="caption">
+          {label}
+        </Text>
+        <Controller
+          name={name}
+          control={control}
+          rules={rules}
+          render={({field: {onChange, onBlur, value}, fieldState: {error}}) => (
+            <>
+              <PaperTextInput
+                ref={ref}
+                mode="outlined"
+                outlineColor={theme.colors.textInputBorderColor}
+                activeOutlineColor={theme.colors.textInputFocusBorderColor}
+                textColor={theme.colors.textInputColor}
+                placeholderTextColor={theme.colors.textInputBorderColor}
+                placeholder={placeholder}
+                theme={{roundness: 200}}
+                style={styles.input}
+                value={value}
+                onChangeText={onChange}
+                onBlur={onBlur}
+                left={left && <PaperTextInput.Icon icon={() => left} />}
+                right={
+                  isPassword && (
+                    <PaperTextInput.Icon
+                      icon={() => (
+                        <Icon
+                          name={showPassword ? 'eye-show' : 'eye-hide'}
+                          size="normal"
+                        />
+                      )}
+                      onPress={() => setShowPassword(!showPassword)}
+                    />
+                  )
+                }
+                secureTextEntry={showPassword}
+                {...rest}
+              />
+              {error && (
+                <Text style={styles.errorLabel} variant="caption">
+                  {error.message}
+                </Text>
+              )}
+            </>
+          )}
+        />
+      </View>
+    );
+  },
+);
 
 export default TextInput;
 
@@ -140,9 +146,7 @@ const styles = StyleSheet.create({
     marginLeft: 8,
     fontSize: 12,
   },
-  container: {
-    // marginBottom: 25,
-  },
+  container: {},
   input: {
     fontSize: 16,
     color: theme.colors.textInputFocusBorderColor,
@@ -152,8 +156,5 @@ const styles = StyleSheet.create({
     color: 'red',
     alignSelf: 'flex-end',
     marginTop: 8,
-  },
-  passwordVisibleContainer: {
-    padding: 4,
   },
 });

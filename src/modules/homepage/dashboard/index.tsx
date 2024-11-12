@@ -21,6 +21,8 @@ import styles from './styles';
 import {RFValue} from 'react-native-responsive-fontsize';
 import {navigationScreenNames} from 'src/utils/navigation-screen-names';
 import {SCREEN_WIDTH} from 'src/consts/constants';
+import SpiralBg from '@assets/img/ic-spiral-bg';
+import OvalBg from '@assets/img/ic-oval-bg';
 
 // Data for compass's content
 const COMPPASS_DATA = [
@@ -128,22 +130,33 @@ const Dashboard = (navigationProps: NavigationPropsType) => {
             </View>
           </Pressable>
           {/* Gretting message */}
-          <Text variant="greeting">
-            {'Every day, let’s get closer to the best version of you!'}
-          </Text>
+          <View>
+            <Text variant="h1">{'Every day, let’s get'}</Text>
+            <View>
+              <View style={styles.spiralTextDecorationContainer}>
+                <SpiralBg width={90} />
+              </View>
+              <Text variant="h1">{'closer to the best'}</Text>
+            </View>
+            <View style={{alignSelf: 'flex-start'}}>
+              <View style={styles.ovalTextDecorationContainer}>
+                <OvalBg width={70} />
+              </View>
+              <Text variant="h1">{'version of you!'}</Text>
+            </View>
+          </View>
           {/* To-do list content */}
           <View style={styles.toDoListContainer}>
             <Text variant="caption">{"Today's task"}</Text>
             <View style={styles.cardContent}>
               {/* compass's content */}
               <View style={styles.cardInner}>
-                <Card 
-                    style={styles.cardContainer} 
-                    width={CARD_WIDTH}
-                    onPress={() =>
-                        navigation.navigate(navigationScreenNames.compassHome)
-                    }
-                >
+                <Card
+                  style={styles.cardContainer}
+                  width={CARD_WIDTH}
+                  onPress={() =>
+                    navigation.navigate(navigationScreenNames.compassHome)
+                  }>
                   {/* Header's part */}
                   <View style={styles.cardTitleContainer}>
                     <View style={styles.innerCardTitleContainer}>
