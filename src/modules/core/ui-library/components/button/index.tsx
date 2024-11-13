@@ -33,9 +33,7 @@ const Button: React.FC<UIButtonProps> = ({
       style={styles.outlinedContainer}
       {...rest}>
       {label ? (
-        <Text
-          style={[styles.buttonText, {fontSize: RFValue(14)}]}
-          variant="paragraph">
+        <Text style={[styles.buttonText, {fontSize: 14}]} variant="paragraph">
           {label}
         </Text>
       ) : (

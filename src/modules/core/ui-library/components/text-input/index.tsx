@@ -96,6 +96,7 @@ const TextInput = forwardRef<TextInputBase, MtxInputPropsType>(
             <>
               <PaperTextInput
                 ref={ref}
+                maxLength={maxLength}
                 mode="outlined"
                 outlineColor={theme.colors.textInputBorderColor}
                 activeOutlineColor={theme.colors.textInputFocusBorderColor}

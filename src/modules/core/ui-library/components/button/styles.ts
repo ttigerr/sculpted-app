@@ -6,19 +6,19 @@ import { RFValue } from "react-native-responsive-fontsize";
 const styles = StyleSheet.create({
   containedContainer: {
     backgroundColor: '#FFFFFF00',
-    paddingVertical: RFValue(6)
+    paddingVertical: 6
   },
   outlinedContainer: {
     borderWidth: 1,
     borderColor: theme.colors.outlinedButtonBorderColor,
-    paddingVertical: RFValue(6),
+    paddingVertical: 6,
     borderRadius: 200,
   },
   gradientContainer: {
     borderRadius: 200,
   },
   buttonText: {
-    fontSize: RFValue(18),
+    fontSize: 18,
     fontWeight: '600'
   },
 });

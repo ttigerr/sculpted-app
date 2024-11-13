@@ -1,4 +1,10 @@
-import {StyleSheet, View, FlatList, ScrollView} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  FlatList,
+  ScrollView,
+  SafeAreaView,
+} from 'react-native';
 import React from 'react';
 import MainWrapper from 'src/modules/core/components/wrapper/MainWrapper';
 import {
@@ -66,9 +72,9 @@ const FirstStep = (props: NavigationPropsType) => {
         </View>
         <Separator height={RFValue(100)} />
       </ScrollView>
-      <View style={styles.buttonContainer}>
+      <SafeAreaView style={styles.buttonContainer}>
         <Button onPress={onSubmit} label="Continue" />
-      </View>
+      </SafeAreaView>
       <Toast config={toastConfig} />
     </MainWrapper>
   );
@@ -112,8 +118,8 @@ const styles = StyleSheet.create({
   buttonContainer: {
     position: 'absolute',
     bottom: 0,
-    right: 0,
-    left: 0,
+    right: 20,
+    left: 20,
     backgroundColor: theme.colors.background,
     paddingTop: 20,
   },

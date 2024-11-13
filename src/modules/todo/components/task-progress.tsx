@@ -8,9 +8,9 @@ import {Separator} from 'src/modules/core/ui-library';
 import {CARD_BORDER_RADIUS} from 'src/consts/constants';
 import {theme} from 'src/config/theme';
 interface TaskProgressProps {
-  date: Date; // Fecha
-  completedTasks: number; // Número de tareas completadas
-  totalTasks: number; // Número total de tareas
+  date: Date;
+  completedTasks: number;
+  totalTasks: number;
   onPress?: () => void;
 }
 
@@ -20,7 +20,7 @@ const TaskProgress: React.FC<TaskProgressProps> = ({
   totalTasks,
   onPress,
 }) => {
-  const progress = completedTasks / totalTasks; // Porcentaje de progreso
+  const progress = completedTasks / totalTasks;
 
   return (
     <TouchableRipple onPress={onPress} style={styles.touchable}>
@@ -74,10 +74,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#444',
     borderRadius: 100,
     height: 24,
-    width: RFValue(62),
+    width: 62,
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: RFValue(15),
+    marginBottom: 15,
   },
   dateText: {
     color: theme.colors.primaryTextColor,
@@ -85,10 +85,10 @@ const styles = StyleSheet.create({
   },
   taskProgressText: {
     color: theme.colors.primaryTextColor,
-    fontSize: RFValue(16),
+    fontSize: 18,
     fontWeight: '600',
-    maxWidth: RFValue(100),
-    marginBottom: RFValue(22),
+    maxWidth: 100,
+    marginBottom: 22,
   },
   doneTextContainer: {
     flexDirection: 'row',
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   progressText: {
-    fontSize: RFValue(16),
+    fontSize: 16,
     color: theme.colors.primaryTextColor,
     fontWeight: 'bold',
     textAlign: 'center',

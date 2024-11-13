@@ -78,6 +78,7 @@ const Login = (props: NavigationPropsType) => {
               storeInputPosition('secondInput', event.nativeEvent.layout.y)
             }
           />
+          <Separator height={RFValue(14)} />
           <View style={styles.rememberMeContainer}>
             <CheckBox
               status={checked ? 'checked' : 'unchecked'}
@@ -137,7 +138,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   forgotPasswordLink: {
-    fontSize: RFValue(12),
+    fontSize: 14,
     color: theme.colors.caption,
   },
 });

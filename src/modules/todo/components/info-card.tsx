@@ -21,7 +21,7 @@ const InfoCard: React.FC<InfoCardProps> = ({
   taskCount,
   iconName,
   infoText,
-  iconSize = 'small',
+  iconSize = 'medium',
   onPress,
 }) => {
   return (
@@ -35,7 +35,7 @@ const InfoCard: React.FC<InfoCardProps> = ({
             {taskCount}
           </Text>
         </View>
-        <Separator height={RFValue(16)} />
+        <Separator height={RFValue(10)} />
         <Text variant="caption" style={styles.infoText}>
           {infoText}
         </Text>
@@ -69,13 +69,13 @@ const styles = StyleSheet.create({
   },
   infoText: {
     color: theme.colors.primaryTextColor,
-    fontSize: RFValue(14),
+    fontSize: 14,
     fontWeight: '600',
     maxWidth: RFValue(100),
   },
   taskCount: {
     color: theme.colors.primaryTextColor,
-    fontSize: RFValue(34),
+    fontSize: 34,
     textAlign: 'right',
     textAlignVertical: 'bottom',
     lineHeight: 36,

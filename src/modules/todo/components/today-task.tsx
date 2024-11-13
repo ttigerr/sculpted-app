@@ -16,10 +16,12 @@ const TodayTask: React.FC<TodayTaskProps> = ({taskCount, onPress}) => {
   return (
     <TouchableRipple onPress={onPress} style={styles.touchable}>
       <View style={styles.container}>
-        <View style={styles.iconContainer}>
-          <Icon name="to-do" size="small" />
+        <View style={styles.upperSection}>
+          <Text style={styles.title}>Today's task</Text>
+          <View style={styles.iconContainer}>
+            <Icon name="to-do" size="small" />
+          </View>
         </View>
-        <Text style={styles.title}>Today's task</Text>
         <Text variant="h1" style={styles.taskCount}>
           {taskCount}
         </Text>
@@ -31,6 +33,7 @@ const TodayTask: React.FC<TodayTaskProps> = ({taskCount, onPress}) => {
 const styles = StyleSheet.create({
   touchable: {
     flex: 1,
+    // maxHeight: 220,
     borderRadius: CARD_BORDER_RADIUS,
     overflow: 'hidden',
   },
@@ -42,26 +45,32 @@ const styles = StyleSheet.create({
     paddingTop: RFValue(16),
     justifyContent: 'space-between',
   },
+  upperSection: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+  },
   iconContainer: {
-    position: 'absolute',
-    top: 15,
-    right: 15,
+    width: 28,
+    height: undefined,
+    aspectRatio: 1 / 1,
+    alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: '#333',
-    borderRadius: 15,
-    padding: 5,
+    borderRadius: 10,
   },
   title: {
     color: theme.colors.primaryTextColor,
     fontSize: 18,
     fontWeight: '600',
-    maxWidth: RFValue(100),
+    maxWidth: 90,
   },
   taskCount: {
     color: theme.colors.primaryTextColor,
-    fontSize: RFValue(73),
+    fontSize: 84,
     textAlign: 'right',
     textAlignVertical: 'bottom',
-    lineHeight: 73,
+    lineHeight: 86,
   },
 });
 
