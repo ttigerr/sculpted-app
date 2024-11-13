@@ -36,6 +36,7 @@ import Schedule from 'assets/icons/ic-schedule.tsx';
 import TickSquare from 'assets/icons/ic-tick-square.tsx';
 import Plus from 'assets/icons/ic-plus.tsx';
 import Minus from 'assets/icons/ic-minus.tsx';
+import User from 'assets/icons/ic-user.tsx';
 
 const Icon = ({
   name,
@@ -149,9 +150,11 @@ const Icon = ({
     case 'tick-square':
       return <TickSquare {...localProps} />;
     case 'plus':
-      return <Plus {...localProps}/>;
-    case 'minus': 
-      return <Minus {...localProps}/>
+      return <Plus {...localProps} />;
+    case 'minus':
+      return <Minus {...localProps} />;
+    case 'user':
+      return <User {...localProps} />;
     default:
       return <View />;
   }

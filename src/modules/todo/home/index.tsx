@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
   },
   cardsContainer: {
     flexDirection: 'row',
-    height: RFValue(200),
+    // height: RFValue(200),
   },
   infoCardsContainer: {
     flex: 1,

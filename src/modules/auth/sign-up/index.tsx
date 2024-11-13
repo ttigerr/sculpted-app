@@ -22,6 +22,7 @@ const SignUp = (props: NavigationPropsType) => {
     errors,
     goToLogin,
     emailRules,
+    nameRules,
     passwordRules,
     confirmPasswordRules,
   } = useSignUp(props);
@@ -32,6 +33,16 @@ const SignUp = (props: NavigationPropsType) => {
         <Separator height={RFValue(92)} />
         <Text variant="h1">{'Unleash Your Full Potential!!'}</Text>
         <Separator height={RFValue(32)} />
+        <TextInput
+          control={control}
+          name="name"
+          label="Name"
+          rules={nameRules}
+          placeholder={'Enter your name'}
+          left={<Icon name="user" size="normal" />}
+          maxLength={50}
+        />
+        <Separator height={RFValue(18)} />
         <TextInput
           control={control}
           name="email"

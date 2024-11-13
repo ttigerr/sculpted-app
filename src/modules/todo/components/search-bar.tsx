@@ -44,6 +44,6 @@ const styles = StyleSheet.create({
   textInput: {
     color: theme.colors.editTextInputColor,
     marginLeft: RFValue(10),
-    fontSize: RFValue(16),
+    fontSize: 16,
   },
 });

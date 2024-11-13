@@ -30,7 +30,7 @@ const fontConfig = {
     }),
     fontWeight: '500',
     lineHeight: 32.33,
-    fontSize: RFValue(28),
+    fontSize: 28,
     letterSpacing: 0.5,
     color: '#F4F4F4'
   },
@@ -43,7 +43,7 @@ const fontConfig = {
     }),
     fontWeight: '500',
     lineHeight: 24.24,
-    fontSize: RFValue(20),
+    fontSize: 20,
     letterSpacing: 0.5,
     color: '#F4F4F4'
   },
@@ -56,7 +56,7 @@ const fontConfig = {
     }),
     fontWeight: '500',
     lineHeight: 24.24,
-    fontSize: RFValue(14),
+    fontSize: 14,
     letterSpacing: 0.5,
     color: '#F4F4F4'
   },
@@ -69,7 +69,7 @@ const fontConfig = {
     }),
     fontWeight: '400',
     lineHeight: 19.09,
-    fontSize: RFValue(16),
+    fontSize: 16,
     letterSpacing: 0.2,
     color: '#F4F4F4'
   },
@@ -82,7 +82,7 @@ const fontConfig = {
     }),
     fontWeight: '400',
     lineHeight: 19.09,
-    fontSize: RFValue(14),
+    fontSize: 14,
     letterSpacing: 0.2,
     color: '#F4F4F4'
   },
@@ -95,7 +95,7 @@ const fontConfig = {
     }),
     fontWeight: '400',
     lineHeight: 19.09,
-    fontSize: RFValue(12),
+    fontSize: 12,
     letterSpacing: 0.2,
     color: '#F4F4F4'
   },
@@ -108,7 +108,7 @@ const fontConfig = {
     }),
     fontWeight: '400',
     lineHeight: 19.09,
-    fontSize: RFValue(10),
+    fontSize: 10,
     letterSpacing: 0.2,
     color: '#F4F4F4'
   },
@@ -121,7 +121,7 @@ const fontConfig = {
     }),
     fontWeight: '400',
     lineHeight: 19.09,
-    fontSize: RFValue(15),
+    fontSize: 15,
     letterSpacing: 0.2,
     color: '#F4F4F4'
   },
@@ -134,7 +134,7 @@ const fontConfig = {
     }),
     fontWeight: '500',
     lineHeight: 14.65,
-    fontSize: RFValue(12),
+    fontSize: 12,
     letterSpacing: 0.2,
     color: '#F4F4F494'
   },
@@ -160,7 +160,7 @@ const fontConfig = {
     }),
     fontWeight: '500',
     lineHeight: 42.48,
-    fontSize: RFValue(32),
+    fontSize: 32,
     letterSpacing: 0.5,
     color: '#F4F4F4'
   },

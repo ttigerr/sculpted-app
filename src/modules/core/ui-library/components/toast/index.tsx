@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   text: {
     fontWeight: '600',
     color: theme.colors.h1,
-    fontSize: RFValue(12),
+    fontSize: 12,
     textAlign: 'center',
   },
 });

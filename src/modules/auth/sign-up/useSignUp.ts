@@ -12,6 +12,7 @@ const useSignUp = (navigationProps: NavigationPropsType) => {
   const { navigation } = navigationProps;
   const { control, handleSubmit, formState: { errors, isValid }, getValues } = useForm<FieldValues | SignUpFormData>({
     defaultValues: {
+      name: 'User',
       email: 'juansebastianp21@gmail.com',
       password: 'Matrix-123',
       confirmPassword: 'Matrix-123'
@@ -20,6 +21,9 @@ const useSignUp = (navigationProps: NavigationPropsType) => {
 
   const emailPattern = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/i;
   const passwordPattern = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,32}$/;
+  const nameRules = {required: 'Required field', maxLength: {
+    value: 50, message: 'Invalid name'
+  }}
   const emailRules = {required: 'Required field', pattern: {
     value: emailPattern, message: 'Invalid email'
   }}
@@ -52,6 +56,7 @@ const useSignUp = (navigationProps: NavigationPropsType) => {
     emailRules,
     passwordRules,
     confirmPasswordRules,
+    nameRules,
   }
 }
 
