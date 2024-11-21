@@ -72,14 +72,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     backgroundColor: '#00000000',
-    borderRadius: 25,
+    borderRadius: 36,
     padding: 5,
     borderWidth: 1,
     borderColor: theme.colors.textInputBorderColor,
   },
   option: {
     paddingVertical: RFValue(10),
-    paddingHorizontal: RFValue(32),
+    paddingHorizontal: 32,
     borderRadius: RFValue(200),
     justifyContent: 'center',
     alignItems: 'center',
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#00000000',
   },
   optionText: {
-    fontSize: RFValue(16),
+    fontSize: 16,
   },
   selectedText: {
     color: theme.colors.buttonText,
