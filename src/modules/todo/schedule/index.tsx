@@ -46,7 +46,7 @@ const TodoSchedule = (props: NavigationPropsType) => {
             onChangeText={handleSearch}
           />
           <Separator height={RFValue(32)} />
-          <DayPicker onItemPressed={handleDayPress} />
+          <DayPicker onItemPressed={handleDayPress} isAllButtonVisible />
           <Separator height={RFValue(32)} />
 
           {Object.keys(groupedTasks).length === 0 ? (

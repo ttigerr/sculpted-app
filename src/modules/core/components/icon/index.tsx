@@ -18,7 +18,7 @@ import Cancel from 'assets/icons/ic-cancel.tsx';
 import Calendar from 'assets/icons/ic-calendar.tsx';
 import Stat from 'assets/icons/ic-stat.tsx';
 import Profile from 'assets/icons/ic-profile.tsx';
-import Home from 'assets/icons/ic-home.tsx';
+import Home from 'assets/icons/ic-home-focused.tsx';
 import ToDo from 'assets/icons/ic-to-do.tsx';
 import Compass from 'assets/icons/ic-compass.tsx';
 import Bookmark from 'assets/icons/ic-bookmark.tsx';

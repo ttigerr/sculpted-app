@@ -31,7 +31,7 @@ const BottomNavigation = () => {
               iconName = focused ? 'profile' : 'profile';
               break;
           }
-          return <Icon name={iconName} size="normal" />;
+          return <Icon name={iconName} size={focused ? 'medium' : 'normal'} />;
         },
         tabBarShowLabel: false,
         tabBarBackground: () => (
