@@ -80,14 +80,14 @@ const handleInputSizeChange = (event) => {
                         {!isEditing?
                             (<Text variant='body3'>{'Save'}</Text>) 
                             : (
-                                <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
+                                <View style={styles.editButton}>
                                     <Text variant='body3'>{'Edit'}</Text>
-                                    <Icon name='edit' size='small'/>
+                                    <Icon name='edit' size='xsmall'/>
                                 </View>
                             )
                         }
                     </Pressable>
-                    <Pressable style={styles.cancel} onPress={handleCancel}>
+                    <Pressable style={styles.cancelButton} onPress={handleCancel}>
                         <Text variant='body3' style={{color: color}}>Cancel</Text>
                     </Pressable>
                 </View>
@@ -96,7 +96,7 @@ const handleInputSizeChange = (event) => {
         ) : savedNote? (
                 <Pressable onPress={handleEdit}>
                     <Text 
-                        variant='body3'
+                        variant='body2'
                         numberOfLines={1} // Set a text only display 1 line
                         ellipsizeMode="tail" // Display ...
                         style={{color: '#B1B2B2'}}
@@ -106,8 +106,10 @@ const handleInputSizeChange = (event) => {
                 </Pressable>
         ) : (
                 <TouchableOpacity style={styles.noteContainer} onPress={handleNoteButtonPress}>
-                    <Icon name="add" size="small"/>
-                    <Text variant="body" style={{fontSize: RFValue(9)}}>{'Notes...'}</Text>
+                    <View style={styles.addButton}>
+                        <Icon name='add' size='xsmall'/>
+                    </View>
+                    <Text style={{fontSize: RFValue(9), color: '#FFFFFF'}}>{'Notes...'}</Text>
                 </TouchableOpacity>
         )}
     </View>
@@ -138,31 +140,46 @@ const styles = StyleSheet.create({
         right: RFValue(10), // Position to the right
         backgroundColor: '#2B2C2C',
         paddingVertical: RFValue(3),
+        width: RFValue(50),
         borderRadius: 30,
-        width: RFValue(45),
         alignItems: 'center',
     },
-    cancel: {
+    cancelButton: {
         position: 'absolute',
         bottom: RFValue(10), // Position at the bottom
-        right: RFValue(60), // Position to the right
+        right: RFValue(70), // Position to the right
         backgroundColor: '#202122',
         paddingVertical: RFValue(3),
-        width: RFValue(45),
+        width: RFValue(50),
+        
         borderRadius: 30,
         alignItems: 'center',
+    },
+    editButton: {
+        flexDirection: 'row', 
+        justifyContent: 'space-between', 
+        alignItems: 'center'
     },
     noteContainer: {
         flexDirection:'row',
         alignItems: 'center',
-        justifyContent: 'space-between',
-        paddingHorizontal: 4,
+        justifyContent: 'flex-start',
+        padding: RFValue(2),
         borderRadius: 20,
         borderWidth: 1,
         borderColor: '#808181',
-        width: 80,
-        height: 23,
+        width: RFValue(70),
+        
     },
+    addButton: {
+        backgroundColor: '#5A5B5C',
+        width: RFValue(15),
+        height: RFValue(15),
+        borderRadius: 20,
+        marginRight: RFValue(5),
+        justifyContent: 'center',
+        alignItems: 'center'
+    }
 });
 
 
