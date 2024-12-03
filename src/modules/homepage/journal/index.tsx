@@ -9,6 +9,7 @@ import { Divider } from 'react-native-paper';
 import { RFValue } from "react-native-responsive-fontsize";
 import useSignUp from "src/modules/auth/sign-up/useSignUp";
 import AddNotesButton from "src/modules/compass/components/add-notes-button";
+import TaskList from "src/modules/todo/components/task-list";
 
 
 const Journal = (props:NavigationPropsType) => {
@@ -17,10 +18,6 @@ const Journal = (props:NavigationPropsType) => {
     const [task, setTask] = useState([]);
     const Tasks = task;
     const [nextId, setNextId] = useState(0)
-
-    // const [scale1, setScale1] = useState(0);
-    // const [scale2, setScale2] = useState(0);
-    // const [scale3, setScale3] = useState(0);
 
     // Handle click functions
     const { navigation } = props;
@@ -74,14 +71,20 @@ const Journal = (props:NavigationPropsType) => {
                     index === 0? 
                     (
                         <View>
-                            <Text variant="body2">{virtue.label}</Text>
+                            <View style={{flexDirection: "row"}}>
+                                <Text variant="body2">{virtue.label}</Text>
+                                <Text variant="delete">*</Text>
+                            </View>
                             <Sliders/>
                             {/* Add note's button */}
                             <AddNotesButton color={"#42DBF0"}/>
                         </View>
                     ) : (
                         <View style={{marginTop: 30}}>
-                            <Text variant="body2">{virtue.label}</Text>
+                            <View style={{flexDirection: "row"}}>
+                                <Text variant="body2">{virtue.label}</Text>
+                                <Text variant="delete">*</Text>
+                            </View>
                             <Sliders/>
                             {/* Add note's button */}
                             <AddNotesButton color={"#42DBF0"}/>
@@ -121,8 +124,10 @@ const Journal = (props:NavigationPropsType) => {
                <View style={styles.defaultContainer}>
                     <Text variant="body2">{"Add tasks for tomorrow's To Do List"}</Text>
                     <View style={styles.defaultContainer}>
-                        <TouchableOpacity style={{marginRight: 10}} onPress={handleClick}>
-                            <Icon name="add" size="normal"/>
+                        <TouchableOpacity style={{marginRight: RFValue(10)}} onPress={handleClick}>
+                        <View style={styles.addButton}>
+                            <Icon name='add' size='small'/>
+                        </View>
                         </TouchableOpacity>
                         <Text variant="body2">{"Add tasks"}</Text>
                     </View>

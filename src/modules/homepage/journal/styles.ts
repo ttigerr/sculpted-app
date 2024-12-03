@@ -1,4 +1,5 @@
 import { StyleSheet} from "react-native";
+import { RFValue } from "react-native-responsive-fontsize";
 import { theme } from "src/config/theme";
 
 const styles = StyleSheet.create ({
@@ -18,7 +19,7 @@ const styles = StyleSheet.create ({
     dividerContainer: {
         flexDirection:'row',
         alignItems: 'center',
-        marginVertical: 30,
+        marginVertical: RFValue(30),
     },
     divider: {
         borderColor: '#3b3c3d', 
@@ -30,7 +31,7 @@ const styles = StyleSheet.create ({
         borderColor: '#3b3c3d', 
         borderWidth: 0.7, 
         height: 0.5,
-        marginVertical: 30,
+        marginVertical: RFValue(30),
     },
     text: {
         color: "#9BA0A5",
@@ -45,17 +46,6 @@ const styles = StyleSheet.create ({
         alignItems: 'center',
         marginBottom: 20
     },
-    noteContainer: {
-        flexDirection:'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        paddingHorizontal: 4,
-        borderRadius: 20,
-        borderWidth: 1,
-        borderColor: '#808181',
-        width: 80,
-        height: 23,
-    },
     defaultContainer: {
         flexDirection:'row',
         justifyContent:'space-between',
@@ -67,12 +57,15 @@ const styles = StyleSheet.create ({
         alignItems: 'center',
         marginBottom: 30
     },
-    addTaskContainer: {
-        flexDirection:'row',
-        justifyContent:'space-between',
-        alignItems: 'center',
-        marginVertical: 10,
-    }
+    addButton: {
+        backgroundColor: '#5A5B5C',
+        width: RFValue(25),
+        height: RFValue(25),
+        borderRadius: 50,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    
 });
 
 export default styles;
