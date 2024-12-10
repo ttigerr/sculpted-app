@@ -15,24 +15,27 @@ const Card : React.FC<CardProps & CardPropItems> = ({
 }) => {
 
     return (
-        <LinearGradient
-            colors={theme.gradientColors.cardBorder}
-            start={{ x: 0, y: -1 }}
-            end={{ x: 0, y: 1}}
-            style={{
-                justifyContent: 'center',
-                flex: 1,
-                borderRadius: 30,
-                width: width,
-            }}
-            >
-                <CardItem style={[styles.container, style]} onPress={onPress} >
-                    {children}
-                </CardItem>
-        </LinearGradient>
-        // <CardItem style={[styles.container, style]} onPress={onPress} >
-        //     {children}
-        // </CardItem>
+        // Outlined gradients for card's container on dashboard page
+        // <LinearGradient
+        //     colors={theme.gradientColors.cardBorder}
+        //     start={{ x: 0, y: -1 }}
+        //     end={{ x: 0, y: 1}}
+        //     style={{
+        //         justifyContent: 'center',
+        //         flex: 1,
+        //         borderRadius: 30,
+        //         width: width,
+        //     }}
+        //     >
+        //         <CardItem style={[styles.container, style]} onPress={onPress} >
+        //             {children}
+        //         </CardItem>
+        // </LinearGradient>
+
+        // No gradient's version
+        <CardItem style={[styles.container, style]} onPress={onPress} >
+            {children}
+        </CardItem>
         
     )
 }

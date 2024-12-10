@@ -126,7 +126,7 @@ const Journal = (props:NavigationPropsType) => {
                     <View style={styles.defaultContainer}>
                         <TouchableOpacity style={{marginRight: RFValue(10)}} onPress={handleClick}>
                         <View style={styles.addButton}>
-                            <Icon name='add' size='small'/>
+                            <Icon name='addTask' size='small'/>
                         </View>
                         </TouchableOpacity>
                         <Text variant="body2">{"Add tasks"}</Text>

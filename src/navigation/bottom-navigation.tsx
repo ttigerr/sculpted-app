@@ -22,13 +22,13 @@ const BottomNavigation = () => {
           let iconName;
           switch (route.name) {
             case 'Stat':
-              iconName = focused ? 'stat' : 'stat';
+              iconName = focused ? 'statFocused' : 'stat';
               break;
             case 'Home':
-              iconName = focused ? 'home' : 'home';
+              iconName = focused ? 'homeFocused' : 'home';
               break;
             case 'Profile':
-              iconName = focused ? 'profile' : 'profile';
+              iconName = focused ? 'profileFocused' : 'profile';
               break;
           }
           return <Icon name={iconName} size={focused ? 'medium' : 'normal'} />;
@@ -85,6 +85,6 @@ const styles = StyleSheet.create({
   linearGradient: {
     flex: 1,
     borderRadius: 25,
-    opacity: 0.65,
+    // opacity: 0.65,
   },
 });

@@ -18,7 +18,7 @@ import Cancel from 'assets/icons/ic-cancel.tsx';
 import Calendar from 'assets/icons/ic-calendar.tsx';
 import Stat from 'assets/icons/ic-stat.tsx';
 import Profile from 'assets/icons/ic-profile.tsx';
-import Home from 'assets/icons/ic-home-focused.tsx';
+import Home from 'assets/icons/ic-home.tsx';
 import ToDo from 'assets/icons/ic-to-do.tsx';
 import Compass from 'assets/icons/ic-compass.tsx';
 import Bookmark from 'assets/icons/ic-bookmark.tsx';
@@ -37,6 +37,10 @@ import TickSquare from 'assets/icons/ic-tick-square.tsx';
 import Plus from 'assets/icons/ic-plus.tsx';
 import Minus from 'assets/icons/ic-minus.tsx';
 import User from 'assets/icons/ic-user.tsx';
+import HomeFocused from 'assets/icons/ic-home-focused.tsx';
+import StatFocued from 'assets/icons/ic-stat-focused.tsx';
+import ProfileFocused from 'assets/icons/ic-profile-focused.tsx';
+import AddTask from 'assets/icons/ic-add-task.tsx';
 
 const Icon = ({
   name,
@@ -119,10 +123,16 @@ const Icon = ({
       return <Calendar {...localProps} />;
     case 'stat':
       return <Stat {...localProps} />;
+    case 'statFocused':
+      return <StatFocued {...localProps} />;
     case 'home':
       return <Home {...localProps} />;
+    case 'homeFocused':
+      return <HomeFocused {...localProps} />;
     case 'profile':
       return <Profile {...localProps} />;
+    case 'profileFocused':
+      return <ProfileFocused {...localProps} />;
     case 'to-do':
       return <ToDo {...localProps} />;
     case 'compass':
@@ -155,6 +165,8 @@ const Icon = ({
       return <Minus {...localProps} />;
     case 'user':
       return <User {...localProps} />;
+    case 'addTask':
+      return <AddTask {...localProps} />;
     default:
       return <View />;
   }

@@ -149,64 +149,64 @@ const Dashboard = (navigationProps: NavigationPropsType) => {
           <View style={styles.toDoListContainer}>
             <Text variant="caption">{"Today's task"}</Text>
             <View style={styles.cardContent}>
-              {/* compass's content */}
-              <View style={styles.cardInner}>
-                <Card
-                  style={styles.cardContainer}
-                  width={CARD_WIDTH}
-                  onPress={() =>
-                    navigation.navigate(navigationScreenNames.compassHome)
-                  }>
-                  {/* Header's part */}
-                  <View style={styles.cardTitleContainer}>
-                    <View style={styles.innerCardTitleContainer}>
-                      <View style={styles.compassBorder} />
-                      <Text variant="body1">{'Compass'}</Text>
-                    </View>
-                    <View style={styles.iconContainer}>
-                      <Icon name="compass" size="normal" />
-                    </View>
-                  </View>
-                  <FlatList
-                    data={COMPPASS_DATA}
-                    renderItem={({item}) => (
-                      <CompassItem
-                        title={item.title}
-                        score={item.score}
-                        status={item.status}
-                      />
-                    )}
-                  />
-                  <View style={styles.progressBar}></View>
-                  <CustomProgressBar color="#EE7933" progress={0.5} />
-                </Card>
-              </View>
-              {/* To-do List's content */}
-              <View style={styles.cardInner}>
-                <Card
-                  style={styles.cardContainer}
-                  width={CARD_WIDTH}
-                  onPress={() =>
-                    navigation.navigate(navigationScreenNames.todoHome)
-                  }>
-                  <View style={styles.cardTitleContainer}>
-                    <View style={styles.innerCardTitleContainer}>
-                      <View style={styles.toDoBorder} />
-                      <Text variant="body1">{'To-Do'}</Text>
-                    </View>
-                    <View style={styles.iconContainer}>
-                      <Icon name="to-do" size="normal" />
-                    </View>
-                  </View>
-                  <FlatList
-                    data={TODO_DATA}
-                    renderItem={({item}) => (
-                      <ToDoProps title={item.title} status={item.status} />
-                    )}
-                  />
-                  <CustomProgressBar color="#FDDF38" progress={0.5} />
-                </Card>
-              </View>
+                {/* Compass Content */}
+                <View style={styles.compassInnerCard}>
+                    <Card
+                        style={styles.cardContainer}
+                        onPress={() => navigation.navigate(navigationScreenNames.compassHome)}
+                    >
+                        {/* Card Header */}
+                        <View style={styles.cardTitleContainer}>
+                        <View style={styles.innerCardTitleContainer}>
+                            <View style={styles.compassBorder} />
+                            <Text variant="body1">{'Compass'}</Text>
+                        </View>
+                        <View style={styles.iconContainer}>
+                            <Icon name="compass" size="normal" />
+                        </View>
+                        </View>
+                        {/* Card List */}
+                        <FlatList
+                        data={COMPPASS_DATA}
+                        renderItem={({ item }) => (
+                            <CompassItem
+                            title={item.title}
+                            score={item.score}
+                            status={item.status}
+                            />
+                        )}
+                        />
+                        {/* Progress Bar */}
+                        <CustomProgressBar color="#EE7933" progress={0.5} />
+                    </Card>
+                </View>
+                {/* To-do List's content */}
+                <View style={styles.cardInner}>
+                    <Card
+                        style={styles.cardContainer}
+                        onPress={() => navigation.navigate(navigationScreenNames.todoHome)}
+                    >
+                        {/* Card Header */}
+                        <View style={styles.cardTitleContainer}>
+                        <View style={styles.innerCardTitleContainer}>
+                            <View style={styles.toDoBorder} />
+                            <Text variant="body1">{'To-Do'}</Text>
+                        </View>
+                        <View style={styles.iconContainer}>
+                            <Icon name="to-do" size="normal" />
+                        </View>
+                        </View>
+                        {/* Card List */}
+                        <FlatList
+                        data={TODO_DATA}
+                        renderItem={({ item }) => (
+                            <ToDoProps title={item.title} status={item.status} />
+                        )}
+                        />
+                        {/* Progress Bar */}
+                        <CustomProgressBar color="#FDDF38" progress={0.5} />
+                    </Card>
+                </View>
             </View>
           </View>
           {/* Journal's content */}
