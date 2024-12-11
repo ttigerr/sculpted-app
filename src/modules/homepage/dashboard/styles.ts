@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet} from "react-native";
+import { RFValue } from "react-native-responsive-fontsize";
 import { theme } from "src/config/theme";
 import { SCREEN_WIDTH } from "src/consts/constants";
 
@@ -31,13 +32,18 @@ const styles = StyleSheet.create ({
     cardContent: {
         flexDirection: 'row',
         justifyContent:'space-between',
-        marginVertical: 10,
+        marginVertical: RFValue(10),
     },
     cardContainer: {
         // width: (SCREEN_WIDTH / 2) - 10,
-        height: 232,
+        // height: 232,
         justifyContent: 'center',
         alignContent: 'center',
+    },
+    compassInnerCard: {
+        flex: 1,
+        justifyContent: 'center',
+        marginRight: RFValue(5),
     },
     cardInner: {
         flex: 1,
@@ -54,7 +60,7 @@ const styles = StyleSheet.create ({
     cardTitleContainer: {
         display: 'flex',
         flexDirection: "row",
-        marginBottom: 25,
+        marginBottom: RFValue(20),
         alignItems: 'center', 
     },
     innerCardTitleContainer: {
@@ -76,23 +82,21 @@ const styles = StyleSheet.create ({
         borderWidth: 3,
         borderRadius: 3,
         borderColor: "#FDDF38",
-        marginRight: 5,
+        marginRight: RFValue(5),
     },
     compassDot: {
-        height: 13,
-        width: 13,
-        borderWidth: 1,
+        height: RFValue(10),
+        width: RFValue(10),
         borderRadius: 21,
         backgroundColor: "#EE7933",
-        marginRight: 5,
+        marginRight: RFValue(5),
     },
     toDoDot: {
-        height: 13,
-        width: 13,
-        borderWidth: 1,
+        height: RFValue(10),
+        width: RFValue(10),
         borderRadius: 21,
         backgroundColor: "#FDDF38",
-        marginRight: 5,
+        marginRight: RFValue(5),
     },
     defaultDot: {
         height: 13,

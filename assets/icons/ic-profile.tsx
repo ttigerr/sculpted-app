@@ -7,7 +7,7 @@ function SvgComponent({width, height, strokeColor}: IconProps) {
     <Svg
       width={width}
       height={height}
-      viewBox="0 0 20 26"
+      viewBox="0 0 24 27"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >

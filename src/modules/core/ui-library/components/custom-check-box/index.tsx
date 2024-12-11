@@ -1,7 +1,6 @@
 import React, { useState, useContext } from "react";
 import { GestureResponderEvent, StyleSheet, TouchableOpacity, View, ViewProps, TextInputProps } from "react-native";
 import Icon from 'src/modules/core/components/icon';
-import { ToDoListContext } from "src/utils/context";
 
 type IconProps = 'tick' | 'cross';
 type AnswerProps = "Yes" | "No";

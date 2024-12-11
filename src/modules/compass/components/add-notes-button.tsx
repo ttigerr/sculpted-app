@@ -81,7 +81,7 @@ const handleInputSizeChange = (event) => {
                             (<Text variant='body3'>{'Save'}</Text>) 
                             : (
                                 <View style={styles.editButton}>
-                                    <Text variant='body3'>{'Edit'}</Text>
+                                    <Text variant='body3' style={{marginRight: RFValue(3)}}>{'Edit'}</Text>
                                     <Icon name='edit' size='xsmall'/>
                                 </View>
                             )
@@ -156,8 +156,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     editButton: {
-        flexDirection: 'row', 
-        justifyContent: 'space-between', 
+        flexDirection: 'row',  
         alignItems: 'center'
     },
     noteContainer: {
