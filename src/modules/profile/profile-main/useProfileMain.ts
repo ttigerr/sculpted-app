@@ -24,7 +24,6 @@ const useProfileMain = (props: NavigationPropsType) => {
         goToEditScreen,
         resetPassword,
         journalReminder,
-        
     }
 }
 
