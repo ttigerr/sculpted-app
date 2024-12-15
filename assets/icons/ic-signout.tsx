@@ -7,12 +7,12 @@ function SvgComponent({width, height, strokeColor}: IconProps) {
     <Svg
       width={width}
       height={height}
-      viewBox="0 0 24 24"
+      viewBox="0 0 18 18"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
       <Path
-        d="M5 5h7V3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h7v-2H5V5zm16 7l-4-4v3H9v2h8v3l4-4z"
+        d="M2 2.5a.5.5 0 01.5-.5H9V0H2a2 2 0 00-2 2v14a2 2 0 002 2h7v-2H2.5a.5.5 0 01-.5-.5v-13zM18 9l-4-4v3H6v2h8v3l4-4z"
         fill="#F4F4F4"
       />
     </Svg>

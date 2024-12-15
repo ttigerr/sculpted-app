@@ -5,6 +5,7 @@ import {
   SafeAreaView,
   ScrollView,
   Pressable,
+  TouchableOpacity,
 } from 'react-native';
 import MainWrapper from 'src/modules/core/components/wrapper/MainWrapper';
 import {
@@ -20,14 +21,18 @@ import {NavigationPropsType} from 'src/utils/types';
 import useSignUp from 'src/modules/auth/sign-up/useSignUp';
 import GenderSelector from '../components/gender-selector';
 import {RFValue} from 'react-native-responsive-fontsize';
+import { theme } from 'src/config/theme';
+import styles from './style';
+import useProfileEdit from './useProfileEdit';
 
 const ProfileEdit = (props: NavigationPropsType) => {
   const {navigation} = props;
   const {control} = useSignUp(props);
 
-  const onCancelButtonPressed = () => {
-    navigation.goBack();
-  };
+  // Control the navigation for each screens
+  const {
+    onBackButtonPressed
+  } = useProfileEdit(props);
 
   return (
     <MainWrapper>
@@ -36,7 +41,7 @@ const ProfileEdit = (props: NavigationPropsType) => {
           <Separator height={RFValue(48)} />
           <View style={styles.headerContainer}>
             <Text variant="h3">{'General Details'}</Text>
-            <Pressable onPress={onCancelButtonPressed}>
+            <Pressable onPress={onBackButtonPressed}>
               <Icon name="cancel" size="small" style={styles.iconButton} />
             </Pressable>
           </View>
@@ -69,7 +74,17 @@ const ProfileEdit = (props: NavigationPropsType) => {
             placeholder={''}
             right={<Icon name="calendar" size="small" />}
           />
+          <Text variant='caption' style={styles.reminderText}>{"Reminders"}</Text>
+          <View style={styles.reminderContainer}>
+            <Text variant='body' style={{marginLeft: 8}}>{"Journal"}</Text>
+            <Pressable style={styles.reminderTime}>
+                <Text variant='body1' style={styles.time}>{'09:00 am'}</Text>
+            </Pressable>
+          </View>
+          <Separator height={RFValue(100)} />
+
           <Button label="Save Changes" />
+          <Separator height={RFValue(100)} />
         </ScrollView>
       </SafeAreaView>
     </MainWrapper>
@@ -78,19 +93,3 @@ const ProfileEdit = (props: NavigationPropsType) => {
 
 export default ProfileEdit;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  scrollView: {
-    paddingHorizontal: 20,
-  },
-  headerContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 25,
-  },
-  iconButton: {
-    margin: -10,
-  },
-});

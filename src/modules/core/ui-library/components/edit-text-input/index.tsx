@@ -106,10 +106,10 @@ export default EditTextInput;
 
 const styles = StyleSheet.create({
     label: {
-      color: theme.colors.editTextInputColor,
-      marginBottom: 10,
-      marginLeft: 8,
-      fontSize: 14,
+        color: theme.colors.textInputColor,
+        marginBottom: 10,
+        marginLeft: 8,
+        fontSize: 12,
     },
     container: {
       marginBottom: 25,

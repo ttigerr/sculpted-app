@@ -41,6 +41,7 @@ import HomeFocused from 'assets/icons/ic-home-focused.tsx';
 import StatFocued from 'assets/icons/ic-stat-focused.tsx';
 import ProfileFocused from 'assets/icons/ic-profile-focused.tsx';
 import AddTask from 'assets/icons/ic-add-task.tsx';
+import LockFocus from 'assets/icons/ic-lock-focused.tsx';
 
 const Icon = ({
   name,
@@ -167,6 +168,8 @@ const Icon = ({
       return <User {...localProps} />;
     case 'addTask':
       return <AddTask {...localProps} />;
+    case 'lockFocused':
+      return <LockFocus {...localProps} />;
     default:
       return <View />;
   }
