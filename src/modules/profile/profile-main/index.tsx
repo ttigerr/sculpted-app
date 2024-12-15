@@ -13,25 +13,33 @@ import {
   Avartar,
   ListItem,
   AlertDialog,
+  Separator,
 } from 'src/modules/core/ui-library';
 import {NavigationPropsType} from 'src/utils/types';
 import Icon from 'src/modules/core/components/icon';
 import {List} from 'react-native-paper';
 import {theme} from 'src/config/theme';
+import styles from './styles'
 import {navigationScreenNames} from 'src/utils/navigation-screen-names';
+import { RFValue } from 'react-native-responsive-fontsize';
+import useProfileMain from './useProfileMain';
 
 const ProfileMain = (navigationProps: NavigationPropsType) => {
   const {navigation} = navigationProps;
   const [visible, setVisible] = React.useState(false);
+
   const showDialog = () => {
     <AlertDialog title={'Title'} visible={true} children={undefined} />;
   };
 
-  const goToEditScreen = () => {
-    navigation.navigate(navigationScreenNames.edit);
-  };
+  const { 
+    onBackButtonPressed,
+    goToEditScreen,
+    resetPassword,
+    journalReminder,
 
-  const onBackButtonPressed = () => navigation.goBack();
+
+  } = useProfileMain(navigationProps)
 
   return (
     <MainWrapper>
@@ -44,14 +52,14 @@ const ProfileMain = (navigationProps: NavigationPropsType) => {
             </Pressable>
             <View style={styles.avartarBorder}>
               <Avartar size={76} source={require('assets/img/profile.jpeg')} />
-              {/* Fake icon */}
-              <View style={styles.icon} />
+              
+              {/* <View style={styles.icon} /> */}
             </View>
             {/* <IconButton name="edit" size="normal"/> */}
             <Pressable onPress={goToEditScreen}>
               <View style={styles.editContainer}>
-                <Text variant="body">{'Edit'}</Text>
-                <Icon name="edit" size="small" />
+                <Text variant="body2">{'Edit'}</Text>
+                <Icon name="edit" size="xsmall" />
               </View>
             </Pressable>
           </View>
@@ -80,16 +88,18 @@ const ProfileMain = (navigationProps: NavigationPropsType) => {
             <ListItem
               title="Reset Password"
               variant="body"
-              left={<Icon name="lock-outlined" size="normal" />}
+              left={<Icon name="lockFocused" size="normal" />}
               right={<Icon name="right-arrow" size="small" />}
+              onPress={resetPassword}
             />
           </List.Section>
           <List.Section style={styles.listContainer}>
             <ListItem
-              title="Reset Password"
+              title="Journal Reminder"
               variant="body"
               left={<Icon name="notification-outlined" size="normal" />}
               right={<Icon name="right-arrow" size="small" />}
+              onPress={journalReminder}
             />
           </List.Section>
           <List.Section style={styles.listContainer}>
@@ -103,6 +113,7 @@ const ProfileMain = (navigationProps: NavigationPropsType) => {
               title="Sign Out"
               variant="body"
               left={<Icon name="signout" size="normal" />}
+              right={<Text variant='body1' style={styles.userText}>{"#Username"}</Text>}
               style={styles.listItems}
             />
             <ListItem
@@ -112,6 +123,7 @@ const ProfileMain = (navigationProps: NavigationPropsType) => {
               onPress={showDialog}
             />
           </List.Section>
+          <Separator height={RFValue(220)} />
         </ScrollView>
       </SafeAreaView>
     </MainWrapper>
@@ -120,77 +132,3 @@ const ProfileMain = (navigationProps: NavigationPropsType) => {
 
 export default ProfileMain;
 
-// CSS Style
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: 50,
-  },
-  scrollView: {
-    paddingHorizontal: 20,
-  },
-  userNameContainer: {
-    flexDirection: 'column',
-    alignItems: 'center',
-    padding: 20,
-  },
-  headerContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  editContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: theme.colors.listItemColor,
-    height: 23,
-    minWidth: 50,
-  },
-  detailText: {
-    paddingBottom: 10,
-  },
-  detailContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    backgroundColor: theme.colors.listItemColor,
-    borderRadius: 20,
-    marginVertical: 10,
-  },
-  innerContainer1: {
-    flex: 1,
-    padding: 20,
-  },
-  innerContainer2: {
-    flex: 1,
-    borderColor: theme.colors.listItemBorderColor,
-    borderLeftWidth: 1,
-    padding: 20,
-  },
-  listContainer: {
-    backgroundColor: theme.colors.listItemColor,
-    borderRadius: 20,
-    marginVertical: 10,
-  },
-  listItems: {
-    borderColor: theme.colors.listItemBorderColor,
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
-    borderRadius: 0,
-  },
-  avartarBorder: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'flex-end',
-    borderWidth: 8,
-    borderColor: theme.colors.avartarBorderColor,
-    borderRadius: 50,
-  },
-  icon: {
-    borderRadius: 50,
-    height: 28,
-    width: 28,
-    backgroundColor: theme.colors.avartarBadgeDefaultColor,
-    marginLeft: -28,
-    marginBottom: -10,
-  },
-});
