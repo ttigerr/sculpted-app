@@ -20,14 +20,30 @@ import {NavigationPropsType} from 'src/utils/types';
 import useSignUp from 'src/modules/auth/sign-up/useSignUp';
 import GenderSelector from '../components/gender-selector';
 import {RFValue} from 'react-native-responsive-fontsize';
+import CalendarPicker from 'src/modules/core/components/date-picker';
+import moment from 'moment';
 
 const ProfileEdit = (props: NavigationPropsType) => {
   const {navigation} = props;
   const {control} = useSignUp(props);
+  const [date, setDate] = React.useState(moment());
+  const [open, setOpen] = React.useState(false);
 
   const onCancelButtonPressed = () => {
     navigation.goBack();
   };
+
+  const onDismissSingle = React.useCallback(() => {
+    setOpen(false);
+  }, [setOpen]);
+
+  const onConfirmDate = React.useCallback(
+    date => {
+      setOpen(false);
+      setDate(date);
+    },
+    [setOpen, setDate],
+  );
 
   return (
     <MainWrapper>
@@ -66,11 +82,16 @@ const ProfileEdit = (props: NavigationPropsType) => {
             control={control}
             name="Birthday"
             label="Birthday"
-            placeholder={''}
+            placeholder={date.format('MM/DD/YYYY')}
             right={<Icon name="calendar" size="small" />}
           />
-          <Button label="Save Changes" />
+          <Button onPress={() => setOpen(true)} label="Save Changes" />
         </ScrollView>
+        <CalendarPicker
+          selectedDate={date}
+          onDateSelect={onConfirmDate}
+          isVisible={open}
+        />
       </SafeAreaView>
     </MainWrapper>
   );
