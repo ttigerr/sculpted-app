@@ -87,9 +87,13 @@ const handleInputSizeChange = (event) => {
                             )
                         }
                     </Pressable>
-                    <Pressable style={styles.cancelButton} onPress={handleCancel}>
-                        <Text variant='body3' style={{color: color}}>Cancel</Text>
-                    </Pressable>
+                    {!isEditing && (
+                        <Pressable style={styles.cancelButton} onPress={handleCancel}>
+                            <Text variant="body3" style={{ color: color }}>
+                                Cancel
+                            </Text>
+                        </Pressable>
+                    )}
                 </View>
             </>
         // Display if there's saved note, otherwise display Add notes button
