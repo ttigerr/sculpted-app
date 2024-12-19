@@ -22,29 +22,21 @@ import GenderSelector from '../components/gender-selector';
 import DateButton from '../components/date-button';
 import {RFValue} from 'react-native-responsive-fontsize';
 import CalendarPicker from 'src/modules/core/components/date-picker';
+import useEditProfile from './useEditProfile';
 import moment from 'moment';
 
 const ProfileEdit = (props: NavigationPropsType) => {
   const {navigation} = props;
   const {control} = useSignUp(props);
-  const [date, setDate] = React.useState(moment());
-  const [open, setOpen] = React.useState(false);
-
-  const onCancelButtonPressed = () => {
-    navigation.goBack();
-  };
-
-  const onDismissSingle = React.useCallback(() => {
-    setOpen(false);
-  }, [setOpen]);
-
-  const onConfirmDate = React.useCallback(
-    date => {
-      setOpen(false);
-      setDate(date);
-    },
-    [setOpen, setDate],
-  );
+  const {
+    date,
+    open,
+    setDate,
+    setOpen,
+    onCancelButtonPressed,
+    onDismissSingle,
+    onConfirmDate,
+  } = useEditProfile(props);
 
   return (
     <MainWrapper>
