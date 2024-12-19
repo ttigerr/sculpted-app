@@ -40,6 +40,7 @@ const ProfileEdit = (props: NavigationPropsType) => {
     onCancelButtonPressed,
     onDismissSingle,
     onConfirmDate,
+    onRemindersPress,
   } = useEditProfile(props);
 
   return (
@@ -84,16 +85,18 @@ const ProfileEdit = (props: NavigationPropsType) => {
           <Text variant="caption" style={styles.reminderText}>
             {'Reminders'}
           </Text>
-          <View style={styles.reminderContainer}>
+          <Pressable
+            style={styles.reminderContainer}
+            onPress={onRemindersPress}>
             <Text variant="body" style={{marginLeft: 8}}>
               {'Journal'}
             </Text>
-            <Pressable style={styles.reminderTime}>
+            <View style={styles.reminderTime}>
               <Text variant="body1" style={styles.time}>
                 {'09:00 am'}
               </Text>
-            </Pressable>
-          </View>
+            </View>
+          </Pressable>
           <Separator height={RFValue(18)} />
           <Button onPress={onCancelButtonPressed} label="Save Changes" />
         </ScrollView>

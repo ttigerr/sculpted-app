@@ -16,7 +16,7 @@ const useProfileMain = (props: NavigationPropsType) => {
     };
 
     const journalReminder = () => {
-        navigation.navigate(navigationScreenNames.onboardingSecondStep, {from: navigationScreenNames.profileNavigation})
+        navigation.navigate(navigationScreenNames.reminderEdit, {from: navigationScreenNames.profileNavigation})
     }
 
     return {
