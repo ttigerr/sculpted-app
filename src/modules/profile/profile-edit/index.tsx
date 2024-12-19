@@ -20,19 +20,27 @@ import Icon from 'src/modules/core/components/icon';
 import {NavigationPropsType} from 'src/utils/types';
 import useSignUp from 'src/modules/auth/sign-up/useSignUp';
 import GenderSelector from '../components/gender-selector';
+import DateButton from '../components/date-button';
 import {RFValue} from 'react-native-responsive-fontsize';
-import { theme } from 'src/config/theme';
+import {theme} from 'src/config/theme';
 import styles from './style';
 import useProfileEdit from './useProfileEdit';
+import CalendarPicker from 'src/modules/core/components/date-picker';
+import useEditProfile from './useEditProfile';
+import moment from 'moment';
 
 const ProfileEdit = (props: NavigationPropsType) => {
   const {navigation} = props;
   const {control} = useSignUp(props);
-
-  // Control the navigation for each screens
   const {
-    onBackButtonPressed
-  } = useProfileEdit(props);
+    date,
+    open,
+    setDate,
+    setOpen,
+    onCancelButtonPressed,
+    onDismissSingle,
+    onConfirmDate,
+  } = useEditProfile(props);
 
   return (
     <MainWrapper>
@@ -41,7 +49,7 @@ const ProfileEdit = (props: NavigationPropsType) => {
           <Separator height={RFValue(48)} />
           <View style={styles.headerContainer}>
             <Text variant="h3">{'General Details'}</Text>
-            <Pressable onPress={onBackButtonPressed}>
+            <Pressable onPress={onCancelButtonPressed}>
               <Icon name="cancel" size="small" style={styles.iconButton} />
             </Pressable>
           </View>
@@ -67,29 +75,36 @@ const ProfileEdit = (props: NavigationPropsType) => {
             onGenderChange={gender => console.log('Gender: ', gender)}
           />
           <Separator height={RFValue(18)} />
-          <EditTextInput
-            control={control}
-            name="Birthday"
+          <DateButton
+            onPress={() => setOpen(true)}
             label="Birthday"
-            placeholder={''}
-            right={<Icon name="calendar" size="small" />}
+            innerText={date.format('MM/DD/YYYY')}
           />
-          <Text variant='caption' style={styles.reminderText}>{"Reminders"}</Text>
+          <Separator height={RFValue(18)} />
+          <Text variant="caption" style={styles.reminderText}>
+            {'Reminders'}
+          </Text>
           <View style={styles.reminderContainer}>
-            <Text variant='body' style={{marginLeft: 8}}>{"Journal"}</Text>
+            <Text variant="body" style={{marginLeft: 8}}>
+              {'Journal'}
+            </Text>
             <Pressable style={styles.reminderTime}>
-                <Text variant='body1' style={styles.time}>{'09:00 am'}</Text>
+              <Text variant="body1" style={styles.time}>
+                {'09:00 am'}
+              </Text>
             </Pressable>
           </View>
-          <Separator height={RFValue(100)} />
-
-          <Button label="Save Changes" />
-          <Separator height={RFValue(100)} />
+          <Separator height={RFValue(18)} />
+          <Button onPress={onCancelButtonPressed} label="Save Changes" />
         </ScrollView>
+        <CalendarPicker
+          selectedDate={date}
+          onDateSelect={onConfirmDate}
+          isVisible={open}
+        />
       </SafeAreaView>
     </MainWrapper>
   );
 };
 
 export default ProfileEdit;
-
