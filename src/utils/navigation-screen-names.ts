@@ -19,4 +19,5 @@ export const navigationScreenNames = {
   todoSchedule: 'TodoSchedule',
   todoTaskList: 'TodoTaskList',
   compassHome: 'CompassHome',
+  reminderEdit: 'ReminderEdit',
 }

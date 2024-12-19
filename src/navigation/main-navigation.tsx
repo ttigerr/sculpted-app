@@ -12,6 +12,7 @@ import TodoHome from 'src/modules/todo/home';
 import TodoIncomplete from 'src/modules/todo/incomplete';
 import TodoSchedule from 'src/modules/todo/schedule';
 import TodoTaskList from 'src/modules/todo/task-list';
+import ReminderEdit from 'src/modules/profile/reminder-edit';
 import {navigationScreenNames} from 'src/utils/navigation-screen-names';
 
 const Stack = createNativeStackNavigator();
@@ -65,6 +66,10 @@ const MainNavigation = () => {
         <Stack.Screen
           name={navigationScreenNames.todoTaskList}
           component={TodoTaskList}
+        />
+        <Stack.Screen
+          name={navigationScreenNames.reminderEdit}
+          component={ReminderEdit}
         />
       </Stack.Navigator>
     </NavigationContainer>

@@ -31,6 +31,10 @@ const useEditProfile = (navigationProps: NavigationPropsType) => {
     [setOpen, setDate],
   );
 
+  const onRemindersPress = () => {
+    navigation.navigate(navigationScreenNames.reminderEdit, {from: navigationScreenNames.profileNavigation})
+}
+
   return {
     date,
     open,
@@ -38,7 +42,8 @@ const useEditProfile = (navigationProps: NavigationPropsType) => {
     setOpen,
     onCancelButtonPressed,
     onDismissSingle,
-    onConfirmDate
+    onConfirmDate,
+    onRemindersPress
   }
 }
 
