@@ -19,6 +19,7 @@ import Icon from 'src/modules/core/components/icon';
 import {NavigationPropsType} from 'src/utils/types';
 import useSignUp from 'src/modules/auth/sign-up/useSignUp';
 import GenderSelector from '../components/gender-selector';
+import DateButton from '../components/date-button';
 import {RFValue} from 'react-native-responsive-fontsize';
 import CalendarPicker from 'src/modules/core/components/date-picker';
 import moment from 'moment';
@@ -78,14 +79,13 @@ const ProfileEdit = (props: NavigationPropsType) => {
             onGenderChange={gender => console.log('Gender: ', gender)}
           />
           <Separator height={RFValue(18)} />
-          <EditTextInput
-            control={control}
-            name="Birthday"
+          <DateButton
+            onPress={() => setOpen(true)}
             label="Birthday"
-            placeholder={date.format('MM/DD/YYYY')}
-            right={<Icon name="calendar" size="small" />}
+            innerText={date.format('MM/DD/YYYY')}
           />
-          <Button onPress={() => setOpen(true)} label="Save Changes" />
+          <Separator height={RFValue(18)} />
+          <Button onPress={onCancelButtonPressed} label="Save Changes" />
         </ScrollView>
         <CalendarPicker
           selectedDate={date}

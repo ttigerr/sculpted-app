@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import {Button} from 'react-native-paper';
 import moment from 'moment';
+import {SCREEN_HEIGHT} from 'src/consts/constants';
 
 const CalendarPicker = ({selectedDate, onDateSelect, isVisible}) => {
   const [currentDate, setCurrentDate] = useState(
@@ -71,6 +72,7 @@ const CalendarPicker = ({selectedDate, onDateSelect, isVisible}) => {
             <FlatList
               data={years}
               keyExtractor={item => item.toString()}
+              numColumns={3}
               renderItem={({item}) => (
                 <TouchableOpacity
                   onPress={() => changeYear(item)}
@@ -132,6 +134,7 @@ const CalendarPicker = ({selectedDate, onDateSelect, isVisible}) => {
           {/* Year Picker */}
           {renderYearPicker()}
         </View>
+        {/* <View style={}></View> */}
       </View>
     </Modal>
   );
@@ -194,10 +197,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'red',
   },
   yearPickerContainer: {
-    flex: 1,
     backgroundColor: '#000',
     justifyContent: 'center',
     alignItems: 'center',
+    height: SCREEN_HEIGHT * 0.6,
   },
   yearItem: {
     padding: 16,
