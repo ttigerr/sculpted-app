@@ -1,79 +1,110 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# SCULPTED App
 
-# Getting Started
+# SCULPTED - A React Native app
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+## Getting Started 🚀
 
-## Step 1: Start the Metro Server
+- Make sure to use your github account associated with the repository.
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+### Prerequisites
 
-To start Metro, run the following command from the _root_ of your React Native project:
+The dependency to run the project is to have installed **[node](https://nodejs.org/en/)** (>=v18), **yarn** and the following configurations:
 
-```bash
-# using npm
-npm start
+- Use React Native Command Line Interface.
+- [Setting up the development environment](https://reactnative.dev/docs/0.73/environment-setup).
+- Make sure to prepare the Android and iOS for using physical and virtual device.
 
-# OR using Yarn
-yarn start
-```
+### Quick Start
 
-## Step 2: Start your Application
+#### Usage
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
+After cloning the project you have to install all the dependencies.
 
-### For Android
+`$ yarn install`
 
-```bash
-# using npm
-npm run android
+and then run the project with two steps:
 
-# OR using Yarn
-yarn android
-```
+#### Step 1: Start Metro in a terminal
 
-### For iOS
+`$ yarn start`
 
-```bash
-# using npm
-npm run ios
+#### Step 2: Install iOS Pods
 
-# OR using Yarn
-yarn ios
-```
+`$ cd ios && pod install && cd`
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+#### Step 3: Start your application in another terminal
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+`$ yarn android`
 
-## Step 3: Modifying your App
+or
 
-Now that you have successfully run the app, let's modify it.
+`$ yarn ios`
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+## Tech Stack
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
+Sculpted app includes the following rock-solid technical decisions out of the box:
 
-## Congratulations! :tada:
+- React Native 0.73.7
+- React Navigation 6
+- Redux with Saga
+- TypeScript
+- And more!
 
-You've successfully run and modified your React Native App. :partying_face:
+## Development Guidelines
 
-### Now what?
+### Commit messages
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
+Make sure your commit message looks like:
 
-# Troubleshooting
+- {TAG}: {SHORT_DESCRIPTION}
 
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+e.g. `$ git commit -m "TAG: ITEM_ID - SHORT_DESCRIPTION"`
 
-# Learn More
+Where **{TAG}** => Any of the following:
 
-To learn more about React Native, take a look at the following resources:
+- BLD: change related to build scripts
+- FIX: hotfixes.
+- BUG: alias for bugfixes.
+- DOC: documentation
+- FEAT: features new features
+- ENH: Performance enhancements, refactors, not captured in features
+- REF: maintenance commit (refactoring, etc.)
+- STY: style fix (whitespaces, typos)
+- TST: addition or modification of tests
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+Definition:
+
+- **SHORT_DESCRIPTION**: A very short description
+- **ITEM_ID_LINK**: It is the link where the specification is.
+
+**Examples**:
+
+- **PR title**: FEAT: Auth: Add loading component to login page button
+
+  `$ git commit -m "FEAT: Auth: Add loading component to login page button"`
+
+### Branching model
+
+Make sure the follow the Gitflow Workflow which is a Local tracking branch. We must have at least three branches:
+
+- **main**: this should reflect the current state of what is in the production environment. Every new commit on master should comprise a new release only.
+- **develop**: this branch should contain the completed (and tested) upcoming features. It is common to create a separate branch for each feature and then merge it to develop when the feature is ready.
+- **feature**: user requirement during the development timespan.
+- **bug**: reported by the user in STG/UAT and tester during their testing
+- **hotfix**: reported by the user in production
+
+Let’s use a simple pattern like this.
+
+- bug_bug_title
+- hotfix_hotfix_title
+- feature_user_story_title
+
+**Examples:**
+
+- feature/update_references_the_new_card_component
+- bug/remove_location_host_in_dev
+- hotfix/update_server_var_to_support_xyz
+
+## Testing
+
+TBD
