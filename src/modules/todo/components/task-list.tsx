@@ -147,9 +147,16 @@ const TaskItem: React.FC<
                   event.stopPropagation();
                   onToggleComplete && onToggleComplete();
                 }}>
-                <View
-                  style={[styles.statusCircle, isCompleted && styles.completed]}
-                />
+                <View style={styles.itemOuterCircle}>
+                  <View
+                    style={[
+                      styles.itemInnerCircle,
+                      isCompleted && {
+                        backgroundColor: theme.colors.todoScreenTextColor,
+                      },
+                    ]}
+                  />
+                </View>
               </TouchableWithoutFeedback>
             </Animated.View>
             {/* </TouchableRipple> */}
@@ -255,8 +262,9 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     borderRadius: 10,
-    borderWidth: 2,
+    borderWidth: 1,
     borderColor: '#888',
+    padding: 2,
   },
   completed: {
     backgroundColor: '#FFD700',
@@ -299,6 +307,18 @@ const styles = StyleSheet.create({
     color: '#000',
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  itemOuterCircle: {
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#888',
+    padding: 2,
+  },
+  itemInnerCircle: {
+    flex: 1,
+    borderRadius: 10,
   },
 });
 

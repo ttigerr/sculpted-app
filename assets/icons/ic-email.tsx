@@ -2,35 +2,34 @@ import * as React from 'react';
 import Svg, {Rect, Path} from 'react-native-svg';
 import IconProps from 'src/modules/core/components/icon/types/iconTypes';
 
-function SvgComponent({width, height, strokeColor}: IconProps) {
+function SvgComponent({width = 52, height = 44, strokeColor}: IconProps) {
   return (
     <Svg
       width={width}
       height={height}
-      viewBox="0 0 24 20"
+      viewBox="0 0 52 44"
       fill="none"
       xmlns="http://www.w3.org/2000/svg">
       <Rect
-        x={1}
-        y={1}
-        width={22}
-        height={18}
-        rx={6}
-        stroke="#F4F4F4"
-        strokeWidth={2}
+        x={2.16667}
+        y={2.16667}
+        width={47.6667}
+        height={39}
+        rx={13}
+        stroke="#fff"
+        strokeWidth={4.33333}
       />
       <Path
-        d="M6 6l5.717 3.788a1 1 0 001.105 0L18.538 6"
-        stroke="#F4F4F4"
-        strokeWidth={2}
-        strokeLinecap="round"
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M23.886 18.44a1 1 0 01-.088 1.412L13.56 28.897a1 1 0 01-1.411-.087l-1.545-1.75a1 1 0 01.087-1.41l10.238-9.045a1 1 0 011.412.087l1.545 1.748zm6.941-1.748a1 1 0 011.412-.087l10.238 9.044a1 1 0 01.087 1.412l-1.545 1.748a1 1 0 01-1.411.088L29.37 19.852a1 1 0 01-.088-1.412l1.545-1.748z"
+        fill="#707070"
       />
       <Path
-        d="M6 12.23l3.918-3.46M18.539 12.23L14.62 8.77"
-        stroke="#1E1E1E"
-        strokeOpacity={0.44}
-        strokeWidth={2}
-        strokeLinecap="round"
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M11.838 10.83a1 1 0 011.386-.28l12.807 8.485a1 1 0 001.105 0l12.807-8.486a1 1 0 011.385.282l1.29 1.945a1 1 0 01-.282 1.386l-13.36 8.851a4.333 4.333 0 01-4.786 0l-13.36-8.851a1 1 0 01-.28-1.386l1.288-1.945z"
+        fill="#fff"
       />
     </Svg>
   );

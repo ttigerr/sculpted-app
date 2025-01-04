@@ -1,13 +1,18 @@
 import React from 'react';
 import {View, TouchableOpacity, StyleSheet} from 'react-native';
-import {Icon} from 'react-native-paper';
 import {theme} from 'src/config/theme';
+import Icon from '../icon';
 
 const FloatingButton = ({onPress}: {onPress: () => void}) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.button} onPress={onPress}>
-        <Icon source="plus" color={theme.colors.primaryTextColor} size={32} />
+        <Icon
+          name="plusRound"
+          strokeColor={theme.colors.primaryTextColor}
+          width={32}
+          height={32}
+        />
       </TouchableOpacity>
     </View>
   );

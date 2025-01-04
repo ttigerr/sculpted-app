@@ -78,12 +78,14 @@ export default BottomNavigation;
 
 const styles = StyleSheet.create({
   tabBarStyle: {
-    height: RFValue(70),
-    borderRadius: 25,
+    height: 80,
+    borderTopRightRadius: 25,
+    borderTopLeftRadius: 25,
     position: 'absolute',
   },
   linearGradient: {
     flex: 1,
+    marginTop: -10,
     borderRadius: 25,
     // opacity: 0.65,
   },
