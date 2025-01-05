@@ -42,6 +42,7 @@ import StatFocued from 'assets/icons/ic-stat-focused.tsx';
 import ProfileFocused from 'assets/icons/ic-profile-focused.tsx';
 import AddTask from 'assets/icons/ic-add-task.tsx';
 import LockFocus from 'assets/icons/ic-lock-focused.tsx';
+import Trash from 'assets/icons/ic-trash.tsx';
 import PlusRound from 'assets/icons/ic-plus-round.tsx';
 
 const Icon = ({
@@ -173,6 +174,8 @@ const Icon = ({
       return <LockFocus {...localProps} />;
     case 'plusRound':
       return <PlusRound {...localProps} />;
+    case 'trash':
+      return <Trash {...localProps} />;
     default:
       return <View />;
   }
