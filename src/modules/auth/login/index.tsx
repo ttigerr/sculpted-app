@@ -24,7 +24,7 @@ import {GoogleLogo, AppleLogo} from 'assets/img';
 import {IOS} from 'src/consts/constants';
 
 const Login = (props: NavigationPropsType) => {
-  const [checked, setChecked] = useState<boolean>(false);
+  const [checked, setChecked] = useState<boolean>(true);
 
   const {
     onSubmit,
@@ -81,7 +81,7 @@ const Login = (props: NavigationPropsType) => {
           <Separator height={RFValue(14)} />
           <View style={styles.rememberMeContainer}>
             <CheckBox
-              status={checked ? 'checked' : 'unchecked'}
+              checked={checked}
               onPress={() => {
                 setChecked(!checked);
               }}>

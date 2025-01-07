@@ -77,13 +77,18 @@ const useTodoSchedule = (props: NavigationPropsType) => {
     setTaskList(filteredTasks);
   }
 
+  const removeTaskById = (taskId: string) => {
+    setTaskList((prevTasks) => prevTasks.filter(task => task.id !== taskId));
+  };
+
   return {
     goBack,
     taskList,
     groupTasksByDate,
     toggleTaskCompletion,
     handleSearch,
-    handleDayPress
+    handleDayPress,
+    removeTaskById
   }
 }
 

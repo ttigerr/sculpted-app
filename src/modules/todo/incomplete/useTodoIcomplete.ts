@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { NavigationPropsType } from 'src/utils/types';
 import { VIRTUES_MAX_SELECTION } from 'src/consts/constants';
 import { navigationScreenNames } from 'src/utils/navigation-screen-names';
@@ -14,6 +14,11 @@ const useTodoIncomplete = (props: NavigationPropsType) => {
   const { navigation, route } = props
   const taskListParams = route.params.taskList
   const [taskList, setTaskList] = useState<Task[]>(taskListParams)
+  const [groupedTasks, setGroupedTasks] = useState()
+
+  useEffect(() => {
+    console.log('State is changed: ', taskList)
+  }, [taskList])
 
   const goBack = () => navigation.goBack();
 
@@ -22,6 +27,7 @@ const useTodoIncomplete = (props: NavigationPropsType) => {
       const dateKey = moment(task.creationDate).calendar(null, {
         sameDay: '[Today]',
         lastDay: '[Yesterday]',
+        nextDay: '[Tomorrow]',
         lastWeek: 'ddd DD MMM YYYY',
         sameElse: 'ddd DD MMM YYYY',
       });
@@ -40,13 +46,20 @@ const useTodoIncomplete = (props: NavigationPropsType) => {
         task.id === taskId ? { ...task, isCompleted: !task.isCompleted } : task
       )
     );
+    setTimeout(() => removeTaskById(taskId), 500)
   };
+
+  const removeTaskById = (taskId: string) => {
+    setTaskList((prevTasks) => prevTasks.filter(task => task.id !== taskId));
+  };
+
 
   return {
     goBack,
     taskList,
     groupTasksByDate,
-    toggleTaskCompletion
+    toggleTaskCompletion,
+    removeTaskById
   }
 }
 

@@ -74,7 +74,7 @@ const SignUp = (props: NavigationPropsType) => {
         />
         <Separator height={RFValue(24)} />
         <CheckBox
-          status={checked ? 'checked' : 'unchecked'}
+          checked={checked}
           onPress={() => {
             setChecked(!checked);
           }}>

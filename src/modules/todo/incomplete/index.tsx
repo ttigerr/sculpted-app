@@ -14,10 +14,16 @@ import {Text, Separator} from 'src/modules/core/ui-library';
 import {RFValue} from 'react-native-responsive-fontsize';
 import {List} from 'react-native-paper';
 import {theme} from 'src/config/theme';
+import TaskItem from './components/incomplete-task-item';
 
 const TodoIncomplete = (props: NavigationPropsType) => {
-  const {goBack, taskList, groupTasksByDate, toggleTaskCompletion} =
-    useTodoIncomplete(props);
+  const {
+    goBack,
+    taskList,
+    groupTasksByDate,
+    toggleTaskCompletion,
+    removeTaskById,
+  } = useTodoIncomplete(props);
   const groupedTasks = groupTasksByDate(taskList);
   return (
     <MainWrapper colorArray={secondaryGradientColorList}>
@@ -27,38 +33,26 @@ const TodoIncomplete = (props: NavigationPropsType) => {
           <Text variant="paragraph">{'Lists'}</Text>
         </View>
         <Separator height={RFValue(32)} />
-        <Text variant="h2">{'Incomplete'}</Text>
+        <Text variant="h2" style={{paddingHorizontal: RFValue(16)}}>
+          {'Incomplete'}
+        </Text>
         {Object.keys(groupedTasks).map(date => (
           <List.Section key={date}>
-            <Text style={{fontWeight: 'bold', color: '#fff', marginBottom: 5}}>
+            <Text
+              style={{
+                fontWeight: 'bold',
+                color: '#fff',
+                marginBottom: 5,
+                marginTop: 14,
+                paddingHorizontal: RFValue(16),
+              }}>
               {date}
             </Text>
             {groupedTasks[date].map(task => (
-              <List.Item
-                key={task.id}
-                title={task.title}
-                description={task.description}
-                left={() => (
-                  <TouchableWithoutFeedback
-                    onPress={event => {
-                      event.stopPropagation();
-                      toggleTaskCompletion && toggleTaskCompletion(task.id);
-                    }}>
-                    <View style={styles.itemOuterCircle}>
-                      <View
-                        style={[
-                          styles.itemInnerCircle,
-                          task.isCompleted && {
-                            backgroundColor: theme.colors.todoScreenTextColor,
-                          },
-                        ]}
-                      />
-                    </View>
-                  </TouchableWithoutFeedback>
-                )}
-                titleStyle={{color: '#fff'}}
-                descriptionStyle={{color: '#bbb'}}
-                style={styles.listItem}
+              <TaskItem
+                task={task}
+                toggleTaskCompletion={toggleTaskCompletion}
+                onTaskDelete={removeTaskById}
               />
             ))}
           </List.Section>
@@ -74,7 +68,7 @@ export default TodoIncomplete;
 const styles = StyleSheet.create({
   container: {
     paddingTop: RFValue(52),
-    paddingHorizontal: RFValue(16),
+    // paddingHorizontal: RFValue(16),
   },
   backButton: {
     marginRight: 10,
@@ -83,6 +77,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
+    paddingHorizontal: RFValue(16),
   },
   listItem: {
     marginBottom: 10,
@@ -100,5 +95,23 @@ const styles = StyleSheet.create({
   itemInnerCircle: {
     flex: 1,
     borderRadius: 10,
+  },
+  listItemContainer: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    borderBottomColor: theme.colors.listItemBorderColor,
+    borderBottomWidth: 0.5,
+    paddingBottom: 10,
+    paddingTop: 10,
+  },
+  itemTextContainer: {
+    marginLeft: 10,
+  },
+  itemTitle: {
+    marginBottom: 6,
+    fontSize: 16,
+  },
+  itemDescription: {
+    fontSize: 14,
   },
 });
