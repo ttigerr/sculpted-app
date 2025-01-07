@@ -17,6 +17,8 @@ const useTaskList = (props: NavigationPropsType) => {
   const [newTask, setNewTask] = useState<Task | null>(null);
   const [isAdding, setIsAdding] = useState<boolean>(false);
   const [isShowingCompleted, setIsShowingCompleted] = useState<boolean>(false);
+  const [isSelectedAll, setIsSelectedAll] = useState<boolean>(false);
+  const [isConfirmationModalVisible, setIsConfirmationModalVisible] = useState<boolean>(false);
   const scrollViewRef = useRef(null);
 
   useEffect(() => {
@@ -92,6 +94,38 @@ const useTaskList = (props: NavigationPropsType) => {
     setIsShowingCompleted(!isShowingCompleted);
   };
 
+  const onSelectAllPressed = () => {
+    setIsSelectedAll(!isSelectedAll)
+    setTaskList(taskList.map(task => ({...task, isSelected: true})));
+  }
+
+  const handleCancelSelecting = () => {
+    setIsSelectedAll(false)
+    setTaskList(taskList.map(task => ({...task, isSelected: false})));
+  }
+
+  const handleToggleSelectItem = (taskId: String, isSelected: boolean) => {
+    setTaskList(taskList.map((item) =>
+      item.id === taskId
+        ? { ...item, isSelected: !isSelected}
+        : item
+    ));
+  }
+
+  const onDeleteSelectedTaskPressed = () => {
+    setIsConfirmationModalVisible(true)
+  }
+
+  const onConfirmationModalClose = () => {
+    setIsConfirmationModalVisible(false)
+  }
+
+  const removeSelectedTasks = (): void => {
+    onConfirmationModalClose();
+    handleCancelSelecting();
+    setTaskList(taskList.filter((task) => !task.isSelected));
+  };
+
   const { navigation } = props
 
   const goBack = () => navigation.goBack();
@@ -109,7 +143,15 @@ const useTaskList = (props: NavigationPropsType) => {
     handleCancelEdit,
     handleDeleteTask,
     isShowingCompleted,
-    handleShowCompleted
+    handleShowCompleted,
+    isSelectedAll,
+    onSelectAllPressed,
+    handleCancelSelecting,
+    handleToggleSelectItem,
+    isConfirmationModalVisible,
+    onDeleteSelectedTaskPressed,
+    onConfirmationModalClose,
+    removeSelectedTasks
   }
 }
 

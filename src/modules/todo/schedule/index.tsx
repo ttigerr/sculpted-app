@@ -18,6 +18,7 @@ import SearchBar from '../components/search-bar';
 import {List} from 'react-native-paper';
 import {theme} from 'src/config/theme';
 import DayPicker from '../components/day-picker';
+import ScheduledTaskItem from './components/schedule-task-item';
 
 const TodoSchedule = (props: NavigationPropsType) => {
   const {
@@ -27,6 +28,7 @@ const TodoSchedule = (props: NavigationPropsType) => {
     taskList,
     toggleTaskCompletion,
     handleDayPress,
+    removeTaskById,
   } = useTodoSchedule(props);
   const groupedTasks = groupTasksByDate(taskList);
 
@@ -41,12 +43,14 @@ const TodoSchedule = (props: NavigationPropsType) => {
             <Text variant="paragraph">{'Scheduled'}</Text>
           </View>
           <Separator height={RFValue(24)} />
-          <SearchBar
-            placeholder="Find your tasks"
-            onChangeText={handleSearch}
-          />
-          <Separator height={RFValue(32)} />
-          <DayPicker onItemPressed={handleDayPress} isAllButtonVisible />
+          <View style={styles.searchBarContainer}>
+            <SearchBar
+              placeholder="Find your tasks"
+              onChangeText={handleSearch}
+            />
+            <Separator height={RFValue(32)} />
+            <DayPicker onItemPressed={handleDayPress} isAllButtonVisible />
+          </View>
           <Separator height={RFValue(32)} />
 
           {Object.keys(groupedTasks).length === 0 ? (
@@ -57,36 +61,19 @@ const TodoSchedule = (props: NavigationPropsType) => {
             Object.keys(groupedTasks).map(date => (
               <List.Section key={date}>
                 <Text
-                  style={{fontWeight: 'bold', color: '#fff', marginBottom: 5}}>
+                  style={{
+                    fontWeight: 'bold',
+                    color: '#fff',
+                    marginBottom: 5,
+                    paddingHorizontal: RFValue(16),
+                  }}>
                   {date}
                 </Text>
                 {groupedTasks[date].map(task => (
-                  <List.Item
-                    key={task.id}
-                    title={task.title}
-                    description={task.description}
-                    left={() => (
-                      <TouchableWithoutFeedback
-                        onPress={event => {
-                          event.stopPropagation();
-                          toggleTaskCompletion && toggleTaskCompletion(task.id);
-                        }}>
-                        <View style={styles.itemOuterCircle}>
-                          <View
-                            style={[
-                              styles.itemInnerCircle,
-                              task.isCompleted && {
-                                backgroundColor:
-                                  theme.colors.todoScreenTextColor,
-                              },
-                            ]}
-                          />
-                        </View>
-                      </TouchableWithoutFeedback>
-                    )}
-                    titleStyle={{color: '#fff'}}
-                    descriptionStyle={{color: '#bbb'}}
-                    style={styles.listItem}
+                  <ScheduledTaskItem
+                    task={task}
+                    toggleTaskCompletion={toggleTaskCompletion}
+                    onTaskDelete={removeTaskById}
                   />
                 ))}
               </List.Section>
@@ -104,7 +91,7 @@ export default TodoSchedule;
 const styles = StyleSheet.create({
   container: {
     paddingTop: RFValue(52),
-    paddingHorizontal: RFValue(16),
+    // paddingHorizontal: RFValue(16),
   },
   navigationBarContainer: {
     flexDirection: 'row',
@@ -113,7 +100,10 @@ const styles = StyleSheet.create({
   },
   backButton: {
     position: 'absolute',
-    left: RFValue(0),
+    left: RFValue(16),
+  },
+  searchBarContainer: {
+    paddingHorizontal: RFValue(16),
   },
   itemOuterCircle: {
     width: 20,

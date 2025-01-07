@@ -31,6 +31,7 @@ export type Task = {
   description: string;
   isCompleted: boolean;
   isTemporary?: boolean;
+  isSelected?: boolean;
 };
 
 export type DayListItem = {

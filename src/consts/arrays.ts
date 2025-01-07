@@ -116,14 +116,6 @@ export const tasksListMock = [
     scheduledDate: +moment().add(1, 'days'), // Mañana
   },
   {
-    id: '11',
-    title: 'Dentist Appointment',
-    description: 'Teeth cleaning',
-    isCompleted: false,
-    creationDate: +moment().add(3, 'days'), // En 3 días
-    scheduledDate: +moment().add(3, 'days'), // En 3 días
-  },
-  {
     id: '12',
     title: 'Weekend Getaway',
     description: 'Plan a small trip',

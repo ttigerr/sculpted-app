@@ -18,6 +18,7 @@ import useTaskList from './useTaskList';
 import FloatingButton from 'src/modules/core/components/float-button';
 import {Appbar, Button} from 'react-native-paper';
 import {theme} from 'src/config/theme';
+import ConfirmationModal from 'src/modules/core/components/confirmation-modal';
 
 const TodoTaskList = (props: NavigationPropsType) => {
   const {
@@ -35,29 +36,50 @@ const TodoTaskList = (props: NavigationPropsType) => {
     handleDeleteTask,
     isShowingCompleted,
     handleShowCompleted,
+    isSelectedAll,
+    onSelectAllPressed,
+    handleCancelSelecting,
+    handleToggleSelectItem,
+    isConfirmationModalVisible,
+    onDeleteSelectedTaskPressed,
+    onConfirmationModalClose,
+    removeSelectedTasks,
   } = useTaskList(props);
   return (
     <MainWrapper colorArray={secondaryGradientColorList}>
-      {isAdding && (
+      {(isAdding || isSelectedAll) && (
         <Appbar.Header style={styles.appBar}>
           <Button
             textColor={theme.colors.h1}
             mode="text"
-            onPress={handleCancelEdit}>
+            onPress={isAdding ? handleCancelEdit : handleCancelSelecting}>
             {'Cancel'}
           </Button>
-          <Button
-            textColor={theme.colors.todoScreenTextColor}
-            mode="text"
-            onPress={handleSaveTask}>
-            {'Done'}
-          </Button>
+          {isSelectedAll && (
+            <Appbar.Content
+              title="Select items"
+              titleStyle={styles.titleStyle}
+            />
+          )}
+          {isAdding && (
+            <Button
+              textColor={theme.colors.todoScreenTextColor}
+              mode="text"
+              onPress={handleSaveTask}>
+              {'Done'}
+            </Button>
+          )}
         </Appbar.Header>
       )}
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={{flex: 1}}>
-        <ScrollView style={styles.container} ref={scrollViewRef}>
+        <ScrollView
+          style={[
+            styles.container,
+            {paddingTop: RFValue(isSelectedAll ? 22 : 82)},
+          ]}
+          ref={scrollViewRef}>
           <View style={styles.navigationBarContainer}>
             <BackButton style={styles.backButton} onPress={goBack} />
             <Text variant="paragraph">{'Today’s Task'}</Text>
@@ -71,17 +93,37 @@ const TodoTaskList = (props: NavigationPropsType) => {
           <TaskList
             isShowingCompleted={isShowingCompleted}
             onShowCompletedPressed={handleShowCompleted}
+            isSelectedAll={isSelectedAll}
+            onSelectAllPressed={onSelectAllPressed}
             taskList={taskList}
             onTaskPress={task => console.log(task)}
             handleToggleComplete={toggleTaskCompletion}
             newTask={newTask}
             setNewTask={setNewTask}
             onTaskDelete={handleDeleteTask}
+            handleToggleSelectItem={handleToggleSelectItem}
           />
           <Separator height={RFValue(220)} />
         </ScrollView>
       </KeyboardAvoidingView>
-      {!isAdding && <FloatingButton onPress={handleAddTask} />}
+      {!isAdding && !isSelectedAll && (
+        <FloatingButton onPress={handleAddTask} iconName="plusRound" />
+      )}
+      {isSelectedAll && (
+        <FloatingButton
+          onPress={onDeleteSelectedTaskPressed}
+          iconName="trash"
+        />
+      )}
+      <ConfirmationModal
+        visible={isConfirmationModalVisible}
+        title="Are you sure you want to delete your tasks?"
+        onClose={onConfirmationModalClose}
+        onPrimaryAction={removeSelectedTasks}
+        onSecondaryAction={onConfirmationModalClose}
+        primaryButtonText="Delete Task"
+        secondaryButtonText="Cancel"
+      />
     </MainWrapper>
   );
 };
@@ -90,7 +132,7 @@ export default TodoTaskList;
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: RFValue(82),
+    // paddingTop: RFValue(82),
     paddingHorizontal: RFValue(16),
   },
   navigationBarContainer: {
@@ -112,5 +154,9 @@ const styles = StyleSheet.create({
   appBar: {
     backgroundColor: theme.colors.background,
     justifyContent: 'space-between',
+  },
+  titleStyle: {
+    color: '#FFFFFF',
+    fontSize: RFValue(12),
   },
 });

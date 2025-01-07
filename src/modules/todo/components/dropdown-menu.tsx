@@ -19,6 +19,8 @@ type DropdownMenuProps = {
   isSelectedAll: boolean;
 };
 
+const SELECTED_ICON_SIZE = 16;
+
 const DropdownMenu = ({
   onShowCompletedPressed,
   onSelectAllPressed,
@@ -51,7 +53,7 @@ const DropdownMenu = ({
           onShowCompletedPressed(isShowingCompleted);
         }}
         title="Show Completed"
-        style={styles.item}
+        style={[styles.item, styles.firstItemBorder]}
         titleStyle={styles.menuText}
         trailingIcon={() => (
           <View style={styles.selectedIconContainer}>
@@ -68,14 +70,14 @@ const DropdownMenu = ({
           </View>
         )}
       />
-      {/* <Divider bold />
       <Menu.Item
         onPress={() => {
           closeMenu();
-          onSelectAllPressed(isSelectedAll);
+          onSelectAllPressed && onSelectAllPressed(isSelectedAll);
         }}
         title="Select All"
         titleStyle={styles.menuText}
+        contentStyle={{flex: 1}}
         style={styles.item}
         trailingIcon={() => (
           <View style={styles.selectedIconContainer}>
@@ -86,12 +88,12 @@ const DropdownMenu = ({
                   ? theme.colors.todoScreenTextColor
                   : theme.colors.avartarBadgeDefaultColor
               }
-              width={RFValue(12)}
-              height={RFValue(12)}
+              width={RFValue(8)}
+              height={RFValue(8)}
             />
           </View>
         )}
-      /> */}
+      />
     </Menu>
   );
 };
@@ -99,7 +101,8 @@ const DropdownMenu = ({
 const styles = StyleSheet.create({
   menuContent: {
     backgroundColor: '#333',
-    borderRadius: 10,
+    borderRadius: 22,
+    alignItems: 'flex-start',
   },
   menuText: {
     color: theme.colors.textInputColor,
@@ -112,25 +115,28 @@ const styles = StyleSheet.create({
     borderColor: theme.colors.caption,
   },
   item: {
-    flexDirection: 'row',
     color: theme.colors.textInputColor,
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 10,
+    width: '100%',
   },
   selectedIconContainer: {
-    height: RFValue(20),
+    height: RFValue(SELECTED_ICON_SIZE),
     width: undefined,
     aspectRatio: 1 / 1,
-    padding: RFValue(3),
+    padding: RFValue(2),
     borderWidth: 1,
     borderColor: theme.colors.listItemColor,
     borderRadius: 20,
-    // marginLeft: 10,
   },
   selectedIconDot: {
     flex: 1,
     borderRadius: 20,
+  },
+  firstItemBorder: {
+    borderBottomColor: '#FFFFFF',
+    borderBottomWidth: 1,
   },
 });
 

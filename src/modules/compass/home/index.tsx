@@ -67,7 +67,9 @@ const CompassHome = (props: NavigationPropsType) => {
           <DayPicker onItemPressed={() => {}} behindDays />
           <Separator height={RFValue(16)} />
           <CompassScore />
-          <Separator height={RFValue(16)} />
+          <Separator height={RFValue(24)} />
+          <Text variant="h3">{'Virtues'}</Text>
+          <Separator height={RFValue(24)} />
           {VIRTUE_ITEM.map(virtue => (
             <CompassItem name={virtue.name} />
           ))}
