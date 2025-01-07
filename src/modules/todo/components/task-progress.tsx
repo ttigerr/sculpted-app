@@ -14,6 +14,8 @@ interface TaskProgressProps {
   onPress?: () => void;
 }
 
+const PROGRESS_CIRCLE_SIZE = 100;
+
 const TaskProgress: React.FC<TaskProgressProps> = ({
   date,
   completedTasks,
@@ -44,7 +46,7 @@ const TaskProgress: React.FC<TaskProgressProps> = ({
             progress={progress}
             progressColor={'#FFD700'}
             backgroundColor={'#333'}
-            strokeWidth={14}
+            strokeWidth={16}
           />
           <Text style={styles.progressText}>{Math.round(progress * 100)}%</Text>
         </View>
@@ -100,8 +102,8 @@ const styles = StyleSheet.create({
     marginLeft: 8,
   },
   progressCircle: {
-    height: 100,
-    width: 100,
+    width: PROGRESS_CIRCLE_SIZE,
+    height: PROGRESS_CIRCLE_SIZE + 5,
   },
   rigthContainer: {
     alignItems: 'center',
