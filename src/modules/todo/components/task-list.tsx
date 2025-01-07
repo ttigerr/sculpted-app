@@ -18,6 +18,7 @@ import Animated, {
 import {PanGestureHandler} from 'react-native-gesture-handler';
 import {SCREEN_WIDTH} from 'src/consts/constants';
 import {RFValue} from 'react-native-responsive-fontsize';
+import Icon from 'src/modules/core/components/icon';
 const SWIPE_THRESHOLD = SCREEN_WIDTH * 0.3;
 const MAX_SWIPE_DISTANCE = -SCREEN_WIDTH * 0.5;
 
@@ -32,16 +33,20 @@ interface TaskListProps {
   onShowCompletedPressed: (isShowingCompleted: boolean) => void;
   isSelectedAll: boolean;
   onSelectAllPressed: (isSelectedAll: boolean) => void;
+  handleToggleSelectItem: (id: string, isSelected: boolean) => void;
 }
 
 const TaskItem: React.FC<
   Task & {
     onToggleComplete?: () => void;
+    handleToggleSelectItem?: () => void;
     onPress?: () => void;
     onTaskDelete: () => void;
     setNewTask?: any;
+    isSelectedAll?: boolean;
   }
 > = ({
+  id,
   title,
   description,
   isCompleted,
@@ -50,6 +55,9 @@ const TaskItem: React.FC<
   isTemporary,
   setNewTask,
   onTaskDelete,
+  isSelected,
+  handleToggleSelectItem,
+  isSelectedAll,
 }) => {
   const inputs = useRef<Array<TextInput | null>>([]);
   const translateX = useSharedValue(0);
@@ -128,6 +136,7 @@ const TaskItem: React.FC<
             <Text style={styles.deleteText}>Delete</Text>
           </Animated.View>
           <PanGestureHandler
+            enabled={!isSelectedAll}
             onGestureEvent={handleGestureEvent}
             onEnded={handleGestureEnd}>
             {/* <TouchableRipple
@@ -145,11 +154,35 @@ const TaskItem: React.FC<
               <TouchableWithoutFeedback
                 onPress={event => {
                   event.stopPropagation();
-                  onToggleComplete && onToggleComplete();
+                  if (isSelectedAll) {
+                    handleToggleSelectItem && handleToggleSelectItem();
+                  } else onToggleComplete && onToggleComplete();
                 }}>
                 <View
-                  style={[styles.statusCircle, isCompleted && styles.completed]}
-                />
+                  style={[
+                    styles.itemOuterCircle,
+                    isSelectedAll && {width: 24},
+                  ]}>
+                  <View
+                    style={[
+                      styles.itemInnerCircle,
+                      isCompleted && {
+                        backgroundColor: theme.colors.todoScreenTextColor,
+                      },
+                      isSelectedAll && {
+                        backgroundColor: theme.colors.todoSelectingItemColor,
+                      },
+                    ]}>
+                    {isSelected && (
+                      <Icon
+                        name="tick"
+                        strokeColor={'#FFFFFF'}
+                        width={RFValue(9)}
+                        height={RFValue(9)}
+                      />
+                    )}
+                  </View>
+                </View>
               </TouchableWithoutFeedback>
             </Animated.View>
             {/* </TouchableRipple> */}
@@ -171,6 +204,7 @@ const TaskList: React.FC<TaskListProps> = ({
   onShowCompletedPressed,
   isSelectedAll,
   onSelectAllPressed,
+  handleToggleSelectItem,
 }) => {
   return (
     <View style={styles.container}>
@@ -178,12 +212,14 @@ const TaskList: React.FC<TaskListProps> = ({
         <Text variant="paragraph" style={styles.header}>
           Lists
         </Text>
-        <DropdownMenu
-          isSelectedAll={isSelectedAll}
-          isShowingCompleted={isShowingCompleted}
-          onShowCompletedPressed={onShowCompletedPressed}
-          onSelectAllPressed={onSelectAllPressed}
-        />
+        {!isSelectedAll && (
+          <DropdownMenu
+            isSelectedAll={isSelectedAll}
+            isShowingCompleted={isShowingCompleted}
+            onShowCompletedPressed={onShowCompletedPressed}
+            onSelectAllPressed={onSelectAllPressed}
+          />
+        )}
       </View>
       <ScrollView>
         {taskList.map(task => (
@@ -198,6 +234,11 @@ const TaskList: React.FC<TaskListProps> = ({
             onToggleComplete={() => handleToggleComplete(task.id)}
             setNewTask={setNewTask}
             onTaskDelete={() => onTaskDelete(task.id)}
+            isSelected={task.isSelected}
+            isSelectedAll={isSelectedAll}
+            handleToggleSelectItem={() =>
+              handleToggleSelectItem(task.id, task.isSelected)
+            }
           />
         ))}
         {newTask && (
@@ -255,8 +296,9 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     borderRadius: 10,
-    borderWidth: 2,
+    borderWidth: 1,
     borderColor: '#888',
+    padding: 2,
   },
   completed: {
     backgroundColor: '#FFD700',
@@ -299,6 +341,21 @@ const styles = StyleSheet.create({
     color: '#000',
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  itemOuterCircle: {
+    width: 20,
+    height: undefined,
+    aspectRatio: 1 / 1,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: '#888',
+    padding: 2,
+  },
+  itemInnerCircle: {
+    flex: 1,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 

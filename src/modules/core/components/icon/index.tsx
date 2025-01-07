@@ -5,7 +5,7 @@ import Email from 'assets/icons/ic-email.tsx';
 import Lock from 'assets/icons/ic-lock.tsx';
 import EyeHide from 'assets/icons/ic-eye-hide.tsx';
 import EyeShow from 'assets/icons/ic-eye-show.tsx';
-import Thick from 'assets/icons/ic-eye-hide.tsx';
+import Thick from 'assets/icons/ic-thick.tsx';
 import LockOutlined from 'assets/icons/ic-lock-outlined.tsx';
 import NotificationOutlined from 'assets/icons/ic-notification-outlined.tsx';
 import QuestionMark from 'assets/icons/ic-question-mark.tsx';
@@ -42,6 +42,8 @@ import StatFocued from 'assets/icons/ic-stat-focused.tsx';
 import ProfileFocused from 'assets/icons/ic-profile-focused.tsx';
 import AddTask from 'assets/icons/ic-add-task.tsx';
 import LockFocus from 'assets/icons/ic-lock-focused.tsx';
+import Trash from 'assets/icons/ic-trash.tsx';
+import PlusRound from 'assets/icons/ic-plus-round.tsx';
 
 const Icon = ({
   name,
@@ -170,6 +172,10 @@ const Icon = ({
       return <AddTask {...localProps} />;
     case 'lockFocused':
       return <LockFocus {...localProps} />;
+    case 'plusRound':
+      return <PlusRound {...localProps} />;
+    case 'trash':
+      return <Trash {...localProps} />;
     default:
       return <View />;
   }

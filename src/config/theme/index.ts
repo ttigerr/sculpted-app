@@ -196,7 +196,7 @@ export const theme = {
     progressBarColor: '#F4F4F4',
     progressBarBackgroundColor: '#E7E7E745',
     editTextInputColor: '#BDC1C3',
-    floatButtonBackgroundColor: '#E1E1E19F',
+    floatButtonBackgroundColor: '#6B6B6A',
 
     // ListItem
     listItemColor: '#161616',
@@ -209,6 +209,7 @@ export const theme = {
     dashboardCardBackground: '#15151593',
     dashboardCardFilledBackground: '#151515',
     todoScreenTextColor: '#FDDF38',
+    todoSelectingItemColor: '#1877F2'
   },
   gradientColors: {
     button: ['#3BD0D6', '#428EC5'],

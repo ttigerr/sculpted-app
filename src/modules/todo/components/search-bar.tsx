@@ -10,12 +10,18 @@ import {IOS} from 'src/consts/constants';
 type SearchBarProps = {
   placeholder: string;
   onChangeText: (query: string) => void;
+  editable?: boolean;
 };
-const SearchBar = ({placeholder, onChangeText}: SearchBarProps) => {
+const SearchBar = ({
+  placeholder,
+  onChangeText,
+  editable = true,
+}: SearchBarProps) => {
   return (
     <View style={styles.container}>
       <Icon name="search" size="normal" />
       <TextInput
+        editable={editable}
         placeholder={placeholder}
         style={styles.textInput}
         placeholderTextColor={theme.colors.editTextInputColor}
