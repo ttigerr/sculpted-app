@@ -158,11 +158,7 @@ const TaskItem: React.FC<
                     handleToggleSelectItem && handleToggleSelectItem();
                   } else onToggleComplete && onToggleComplete();
                 }}>
-                <View
-                  style={[
-                    styles.itemOuterCircle,
-                    isSelectedAll && {width: 24},
-                  ]}>
+                <View style={[styles.itemOuterCircle]}>
                   <View
                     style={[
                       styles.itemInnerCircle,
@@ -176,7 +172,7 @@ const TaskItem: React.FC<
                     {isSelected && (
                       <Icon
                         name="tick"
-                        strokeColor={'#FFFFFF'}
+                        fill={theme.colors.background}
                         width={RFValue(9)}
                         height={RFValue(9)}
                       />
@@ -343,7 +339,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   itemOuterCircle: {
-    width: 20,
+    width: 26,
     height: undefined,
     aspectRatio: 1 / 1,
     borderRadius: 20,

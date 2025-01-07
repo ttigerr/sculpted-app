@@ -11,6 +11,7 @@ import {
 import {Button} from 'react-native-paper';
 import moment from 'moment';
 import {SCREEN_HEIGHT} from 'src/consts/constants';
+import {theme} from 'src/config/theme';
 
 const CalendarPicker = ({selectedDate, onDateSelect, isVisible}) => {
   const [currentDate, setCurrentDate] = useState(
@@ -162,7 +163,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   headerText: {
-    color: 'red',
+    color: theme.colors.calendarPrimaryTextColor,
     fontSize: 18,
     fontWeight: 'bold',
   },
@@ -171,7 +172,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
   },
   dayOfWeek: {
-    color: 'red',
+    color: theme.colors.calendarPrimaryTextColor,
     fontSize: 14,
   },
   calendarContainer: {
@@ -194,7 +195,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   dayButtonPressed: {
-    backgroundColor: 'red',
+    backgroundColor: theme.colors.calendarPrimaryTextColor,
   },
   yearPickerContainer: {
     backgroundColor: '#000',
@@ -206,7 +207,7 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   yearText: {
-    color: 'red',
+    color: theme.colors.calendarPrimaryTextColor,
     fontSize: 18,
   },
 });
