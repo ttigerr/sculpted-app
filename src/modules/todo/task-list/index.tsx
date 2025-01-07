@@ -74,7 +74,12 @@ const TodoTaskList = (props: NavigationPropsType) => {
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={{flex: 1}}>
-        <ScrollView style={styles.container} ref={scrollViewRef}>
+        <ScrollView
+          style={[
+            styles.container,
+            {paddingTop: RFValue(isSelectedAll ? 22 : 82)},
+          ]}
+          ref={scrollViewRef}>
           <View style={styles.navigationBarContainer}>
             <BackButton style={styles.backButton} onPress={goBack} />
             <Text variant="paragraph">{'Today’s Task'}</Text>
@@ -127,7 +132,7 @@ export default TodoTaskList;
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: RFValue(82),
+    // paddingTop: RFValue(82),
     paddingHorizontal: RFValue(16),
   },
   navigationBarContainer: {
