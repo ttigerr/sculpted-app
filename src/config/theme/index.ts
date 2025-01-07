@@ -209,7 +209,7 @@ export const theme = {
     dashboardCardBackground: '#15151593',
     dashboardCardFilledBackground: '#151515',
     todoScreenTextColor: '#FDDF38',
-    todoSelectingItemColor: '#1877F2',
+    todoSelectingItemColor: '#FDDF389F',
     // Calendar
     calendarPrimaryTextColor: '#FF505A',
   },

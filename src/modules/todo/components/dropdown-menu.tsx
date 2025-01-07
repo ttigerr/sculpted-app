@@ -83,7 +83,7 @@ const DropdownMenu = ({
           <View style={styles.selectedIconContainer}>
             <Icon
               name="tick"
-              strokeColor={
+              fill={
                 isSelectedAll
                   ? theme.colors.todoScreenTextColor
                   : theme.colors.avartarBadgeDefaultColor

@@ -43,8 +43,8 @@ const CompassScore = ({
                 style={[
                   styles.progressCircle,
                   {
-                    height: SCREEN_WIDTH * 0.13 + 30 * index,
-                    width: SCREEN_WIDTH * 0.13 + 32 * index,
+                    height: SCREEN_WIDTH * 0.15 + 30 * index,
+                    width: SCREEN_WIDTH * 0.15 + 35 * index,
                   },
                 ]}
                 progress={value}
