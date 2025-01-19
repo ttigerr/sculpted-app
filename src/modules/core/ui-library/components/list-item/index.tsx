@@ -39,5 +39,7 @@ const styles = StyleSheet.create({
         height: 49,
         borderRadius:20,
         padding: 20,
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 });
