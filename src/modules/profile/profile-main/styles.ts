@@ -19,14 +19,18 @@ const styles = StyleSheet.create({
     headerContainer: {
       flexDirection: 'row',
       justifyContent: 'space-between',
+      alignContent: 'center',
+    },
+    editButton: {
+        width: RFValue(40)
     },
     editContainer: {
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',
       backgroundColor: theme.colors.listItemColor,
-      paddingVertical: RFValue(5),
-      paddingHorizontal: RFValue(7),
+      paddingVertical: RFValue(4),
+      width: RFValue(40),
       borderRadius: 30
     },
     detailText: {
@@ -53,6 +57,7 @@ const styles = StyleSheet.create({
       backgroundColor: theme.colors.listItemColor,
       borderRadius: 20,
       marginVertical: RFValue(10),
+      
     },
     listItems: {
       borderColor: theme.colors.listItemBorderColor,
@@ -60,13 +65,17 @@ const styles = StyleSheet.create({
       borderBottomWidth: 1,
       borderRadius: 0,
     },
-    avartarBorder: {
+    profileIconWrapper: {
       display: 'flex',
       flexDirection: 'row',
-      alignItems: 'flex-end',
+      justifyContent: 'center',
+      alignItems: 'center',
       borderWidth: 8,
       borderColor: theme.colors.avartarBorderColor,
       borderRadius: 50,
+    },
+    returnButton: {
+        width: RFValue(40),
     },
     userText: {
       color: theme.colors.primary,

@@ -47,14 +47,15 @@ const ProfileMain = (navigationProps: NavigationPropsType) => {
         <ScrollView style={styles.scrollView}>
           {/* Header container included return, avartar and edit buttion */}
           <View style={styles.headerContainer}>
-            <Pressable onPress={onBackButtonPressed}>
+            <Pressable onPress={onBackButtonPressed} style={styles.returnButton}>
               <Icon name="return" size="normal" />
             </Pressable>
-            <View style={styles.avartarBorder}>
+            <View style={styles.profileIconWrapper}>
               <Avartar size={76} source={require('assets/img/profile.jpeg')} />
               
               {/* <View style={styles.icon} /> */}
             </View>
+            
             {/* <IconButton name="edit" size="normal"/> */}
             <Pressable onPress={goToEditScreen}>
               <View style={styles.editContainer}>
