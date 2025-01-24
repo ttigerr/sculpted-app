@@ -19,10 +19,11 @@ const styles = StyleSheet.create({
     headerContainer: {
       flexDirection: 'row',
       justifyContent: 'space-between',
-      alignContent: 'center',
+      width: '100%',
+      
     },
     editButton: {
-        width: RFValue(40)
+        width: RFValue(0)
     },
     editContainer: {
       flexDirection: 'row',
@@ -30,7 +31,7 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       backgroundColor: theme.colors.listItemColor,
       paddingVertical: RFValue(4),
-      width: RFValue(40),
+      paddingHorizontal: RFValue(7),
       borderRadius: 30
     },
     detailText: {
@@ -66,20 +67,19 @@ const styles = StyleSheet.create({
       borderRadius: 0,
     },
     profileIconWrapper: {
-      display: 'flex',
-      flexDirection: 'row',
-      justifyContent: 'center',
-      alignItems: 'center',
       borderWidth: 8,
       borderColor: theme.colors.avartarBorderColor,
-      borderRadius: 50,
+      borderRadius: 90,
+      alignItems: 'center',
+      
     },
-    returnButton: {
-        width: RFValue(40),
+    flexBasis: {
+        flexBasis: '15%'
     },
     userText: {
       color: theme.colors.primary,
-    }
+    },
+    
     // icon: {
     //   borderRadius: 50,
     //   height: 28,

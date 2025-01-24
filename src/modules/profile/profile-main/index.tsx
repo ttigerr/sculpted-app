@@ -47,26 +47,25 @@ const ProfileMain = (navigationProps: NavigationPropsType) => {
         <ScrollView style={styles.scrollView}>
           {/* Header container included return, avartar and edit buttion */}
           <View style={styles.headerContainer}>
-            <Pressable onPress={onBackButtonPressed} style={styles.returnButton}>
+            <Pressable onPress={onBackButtonPressed} style={styles.flexBasis}>
               <Icon name="return" size="normal" />
             </Pressable>
             <View style={styles.profileIconWrapper}>
               <Avartar size={76} source={require('assets/img/profile.jpeg')} />
-              
               {/* <View style={styles.icon} /> */}
             </View>
-            
             {/* <IconButton name="edit" size="normal"/> */}
-            <Pressable onPress={goToEditScreen}>
-              <View style={styles.editContainer}>
-                <Text variant="body2">{'Edit'}</Text>
-                <Icon name="edit" size="xsmall" />
-              </View>
+            <Pressable onPress={goToEditScreen} style={styles.flexBasis}>
+                <View style={styles.editContainer}>
+                  <Text variant="body2">{'Edit'}</Text>
+                  <Icon name="edit" size="xsmall" />
+                </View>
             </Pressable>
           </View>
+          
           <View style={styles.userNameContainer}>
-            <Text variant="h1">{'User Name'}</Text>
-            <Text variant="body">{'Username@emailaddress.com'}</Text>
+              <Text variant="h1">{'User Name'}</Text>
+              <Text variant="body">{'Username@emailaddress.com'}</Text>
           </View>
           {/* Detail's section */}
           <Text variant="body">{'About me'}</Text>
