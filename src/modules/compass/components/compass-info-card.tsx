@@ -82,7 +82,7 @@ const CompassScore = ({
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#161718',
-    borderRadius: 16,
+    borderRadius: RFValue(14),
     paddingVertical: RFValue(16),
     paddingHorizontal: RFValue(12),
   },
@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
   dot: {
     width: RFValue(5),
     height: RFValue(5),
-    borderRadius: RFValue(4),
+    borderRadius: RFValue(2.5),
     marginRight: RFValue(8),
   },
   percentText: {
