@@ -15,13 +15,12 @@ const CompassScore = ({
   return (
     <View style={styles.container}>
       {/* Content Section */}
-      <View style={styles.contentContainer}>
-        {/* Left Side - Score */}
-        <View style={styles.leftContainer}>
+        {/* Title Section */}
+        <View style={styles.titleContainer}>
           <Text variant="body2" style={styles.title}>
             Today's compass
           </Text>
-          <View style={styles.scoreBox}>
+          {/* <View style={styles.scoreBox}>
             <Text style={styles.score}>{score}</Text>
             <View style={{marginLeft: RFValue(5)}}>
               <Text style={styles.percentText}>%</Text>
@@ -29,13 +28,13 @@ const CompassScore = ({
               <Text style={styles.labelText}>OVERALL</Text>
               <Text style={styles.labelText}>SCORE</Text>
             </View>
-          </View>
-        </View>
-        {/* Right Side - Radial Chart */}
-        <View style={styles.rightContainer}>
+          </View> */}
           <View style={styles.iconContainer}>
             <Icon name="compass" size="normal" />
           </View>
+        </View>
+        {/* <Separator height={60} /> */}
+        <View>
           <View style={styles.chartBox}>
             {segments.map((value, index) => (
               <ProgressCircle
@@ -44,7 +43,7 @@ const CompassScore = ({
                   styles.progressCircle,
                   {
                     height: SCREEN_WIDTH * 0.15 + 30 * index,
-                    width: SCREEN_WIDTH * 0.15 + 35 * index,
+                    width: SCREEN_WIDTH * 0.5 + 30 * index,
                   },
                 ]}
                 progress={value}
@@ -55,26 +54,22 @@ const CompassScore = ({
             ))}
           </View>
         </View>
-      </View>
-
-      {/* Spacer */}
-      <Separator height={RFValue(20)} />
-
-      {/* Labels at the Bottom */}
-      <View style={styles.labelsContainer}>
-        <View style={styles.labelItem}>
-          <View style={[styles.dot, {backgroundColor: colors[0]}]} />
-          <Text style={styles.labelText}>Professionalism</Text>
-        </View>
-        <View style={styles.labelItem}>
-          <View style={[styles.dot, {backgroundColor: colors[1]}]} />
-          <Text style={styles.labelText}>Dedication</Text>
-        </View>
-        <View style={styles.labelItem}>
-          <View style={[styles.dot, {backgroundColor: colors[2]}]} />
-          <Text style={styles.labelText}>Effort</Text>
-        </View>
-      </View>
+        <Separator height={10} />
+        {/* Labels at the Bottom */}
+        <View style={styles.labelsContainer}>
+            <View style={styles.labelItem}>
+              <View style={[styles.dot, {backgroundColor: colors[0]}]} />
+              <Text style={styles.labelText}>Professionalism</Text>
+            </View>
+            <View style={styles.labelItem}>
+              <View style={[styles.dot, {backgroundColor: colors[1]}]} />
+              <Text style={styles.labelText}>Dedication</Text>
+            </View>
+            <View style={styles.labelItem}>
+              <View style={[styles.dot, {backgroundColor: colors[2]}]} />
+              <Text style={styles.labelText}>Effort</Text>
+            </View>
+          </View>
     </View>
   );
 };
@@ -82,14 +77,13 @@ const CompassScore = ({
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#161718',
-    borderRadius: RFValue(14),
-    paddingVertical: RFValue(16),
-    paddingHorizontal: RFValue(12),
+    borderRadius: RFValue(25),
+    paddingVertical: RFValue(20),
+    paddingHorizontal: RFValue(20),
   },
   title: {
     color: '#FFFFFF',
     fontSize: 16,
-    maxWidth: 100,
     fontWeight: '500',
     marginBottom: 12,
   },
@@ -106,8 +100,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-end',
   },
-  leftContainer: {
-    flex: 0,
+  titleContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   scoreBox: {
     flexDirection: 'row',
@@ -126,26 +123,23 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     fontSize: RFValue(10),
   },
-  rightContainer: {
-    flex: 1,
-  },
   chartBox: {
-    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 10,
+    marginVertical: 70
+    
   },
   progressCircle: {
     position: 'absolute',
   },
   labelsContainer: {
     flexDirection: 'row',
-    // justifyContent: 'space-between',
+    justifyContent: 'space-between',
   },
   labelItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginRight: RFValue(20),
+    marginRight: 25,
   },
   dot: {
     width: RFValue(5),
