@@ -13,6 +13,7 @@ import {
   CustomProgressBar,
   Separator,
 } from 'src/modules/core/ui-library';
+import useDashboard from './useDashboard';
 import MainWrapper from 'src/modules/core/components/wrapper/MainWrapper';
 import {NavigationPropsType} from 'src/utils/types';
 import {theme} from 'src/config/theme';
@@ -94,6 +95,7 @@ const colorList = [
 const CARD_WIDTH = SCREEN_WIDTH / 2 - 20;
 
 const Dashboard = (navigationProps: NavigationPropsType) => {
+  const {userData} = useDashboard(navigationProps);
   const [focused, setFocused] = useState(false);
 
   // Navigate to Journal Screen
@@ -121,7 +123,7 @@ const Dashboard = (navigationProps: NavigationPropsType) => {
               <Text variant="caption" style={{paddingBottom: 10, fontSize: 14}}>
                 {"Let's start SCULPTING 👋"}
               </Text>
-              <Text variant="h3">{'User Name'}</Text>
+              {userData && <Text variant="h3">{userData.name}</Text>}
             </View>
           </Pressable>
           {/* Gretting message */}
