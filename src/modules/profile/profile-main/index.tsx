@@ -19,27 +19,21 @@ import {NavigationPropsType} from 'src/utils/types';
 import Icon from 'src/modules/core/components/icon';
 import {List} from 'react-native-paper';
 import {theme} from 'src/config/theme';
-import styles from './styles'
+import styles from './styles';
 import {navigationScreenNames} from 'src/utils/navigation-screen-names';
-import { RFValue } from 'react-native-responsive-fontsize';
+import {RFValue} from 'react-native-responsive-fontsize';
 import useProfileMain from './useProfileMain';
 
 const ProfileMain = (navigationProps: NavigationPropsType) => {
-  const {navigation} = navigationProps;
+  const {userData} = useProfileMain(navigationProps);
   const [visible, setVisible] = React.useState(false);
 
   const showDialog = () => {
     <AlertDialog title={'Title'} visible={true} children={undefined} />;
   };
 
-  const { 
-    onBackButtonPressed,
-    goToEditScreen,
-    resetPassword,
-    journalReminder,
-
-
-  } = useProfileMain(navigationProps)
+  const {onBackButtonPressed, goToEditScreen, resetPassword, journalReminder} =
+    useProfileMain(navigationProps);
 
   return (
     <MainWrapper>
@@ -56,16 +50,16 @@ const ProfileMain = (navigationProps: NavigationPropsType) => {
             </View>
             {/* <IconButton name="edit" size="normal"/> */}
             <Pressable onPress={goToEditScreen} style={styles.flexBasis}>
-                <View style={styles.editContainer}>
-                  <Text variant="body2">{'Edit'}</Text>
-                  <Icon name="edit" size="xsmall" />
-                </View>
+              <View style={styles.editContainer}>
+                <Text variant="body2">{'Edit'}</Text>
+                <Icon name="edit" size="xsmall" />
+              </View>
             </Pressable>
           </View>
-          
+
           <View style={styles.userNameContainer}>
-              <Text variant="h1">{'User Name'}</Text>
-              <Text variant="body">{'Username@emailaddress.com'}</Text>
+            {userData && <Text variant="h1">{userData.name}</Text>}
+            {userData && <Text variant="body">{userData.email}</Text>}
           </View>
           {/* Detail's section */}
           <Text variant="body">{'About me'}</Text>
@@ -113,7 +107,11 @@ const ProfileMain = (navigationProps: NavigationPropsType) => {
               title="Sign Out"
               variant="body"
               left={<Icon name="signout" size="normal" />}
-              right={<Text variant='body1' style={styles.userText}>{"#Username"}</Text>}
+              right={
+                <Text variant="body1" style={styles.userText}>
+                  {'#Username'}
+                </Text>
+              }
               style={styles.listItems}
             />
             <ListItem
@@ -131,4 +129,3 @@ const ProfileMain = (navigationProps: NavigationPropsType) => {
 };
 
 export default ProfileMain;
-

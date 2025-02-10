@@ -22,6 +22,7 @@ import {RFValue} from 'react-native-responsive-fontsize';
 import useLogin from './useLogin';
 import {GoogleLogo, AppleLogo} from 'assets/img';
 import {IOS} from 'src/consts/constants';
+import LoadingModal from 'src/modules/core/components/loading-modal';
 
 const Login = (props: NavigationPropsType) => {
   const [checked, setChecked] = useState<boolean>(true);
@@ -39,6 +40,7 @@ const Login = (props: NavigationPropsType) => {
     scrollViewRef,
     inputRefs,
     storeInputPosition,
+    loading,
   } = useLogin(props);
   return (
     <MainWrapper>
@@ -116,6 +118,7 @@ const Login = (props: NavigationPropsType) => {
           <Separator height={RFValue(82)} />
         </ScrollView>
       </KeyboardAvoidingView>
+      <LoadingModal visible={loading} />
     </MainWrapper>
   );
 };
