@@ -78,12 +78,11 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#161718',
     borderRadius: RFValue(25),
-    paddingVertical: RFValue(20),
-    paddingHorizontal: RFValue(20),
+    padding: RFValue(16)
   },
   title: {
     color: '#FFFFFF',
-    fontSize: 16,
+    fontSize: RFValue(14),
     fontWeight: '500',
     marginBottom: 12,
   },
@@ -121,7 +120,7 @@ const styles = StyleSheet.create({
   },
   labelText: {
     color: '#ffffff',
-    fontSize: RFValue(10),
+    fontSize: RFValue(9),
   },
   chartBox: {
     alignItems: 'center',
