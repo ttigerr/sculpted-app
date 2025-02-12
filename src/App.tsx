@@ -7,7 +7,8 @@ import Splash from './modules/core/splash';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {AppProvider} from './config/api/context/app-context';
 import {Provider as ReduxProvider} from 'react-redux';
-import {store} from './store/store';
+import {store, persistor} from './store/store';
+import {PersistGate} from 'redux-persist/integration/react';
 
 export default function App() {
   const [showSplash, setShowSplash] = useState(true);
@@ -25,11 +26,13 @@ export default function App() {
   return (
     <AppProvider>
       <ReduxProvider store={store}>
-        <PaperProvider theme={theme}>
-          <GestureHandlerRootView style={{flex: 1}}>
-            <MainNavigation />
-          </GestureHandlerRootView>
-        </PaperProvider>
+        <PersistGate persistor={persistor}>
+          <PaperProvider theme={theme}>
+            <GestureHandlerRootView style={{flex: 1}}>
+              <MainNavigation />
+            </GestureHandlerRootView>
+          </PaperProvider>
+        </PersistGate>
       </ReduxProvider>
     </AppProvider>
   );
