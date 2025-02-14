@@ -63,9 +63,9 @@ const CompassHome = (props: NavigationPropsType) => {
             />
             <Text variant="paragraph">{'Compass'}</Text>
           </View>
-          <Separator height={RFValue(16)} />
+          <Separator height={RFValue(24)} />
           <DayPicker onItemPressed={() => {}} behindDays />
-          <Separator height={RFValue(16)} />
+          <Separator height={RFValue(24)} />
           <CompassScore />
           <Separator height={RFValue(24)} />
           <Text variant="h3">{'Virtues'}</Text>
