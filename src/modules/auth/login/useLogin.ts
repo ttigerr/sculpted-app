@@ -2,10 +2,13 @@ import React, {useRef, useState} from 'react';
 import { NavigationPropsType } from 'src/utils/types';
 import { useForm, FieldValues } from 'react-hook-form';
 import { navigationScreenNames } from 'src/utils/navigation-screen-names';
-import { ScrollView, TextInput } from 'react-native';
+import { ScrollView, TextInput, Alert } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { setUserData, setToken } from 'src/store/slices/auth/authSlice';
-import { loginMockApiCall } from 'src/utils/api/mock-api-call';
+import { authorize, refresh } from 'react-native-app-auth';
+import { authConfig } from 'src/config/auth-config';
+import { Buffer } from 'buffer';
+
 
 type LoginFormData = {
   email: string;
@@ -36,28 +39,66 @@ const useLogin = (navigationProps: NavigationPropsType) => {
   }}
   const passwordRules = {
     required: 'Required field',
-    pattern: {value: passwordPattern, message: 'Invalid password'},
-    minLength: {value: 8, message: 'Invalid password'},
+    // pattern: {value: passwordPattern, message: 'Invalid password'},
+    // minLength: {value: 8, message: 'Invalid password'},
   }
 
   const goToSignUp = () => navigation.navigate(navigationScreenNames.signUp)
 
   const goToForgotPassword = () => navigation.navigate(navigationScreenNames.emailVerification)
-
   const onSubmit = handleSubmit(async data => {
     setIsLoading(true);
     try {
-      const response = await loginMockApiCall();
-      console.log('Login: ', response)
-      dispatch(setUserData(response.user))
-      dispatch(setToken(response.token))
-      navigation.navigate(navigationScreenNames.bottomNavigation)
+      const authState = await authorize(authConfig);
+      console.log('Auth successful:', authState);
+      
+      if (authState.idToken) {
+        try {
+          const base64Url = authState.idToken.split('.')[1];
+          const decodedToken = Buffer.from(base64Url, 'base64').toString('utf8');
+          const userInfo = JSON.parse(decodedToken);
+          console.log('Decoded User Info:', userInfo);
+          
+          const userData = {
+            token: "FAKE_TOKEN",
+            name: userInfo.given_name || userInfo.name,
+            email: userInfo.emails[0],
+          };
+          
+          console.log('User Data:', userData);
+          dispatch(setUserData(userData));
+        } catch (decodeError) {
+          console.error('Token decode error:', decodeError);
+          Alert.alert('Error', 'Failed to decode user information');
+        }
+      }
+        
+      navigation.navigate(navigationScreenNames.bottomNavigation);
     } catch (error) {
-      console.log('Error ', error)
+      console.error('Authentication error:', error);
+      Alert.alert(
+        'Authentication Failed',
+        `Error: ${error.message}\nPlease check your credentials and try again.`
+      );
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
   })
+
+  // Add a function to refresh the token
+  const refreshToken = async (refreshToken: string) => {
+    try {
+      const refreshedState = await refresh(authConfig, {
+        refreshToken: refreshToken,
+      });
+      console.log('Token refreshed:', refreshedState);
+      dispatch(setToken(refreshedState.accessToken));
+      return refreshedState;
+    } catch (error) {
+      console.error('Token refresh failed:', error);
+      throw error;
+    }
+  };
 
   const handleInputFocus = (inputKey: string) => {
     const inputOffsetY = inputPositions[inputKey];

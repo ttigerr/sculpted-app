@@ -24,9 +24,9 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     setUserData: (state, action) => {
-      state.token = jwtMockData;
-      state.user.name = userMockData.name;
-      state.user.email = userMockData.email;
+      state.token = action.payload.token;
+      state.user.name = action.payload.name;
+      state.user.email = action.payload.email;
     },
     setToken: (state, action) => {
       state.token = action.payload;

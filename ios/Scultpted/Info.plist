@@ -59,5 +59,16 @@
 		<string>HelveticaNeueMedium.otf</string>
 		<string>HelveticaNeueRoman.otf</string>
 	</array>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.sculptedapp.test</string>
+			</array>
+			<key>CFBundleURLName</key>
+			<string>com.sculptedapp.test</string>
+		</dict>
+	</array>
 </dict>
 </plist>
