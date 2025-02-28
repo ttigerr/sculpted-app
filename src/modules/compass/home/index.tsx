@@ -22,60 +22,61 @@ import CompassScore from '../components/compass-info-card';
 import CompassItem from '../components/compass-item-card';
 
 const CompassHome = (props: NavigationPropsType) => {
-  const scrollViewRef = useRef(null);
-  const {navigation} = props;
-  const VIRTUE_ITEM = [
-    {
-      id: 1,
-      name: 'Professionalism',
-    },
-    {
-      id: 2,
-      name: 'Dedication',
-    },
-    {
-      id: 3,
-      name: 'Effort',
-    },
-  ];
-  useEffect(() => {
-    const keyboardDidShowListener = Keyboard.addListener(
-      'keyboardDidShow',
-      () => {
-        scrollViewRef.current?.scrollTo({y: 260, animated: true});
-      },
-    );
+    const scrollViewRef = useRef(null);
+    const {navigation} = props;
+    const VIRTUE_ITEM = [
+        {
+        id: 1,
+        name: 'Professionalism',
+        },
+        {
+        id: 2,
+        name: 'Dedication',
+        },
+        {
+        id: 3,
+        name: 'Effort',
+        },
+    ];
+    useEffect(() => {
+        const keyboardDidShowListener = Keyboard.addListener(
+        'keyboardDidShow',
+        () => {
+            scrollViewRef.current?.scrollTo({y: 260, animated: true});
+        },
+        );
 
-    return () => {
-      keyboardDidShowListener.remove();
-    };
-  }, []);
+        return () => {
+        keyboardDidShowListener.remove();
+        };
+    }, []);
   return (
     <MainWrapper colorArray={tertiaryGradientColorList}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={{flex: 1}}>
-        <ScrollView style={styles.container} ref={scrollViewRef}>
-          <View style={styles.navigationBarContainer}>
-            <BackButton
-              style={styles.backButton}
-              onPress={() => navigation.goBack()}
-            />
-            <Text variant="paragraph">{'Compass'}</Text>
-          </View>
-          <Separator height={RFValue(16)} />
-          <DayPicker onItemPressed={() => {}} behindDays />
-          <Separator height={RFValue(16)} />
-          <CompassScore />
-          <Separator height={RFValue(24)} />
-          <Text variant="h3">{'Virtues'}</Text>
-          <Separator height={RFValue(24)} />
-          {VIRTUE_ITEM.map(virtue => (
-            <CompassItem name={virtue.name} />
-          ))}
-          <Separator height={RFValue(220)} />
-        </ScrollView>
-      </KeyboardAvoidingView>
+        <KeyboardAvoidingView
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            style={{flex: 1}}
+            >
+            <ScrollView style={styles.container} ref={scrollViewRef}>
+                <View style={styles.navigationBarContainer}>
+                    <BackButton
+                    style={styles.backButton}
+                    onPress={() => navigation.goBack()}
+                    />
+                    <Text variant="paragraph">{'Compass'}</Text>
+                </View>
+                <Separator height={RFValue(24)} />
+                <DayPicker onItemPressed={() => {}} behindDays />
+                <Separator height={RFValue(24)} />
+                <CompassScore />
+                <Separator height={RFValue(24)} />
+                <Text variant="body1" style={styles.virtueText}>{'Virtues'}</Text>
+                <Separator height={RFValue(8)} />
+                {VIRTUE_ITEM.map(virtue => (
+                    <CompassItem name={virtue.name} />
+                ))}
+                <Separator height={RFValue(220)} />
+            </ScrollView>
+        </KeyboardAvoidingView>
     </MainWrapper>
   );
 };
@@ -83,21 +84,25 @@ const CompassHome = (props: NavigationPropsType) => {
 export default CompassHome;
 
 const styles = StyleSheet.create({
-  container: {
-    paddingTop: RFValue(82),
-    paddingHorizontal: RFValue(16),
-    flex: 1,
-  },
-  navigationBarContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  backButton: {
-    position: 'absolute',
-    left: RFValue(0),
-  },
-  infoCardsContainer: {
-    flex: 1,
-  },
+    container: {
+        paddingTop: RFValue(82),
+        paddingHorizontal: RFValue(16),
+        flex: 1,
+    },
+    navigationBarContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    backButton: {
+        position: 'absolute',
+        left: RFValue(0),
+    },
+    infoCardsContainer: {
+        flex: 1,
+    },
+    virtueText: {
+        color: "#FFFFFF",
+        opacity: 0.4
+    }
 });

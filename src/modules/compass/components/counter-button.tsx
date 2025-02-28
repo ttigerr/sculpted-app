@@ -5,7 +5,7 @@ import { RFValue } from "react-native-responsive-fontsize";
 import Icon from "src/modules/core/components/icon";
 
 const CounterButton = ({ minValue = 0, maxValue = 10 }) => {
-  const [count, setCount] = useState(minValue);
+  const [count, setCount] = useState(0);
 
   const handleIncrement = () => {
     if (count < maxValue) {
@@ -24,7 +24,7 @@ const CounterButton = ({ minValue = 0, maxValue = 10 }) => {
       <Pressable onPress={handleDecrement} style={styles.iconWrapper}>
         <Icon name="minus" size="normal" color="#B0B0B0" />
       </Pressable>
-      <Text variant="body1" style={styles.text}>
+      <Text variant="body" style={styles.text}>
         {`${count}/${maxValue}`}
       </Text>
       <Pressable onPress={handleIncrement} style={styles.iconWrapper}>
@@ -40,10 +40,11 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#2B2B2B",
-    borderRadius: 30,
-    paddingVertical: RFValue(4),
-    paddingHorizontal: RFValue(8),
+    justifyContent: 'center',
+    backgroundColor: "#1F2021",
+    borderRadius: 25,
+    paddingVertical: RFValue(5),
+    width: 132
   },
   iconWrapper: {
     padding: RFValue(4),
@@ -51,7 +52,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   text: {
-    marginHorizontal: RFValue(8),
+    marginHorizontal: RFValue(13),
     color: "#FFFFFF",
     
   },
