@@ -19,10 +19,10 @@ const CompassItem: React.FC<CompassItemProps> = ({name}) => {
           </Text>
           <CounterButton />
         </View>
-        <Separator height={RFValue(16)} />
+        <Separator height={RFValue(13)} />
         <AddNotesButton color="#EE7933" />
       </View>
-      <Separator height={RFValue(16)} />
+      <Separator height={RFValue(8)} />
     </>
   );
 };
@@ -33,8 +33,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#161718',
-    borderRadius: 30,
-    padding: 16,
+    borderRadius: RFValue(30),
+    paddingHorizontal: RFValue(15),
+    paddingVertical: RFValue(13),
   },
   titleContainer: {
     flexDirection: 'row',
@@ -42,7 +43,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   title: {
-    fontSize: 16,
+    fontSize: RFValue(15),
   },
   text: {
     marginHorizontal: 10,

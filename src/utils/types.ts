@@ -38,3 +38,19 @@ export type DayListItem = {
   title: string;
   date: Moment | null;
 };
+
+// REDUX STORE SLICES
+export interface AuthState {
+  token: string | null;
+  tokenStartDate: Date | undefined;
+  user: {
+    name: string;
+    email: string;
+    gender?: 'Male' | 'Female' | 'Other' | null;
+    birthday: Date | null;
+    profilePictureUrl?: string; 
+  };
+  error: boolean | object | null;
+  accountState: 'ACTIVE' | 'DELETED';
+  sessionExpired: boolean;
+}

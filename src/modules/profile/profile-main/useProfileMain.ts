@@ -1,10 +1,13 @@
 import React, {useState} from 'react';
 import { NavigationPropsType } from 'src/utils/types';
 import { navigationScreenNames } from 'src/utils/navigation-screen-names';
+import { useSelector, UseSelector } from 'react-redux';
+
+const userDataSelector = (state: any) => state.auth.user;
 
 const useProfileMain = (props: NavigationPropsType) => {
     const { navigation } = props
-
+    const userData = useSelector(userDataSelector);
     const onBackButtonPressed = () => navigation.goBack();
     const goToEditScreen = () => {
         navigation.navigate(navigationScreenNames.edit);
@@ -24,6 +27,7 @@ const useProfileMain = (props: NavigationPropsType) => {
         goToEditScreen,
         resetPassword,
         journalReminder,
+        userData
     }
 }
 
