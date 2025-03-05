@@ -1,26 +1,24 @@
-import React, {useRef, useState} from 'react';
-import { NavigationPropsType } from 'src/utils/types';
-import { useForm, FieldValues } from 'react-hook-form';
-import { navigationScreenNames } from 'src/utils/navigation-screen-names';
-import { ScrollView, TextInput, Alert } from 'react-native';
-import { useDispatch } from 'react-redux';
-import { setUserData, setToken } from 'src/store/slices/auth/authSlice';
-import { authorize, refresh } from 'react-native-app-auth';
-import { authConfig } from 'src/config/auth-config';
-import { Buffer } from 'buffer';
-
+import {useRef, useState} from 'react';
+import {NavigationPropsType} from 'src/utils/types';
+import {useForm, FieldValues} from 'react-hook-form';
+import {navigationScreenNames} from 'src/utils/navigation-screen-names';
+import {ScrollView, TextInput, Alert} from 'react-native';
+import {useDispatch} from 'react-redux';
+import {setUserData, setToken} from 'src/store/slices/auth/authSlice';
+import {authorize, refresh} from 'react-native-app-auth';
+import {authConfig} from 'src/config/auth-config';
+import {Buffer} from 'buffer';
 
 type LoginFormData = {
   email: string;
   password: string;
   rememberMe: boolean;
-}
+};
 
 const useLogin = (navigationProps: NavigationPropsType) => {
-  const { navigation } = navigationProps;
+  const {navigation} = navigationProps;
   const dispatch = useDispatch();
   const inputRefs = useRef<Array<TextInput | null>>([]);
-  const inputRef = useRef(null);
   const scrollViewRef = useRef<ScrollView>(null);
   const [inputPositions, setInputPositions] = useState<{ [key: string]: number }>({});
   const [loading, setIsLoading] = useState<boolean>(false);
@@ -39,8 +37,8 @@ const useLogin = (navigationProps: NavigationPropsType) => {
   }}
   const passwordRules = {
     required: 'Required field',
-    // pattern: {value: passwordPattern, message: 'Invalid password'},
-    // minLength: {value: 8, message: 'Invalid password'},
+    pattern: {value: passwordPattern, message: 'Invalid password'},
+    minLength: {value: 8, message: 'Invalid password'},
   }
 
   const goToSignUp = () => navigation.navigate(navigationScreenNames.signUp)
@@ -51,20 +49,20 @@ const useLogin = (navigationProps: NavigationPropsType) => {
     try {
       const authState = await authorize(authConfig);
       console.log('Auth successful:', authState);
-      
+
       if (authState.idToken) {
         try {
           const base64Url = authState.idToken.split('.')[1];
           const decodedToken = Buffer.from(base64Url, 'base64').toString('utf8');
           const userInfo = JSON.parse(decodedToken);
           console.log('Decoded User Info:', userInfo);
-          
+
           const userData = {
             token: "FAKE_TOKEN",
             name: userInfo.given_name || userInfo.name,
             email: userInfo.emails[0],
           };
-          
+
           console.log('User Data:', userData);
           dispatch(setUserData(userData));
         } catch (decodeError) {
@@ -72,7 +70,7 @@ const useLogin = (navigationProps: NavigationPropsType) => {
           Alert.alert('Error', 'Failed to decode user information');
         }
       }
-        
+
       navigation.navigate(navigationScreenNames.bottomNavigation);
     } catch (error) {
       console.error('Authentication error:', error);
