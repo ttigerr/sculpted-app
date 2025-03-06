@@ -55,15 +55,13 @@ const useLogin = (navigationProps: NavigationPropsType) => {
           const base64Url = authState.idToken.split('.')[1];
           const decodedToken = Buffer.from(base64Url, 'base64').toString('utf8');
           const userInfo = JSON.parse(decodedToken);
-          console.log('Decoded User Info:', userInfo);
 
           const userData = {
-            token: "FAKE_TOKEN",
+            token: authState.accessToken,
             name: userInfo.given_name || userInfo.name,
             email: userInfo.emails[0],
+            refreshToken: authState.refreshToken,
           };
-
-          console.log('User Data:', userData);
           dispatch(setUserData(userData));
         } catch (decodeError) {
           console.error('Token decode error:', decodeError);

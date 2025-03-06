@@ -11,7 +11,7 @@ export const authConfig = {
   issuer: `${baseUrl}/${AZURE_USER_SIGNIN_FLOW}/v2.0`,
   clientId: AZURE_CLIENT_ID,
   redirectUrl: 'com.sculptedapp.test://oauth/auth',
-  scopes: ['openid', 'profile', 'email', 'offline_access'],
+  scopes: ['openid', 'profile', 'email', 'offline_access', `${AZURE_CLIENT_ID}`],
   serviceConfiguration: {
     authorizationEndpoint: `${baseUrl}/${AZURE_USER_SIGNIN_FLOW}/oauth2/v2.0/authorize`,
     tokenEndpoint: `${baseUrl}/${AZURE_USER_SIGNIN_FLOW}/oauth2/v2.0/token`,
@@ -22,6 +22,7 @@ export const authConfig = {
   additionalParameters: {
     prompt: 'login',
     response_mode: 'query',
+    include_granted_scopes: 'true',
   },
   dangerouslyAllowInsecureHttpRequests: true,
 };
@@ -30,7 +31,7 @@ export const signUpConfig = {
   issuer: `${baseUrl}/${AZURE_USER_SIGNUP_FLOW}/v2.0`,
   clientId: AZURE_CLIENT_ID,
   redirectUrl: 'com.sculptedapp.test://oauth/auth',
-  scopes: ['openid', 'profile', 'email', 'offline_access'],
+  scopes: ['openid', 'profile', 'email', 'offline_access', `${AZURE_CLIENT_ID}`],
   serviceConfiguration: {
     authorizationEndpoint: `${baseUrl}/${AZURE_USER_SIGNUP_FLOW}/oauth2/v2.0/authorize`,
     tokenEndpoint: `${baseUrl}/${AZURE_USER_SIGNUP_FLOW}/oauth2/v2.0/token`,
@@ -41,6 +42,7 @@ export const signUpConfig = {
   additionalParameters: {
     prompt: 'login',
     response_mode: 'query',
+    include_granted_scopes: 'true',
   },
   dangerouslyAllowInsecureHttpRequests: true,
 };
