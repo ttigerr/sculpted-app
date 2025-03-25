@@ -1,78 +1,118 @@
-import {StyleSheet, ScrollView, ActivityIndicator} from 'react-native';
+import {StyleSheet, ScrollView} from 'react-native';
 import React from 'react';
 import MainWrapper from 'src/modules/core/components/wrapper/MainWrapper';
-import {Text, Link, Separator, Button} from 'src/modules/core/ui-library';
+import {
+  TextInput,
+  Button,
+  Text,
+  Link,
+  Separator,
+  CheckBox,
+} from 'src/modules/core/ui-library';
+import Icon from 'src/modules/core/components/icon';
 import {NavigationPropsType} from 'src/utils/types';
 import useSignUp from './useSignUp';
 import {theme} from 'src/config/theme';
 import {RFValue} from 'react-native-responsive-fontsize';
 
 const SignUp = (props: NavigationPropsType) => {
-  const {handleSignUp, goToLogin, isLoading} = useSignUp(props);
-
+  const {
+    control,
+    onSubmit,
+    errors,
+    goToLogin,
+    emailRules,
+    nameRules,
+    passwordRules,
+    confirmPasswordRules,
+  } = useSignUp(props);
+  const [checked, setChecked] = React.useState(true);
   return (
     <MainWrapper>
       <ScrollView style={styles.container}>
         <Separator height={RFValue(92)} />
-        <Text style={styles.title}>Unleash Your Full Potential!!</Text>
+        <Text variant="h1">{'Unleash Your Full Potential!!'}</Text>
         <Separator height={RFValue(32)} />
-        <Text style={styles.subtitle}>
-          Create an account to start tracking your fitness journey
-        </Text>
+        <TextInput
+          control={control}
+          name="name"
+          label="Name"
+          rules={nameRules}
+          placeholder={'Enter your name'}
+          left={<Icon name="user" size="normal" />}
+          maxLength={50}
+        />
+        <Separator height={RFValue(18)} />
+        <TextInput
+          control={control}
+          name="email"
+          label="Email"
+          rules={emailRules}
+          placeholder={'Enter email/Phone number'}
+          left={<Icon name="email" size="normal" />}
+          autoCapitalize="none"
+        />
+        <Separator height={RFValue(18)} />
+        <TextInput
+          control={control}
+          name="password"
+          label="Password"
+          rules={passwordRules}
+          placeholder={'Enter your password'}
+          left={<Icon name="lock" size="normal" />}
+          type="password"
+        />
+        <Separator height={RFValue(18)} />
+        <TextInput
+          control={control}
+          name="confirmPassword"
+          label="Confirm Password"
+          rules={confirmPasswordRules}
+          placeholder={'Re-enter your password'}
+          left={<Icon name="lock" size="normal" />}
+          type="password"
+        />
+        <Separator height={RFValue(24)} />
+        <CheckBox
+          checked={checked}
+          onPress={() => {
+            setChecked(!checked);
+          }}>
+          <Text variant="caption" style={styles.termsAndCondtionsText}>
+            {
+              'By signing up, you agree to our Teams of Service and Privacy Policy'
+            }
+          </Text>
+        </CheckBox>
         <Separator height={RFValue(32)} />
-        <Button
-          onPress={handleSignUp}
-          disabled={isLoading}
-          style={styles.signUpButton}>
-          {isLoading ? (
-            <ActivityIndicator color="#FFFFFF" />
-          ) : (
-            <Text style={styles.buttonText}>Click here to sign up</Text>
-          )}
-        </Button>
-        <Separator height={RFValue(32)} />
-        <Text style={styles.bottomLink}>
+        <Button onPress={onSubmit} label="Sign Up" />
+        <Text variant="paragraph" style={styles.bottomLink}>
           {'Already have an account?  '}
           <Link label="Log in" onPress={goToLogin} />
         </Text>
+        <Separator height={RFValue(42)} />
       </ScrollView>
     </MainWrapper>
   );
 };
 
+export default SignUp;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: RFValue(16),
+    paddingHorizontal: 20,
   },
-  title: {
-    fontSize: RFValue(24),
-    fontWeight: 'bold',
-    color: theme.colors.primary,
-    textAlign: 'center',
-  },
-  subtitle: {
-    fontSize: RFValue(16),
-    color: theme.colors.primaryTextColor,
-    textAlign: 'center',
-  },
-  signUpButton: {
-    backgroundColor: theme.colors.primary,
-    borderRadius: RFValue(8),
-    paddingVertical: RFValue(12),
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  buttonText: {
-    color: '#FFFFFF',
-    fontSize: RFValue(16),
-    fontWeight: 'bold',
+  text: {
+    color: '#FFF',
   },
   bottomLink: {
-    textAlign: 'center',
-    fontSize: RFValue(14),
-    color: theme.colors.primaryTextColor,
+    alignSelf: 'center',
+    marginTop: 15,
+    color: theme.colors.caption,
+  },
+  termsAndCondtionsText: {
+    flex: 1,
+    flexWrap: 'wrap',
   },
 });
-
-export default SignUp;
