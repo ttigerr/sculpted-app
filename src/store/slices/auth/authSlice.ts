@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { userMockData, jwtMockData } from 'src/consts/mock-data';
 import { AuthState } from 'src/utils/types';
 
 const userData = {
+  id: '',
   name: '',
   email: '',
   gender: null,
@@ -27,6 +27,7 @@ const authSlice = createSlice({
       state.token = action.payload.token;
       state.user.name = action.payload.name;
       state.user.email = action.payload.email;
+      state.user.id = action.payload.id;
     },
     setToken: (state, action) => {
       state.token = action.payload;

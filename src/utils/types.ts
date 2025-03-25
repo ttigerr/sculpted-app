@@ -44,6 +44,7 @@ export interface AuthState {
   token: string | null;
   tokenStartDate: Date | undefined;
   user: {
+    id: string;
     name: string;
     email: string;
     gender?: 'Male' | 'Female' | 'Other' | null;

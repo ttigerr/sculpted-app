@@ -48,7 +48,6 @@ const useLogin = (navigationProps: NavigationPropsType) => {
     setIsLoading(true);
     try {
       const authState = await authorize(authConfig);
-      console.log('Auth successful:', authState);
 
       if (authState.idToken) {
         try {
@@ -58,6 +57,7 @@ const useLogin = (navigationProps: NavigationPropsType) => {
 
           const userData = {
             token: authState.accessToken,
+            id: userInfo.sub,
             name: userInfo.given_name || userInfo.name,
             email: userInfo.emails[0],
             refreshToken: authState.refreshToken,
@@ -81,20 +81,6 @@ const useLogin = (navigationProps: NavigationPropsType) => {
     }
   })
 
-  // Add a function to refresh the token
-  const refreshToken = async (refreshToken: string) => {
-    try {
-      const refreshedState = await refresh(authConfig, {
-        refreshToken: refreshToken,
-      });
-      console.log('Token refreshed:', refreshedState);
-      dispatch(setToken(refreshedState.accessToken));
-      return refreshedState;
-    } catch (error) {
-      console.error('Token refresh failed:', error);
-      throw error;
-    }
-  };
 
   const handleInputFocus = (inputKey: string) => {
     const inputOffsetY = inputPositions[inputKey];
