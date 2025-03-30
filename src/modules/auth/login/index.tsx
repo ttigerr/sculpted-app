@@ -32,7 +32,7 @@ const Login = (props: NavigationPropsType) => {
     control,
     errors,
     isValid,
-    goToSignUp,
+    handleDirectSignUp,
     emailRules,
     passwordRules,
     goToForgotPassword,
@@ -113,7 +113,7 @@ const Login = (props: NavigationPropsType) => {
           />
           <Text variant="paragraph" style={styles.bottomLink}>
             {'Don’t have an account?  '}
-            <Link label="Sign up" onPress={goToSignUp} />
+            <Link label="Sign up" onPress={handleDirectSignUp} />
           </Text>
           <Separator height={RFValue(82)} />
         </ScrollView>

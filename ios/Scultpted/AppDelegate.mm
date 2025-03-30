@@ -1,6 +1,6 @@
 #import "AppDelegate.h"
-
 #import <React/RCTBundleURLProvider.h>
+#import "RNAppAuthAuthorizationFlowManager.h"
 
 @implementation AppDelegate
 
@@ -26,6 +26,14 @@
 #else
   return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
 #endif
+}
+
+// Add these methods for AppAuth
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString *, id> *)options {
+  if ([self.authorizationFlowManagerDelegate respondsToSelector:@selector(resumeExternalUserAgentFlowWithURL:)]) {
+    return [self.authorizationFlowManagerDelegate resumeExternalUserAgentFlowWithURL:url];
+  }
+  return [super application:app openURL:url options:options];
 }
 
 @end
