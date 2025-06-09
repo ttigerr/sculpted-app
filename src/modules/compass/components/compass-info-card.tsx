@@ -4,13 +4,12 @@ import {RFValue} from 'react-native-responsive-fontsize';
 import {ProgressCircle} from 'react-native-svg-charts';
 import {Separator, Text} from 'src/modules/core/ui-library';
 import Icon from 'src/modules/core/components/icon';
-import {theme} from 'src/config/theme';
 import {SCREEN_WIDTH} from 'src/consts/constants';
 
 const CompassScore = ({
-  score = 88,
   segments = [0.4, 0.7, 0.8],
   colors = ['#FFC3C3', '#FFB080', '#EE4633'],
+  currentCompass = {virtue1: "", virtue2: "", virtue3: ""}
 }) => {
   return (
     <View style={styles.container}>
@@ -46,7 +45,7 @@ const CompassScore = ({
                     width: SCREEN_WIDTH * 0.5 + 30 * index,
                   },
                 ]}
-                progress={value}
+                progress={value / 10}
                 progressColor={colors[index]}
                 strokeWidth={9}
                 backgroundColor="#333"
@@ -59,15 +58,15 @@ const CompassScore = ({
         <View style={styles.labelsContainer}>
             <View style={styles.labelItem}>
               <View style={[styles.dot, {backgroundColor: colors[0]}]} />
-              <Text style={styles.labelText}>Professionalism</Text>
+              <Text style={styles.labelText}>{currentCompass.virtue1}</Text>
             </View>
             <View style={styles.labelItem}>
               <View style={[styles.dot, {backgroundColor: colors[1]}]} />
-              <Text style={styles.labelText}>Dedication</Text>
+              <Text style={styles.labelText}>{currentCompass.virtue2}</Text>
             </View>
             <View style={styles.labelItem}>
               <View style={[styles.dot, {backgroundColor: colors[2]}]} />
-              <Text style={styles.labelText}>Effort</Text>
+              <Text style={styles.labelText}>{currentCompass.virtue3}</Text>
             </View>
           </View>
     </View>

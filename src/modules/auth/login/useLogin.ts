@@ -8,6 +8,7 @@ import {setUserData, setToken} from 'src/store/slices/auth/authSlice';
 import {authorize, refresh} from 'react-native-app-auth';
 import {authConfig, signUpConfig} from 'src/config/auth-config';
 import {Buffer} from 'buffer';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type LoginFormData = {
   email: string;
@@ -65,6 +66,7 @@ const useLogin = (navigationProps: NavigationPropsType) => {
             refreshToken: authState.refreshToken,
           };
           dispatch(setUserData(userData));
+          await AsyncStorage.setItem('token', authState.accessToken); //save token in storage.
         } catch (decodeError) {
           console.error('Token decode error:', decodeError);
           Alert.alert('Error', 'Failed to decode user information');

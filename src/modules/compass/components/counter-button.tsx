@@ -1,35 +1,58 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { View, StyleSheet, Pressable } from "react-native";
 import { Text } from "src/modules/core/ui-library";
 import { RFValue } from "react-native-responsive-fontsize";
 import Icon from "src/modules/core/components/icon";
 
-const CounterButton = ({ minValue = 0, maxValue = 10 }) => {
-  const [count, setCount] = useState(0);
+type CounterButtonProps = {
+  value: number;
+  setValue: (value: number) => void;
+  submitCompass: () => void;
+  minValue : number;
+  maxValue : number;
+};
+
+const CounterButton : React.FC<CounterButtonProps> = ({ value, setValue, submitCompass, minValue, maxValue }) => {
+  const shouldSubmitRef = useRef(false);
+  const prevValueRef = useRef(value);
 
   const handleIncrement = () => {
-    if (count < maxValue) {
-      setCount((prevCount) => prevCount + 1);
+    if (value < maxValue) {
+      shouldSubmitRef.current = true;
+      setValue(value + 1);
     }
   };
 
   const handleDecrement = () => {
-    if (count > minValue) {
-      setCount((prevCount) => prevCount - 1);
+    if (value > minValue) {
+      shouldSubmitRef.current = true;
+      setValue(value - 1);
     }
   };
 
+  useEffect(() => {
+    //if value has been changed by clicking the buttons and not but changing dates, post data
+    if(shouldSubmitRef.current && prevValueRef.current !== value){
+        submitCompass();
+        shouldSubmitRef.current = false;
+    }
+
+    prevValueRef.current = value;
+  }, [value])
+
   return (
     <View style={styles.container}>
-      <Pressable onPress={handleDecrement} style={styles.iconWrapper}>
-        <Icon name="minus" size="normal" color="#B0B0B0" />
-      </Pressable>
-      <Text variant="body" style={styles.text}>
-        {`${count}/${maxValue}`}
-      </Text>
-      <Pressable onPress={handleIncrement} style={styles.iconWrapper}>
-        <Icon name="plus" size="small" color="#F58541" />
-      </Pressable>
+      <View style={{flexDirection: 'row', alignItems: 'center', maxWidth: 125, justifyContent: 'center'}}>
+        <Pressable onPress={handleDecrement} style={styles.iconWrapper}>
+            <Icon name="minus" size="normal" color="#B0B0B0" />
+        </Pressable>
+        <Text variant="body" style={styles.text}>
+            {`${value}/${maxValue}`}
+        </Text>
+        <Pressable onPress={handleIncrement} style={styles.iconWrapper}>
+            <Icon name="plus" size="small" color="#F58541" />
+        </Pressable>
+      </View>
     </View>
   );
 };
