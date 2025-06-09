@@ -22,3 +22,24 @@ export async function get<T>(url: string): Promise<T> {
   const data = await response.json();
   return data;
 };
+
+export async function post<T>(url: string, body: any) : Promise<T> {
+  const token = await AsyncStorage.getItem('token');
+  const response = await fetch(`${API_CONFIG.BASE_URL}/${url}`, {
+    method: 'POST',
+    headers: {
+      accept: 'application/json',
+      'Content-Type': 'application/json', 
+      Authorization: `Bearer ${token}`
+    },
+    body: JSON.stringify(body)
+  });
+
+  if(!response.ok){
+    const error = await response.json();
+    throw new Error(error.message || 'Server responded with an error.');
+  }
+
+  const data = await response.json();
+  return data;
+}

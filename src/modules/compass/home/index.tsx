@@ -47,6 +47,9 @@ const CompassHome = (props: NavigationPropsType) => {
         data: compassData,
         refetch
     } = useFetch(() => compassService.getUserCompass(fromDate, toDate), true);
+    const {
+        postData
+    } = usePost(() => compassService.postCompass({...currentCompass, date: moment(currentCompass.date).format('YYYY-MM-DD'), overallScore: currentCompass.virtue1Score + currentCompass.virtue2Score + currentCompass.virtue3Score}));
     const {navigation} = props;
 
     useEffect(() => {

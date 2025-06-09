@@ -17,3 +17,16 @@ async function getUserCompass(
     const res = await get<Compass[]>(url);
     return Array.isArray(res) ? res : [];
 };
+
+async function postCompass(
+    data: Compass
+): Promise<Compass> {
+    const url = 'compass';
+    const res = await post<Compass>(url, data);
+    return res;
+};
+
+export const compassService = {
+    getUserCompass,
+    postCompass
+};
