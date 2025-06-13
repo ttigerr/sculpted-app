@@ -7,9 +7,12 @@ import AddNotesButton from './add-notes-button';
 
 type CompassItemProps = {
   name: string;
+  value: any;
+  setValue: (value: number) => void;
+  submitCompass: () => void;
 };
 
-const CompassItem: React.FC<CompassItemProps> = ({name}) => {
+const CompassItem: React.FC<CompassItemProps> = ({name, value, setValue, submitCompass}) => {
   return (
     <>
       <View style={styles.container}>
@@ -17,7 +20,7 @@ const CompassItem: React.FC<CompassItemProps> = ({name}) => {
           <Text variant="h4" style={styles.title}>
             {name}
           </Text>
-          <CounterButton />
+          <CounterButton value={value} setValue={setValue} minValue={0} maxValue={10} submitCompass={submitCompass}/>
         </View>
         <Separator height={RFValue(13)} />
         <AddNotesButton color="#EE7933" />

@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect, useRef, Dispatch, SetStateAction} from 'react';
 import {
   View,
   Text,
@@ -15,6 +15,8 @@ interface DayPickerProps {
   onItemPressed: (item: DayListItem) => void;
   behindDays?: boolean;
   isAllButtonVisible?: boolean;
+  selectedDate: DayListItem;
+  setSelectedDate: Dispatch<SetStateAction<DayListItem>>;
 }
 
 const DayPicker: React.FC<DayPickerProps> = ({
@@ -22,11 +24,9 @@ const DayPicker: React.FC<DayPickerProps> = ({
   onItemPressed,
   behindDays = false,
   isAllButtonVisible = false,
+  selectedDate,
+  setSelectedDate
 }) => {
-  const [selectedDate, setSelectedDate] = useState<DayListItem>({
-    title: 'All',
-    date: null,
-  });
   const scrollViewRef = useRef<ScrollView>(null);
 
   useEffect(() => {
