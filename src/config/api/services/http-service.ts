@@ -1,7 +1,8 @@
+import {BACKEND_BASE_URL} from '@env';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const API_CONFIG = {
-  BASE_URL: 'https://sculpted-api-ckdbfneebkc2e9db.australiaeast-01.azurewebsites.net/api/v1'
+  BASE_URL: BACKEND_BASE_URL
 };
 
 export async function get<T>(url: string): Promise<T> {
