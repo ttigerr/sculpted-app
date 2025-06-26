@@ -46,16 +46,19 @@ const CompassHome = (props: NavigationPropsType) => {
         overallScore: 0
     };
     const [currentCompass, setCurrentCompass] = useState<Compass>(DEFAULT_COMPASS);
-    const {
-        data: compassData,
-        refetch
-    } = useFetch(() => compassService.getUserCompass(fromDate, toDate), true);
+    const [compassData, setCompassData] = useState<Compass[]>([]);
+    const {data} = useFetch(() => compassService.getUserCompass(fromDate, toDate), true);
     const {
         postData
     } = usePost(() => compassService.postCompass({...currentCompass, date: moment(currentCompass.date).format('YYYY-MM-DD'), overallScore: currentCompass.virtue1Score + currentCompass.virtue2Score + currentCompass.virtue3Score}));
     const {navigation} = props;
 
     const handleChange = (value: string | number, key: keyof Compass) => setCurrentCompass({...currentCompass, [key]: value});
+    const handleExit = () => {
+        navigation.goBack();
+        postData();
+    };
+
     useEffect(() => {
         const keyboardDidShowListener = Keyboard.addListener(
         'keyboardDidShow',
@@ -117,7 +120,7 @@ const CompassHome = (props: NavigationPropsType) => {
                 <View style={styles.navigationBarContainer}>
                     <BackButton
                     style={styles.backButton}
-                    onPress={() => navigation.goBack()}
+                    onPress={handleExit}
                     />
                     <Text variant="paragraph">{'Compass'}</Text>
                 </View>
