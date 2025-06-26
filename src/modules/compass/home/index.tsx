@@ -32,7 +32,7 @@ const CompassHome = (props: NavigationPropsType) => {
         title: 'All',
         date: moment.utc(toDate),
     });
-    const DEFAULT_COMPASS = {
+    const DEFAULT_COMPASS: Compass = {
         date: selectedDate.date?.toISOString()!,
         virtue1: 'Professionalism',
         virtue2: 'Dedication',
@@ -40,6 +40,9 @@ const CompassHome = (props: NavigationPropsType) => {
         virtue1Score: 0,
         virtue2Score: 0,
         virtue3Score: 0,
+        virtue1Note: null,
+        virtue2Note: null,
+        virtue3Note: null,
         overallScore: 0
     };
     const [currentCompass, setCurrentCompass] = useState<Compass>(DEFAULT_COMPASS);
@@ -52,6 +55,7 @@ const CompassHome = (props: NavigationPropsType) => {
     } = usePost(() => compassService.postCompass({...currentCompass, date: moment(currentCompass.date).format('YYYY-MM-DD'), overallScore: currentCompass.virtue1Score + currentCompass.virtue2Score + currentCompass.virtue3Score}));
     const {navigation} = props;
 
+    const handleChange = (value: string | number, key: keyof Compass) => setCurrentCompass({...currentCompass, [key]: value});
     useEffect(() => {
         const keyboardDidShowListener = Keyboard.addListener(
         'keyboardDidShow',
@@ -66,7 +70,26 @@ const CompassHome = (props: NavigationPropsType) => {
     }, []);
 
     useEffect(() => {
-        refetch();        
+        if(data) setCompassData(data);
+    }, [data])
+
+    useEffect(() => {
+        //post data to backend and update state
+        postData();
+
+        setCompassData(prev => {
+            const index = prev.findIndex(d => d.date === currentCompass.date);
+
+            if(index !== -1){
+                //update existing compass
+                const updated = [...prev];
+                updated[index] = currentCompass;
+                return updated;
+            } else {
+                //add new compass
+                return [...prev, currentCompass];
+            }
+        })
     }, [selectedDate]);
 
     useEffect(() => {
@@ -105,9 +128,27 @@ const CompassHome = (props: NavigationPropsType) => {
                 <Separator height={RFValue(24)} />
                 <Text variant="body1" style={styles.virtueText}>{'Virtues'}</Text>
                 <Separator height={RFValue(8)} />
-                    <CompassItem name={currentCompass.virtue1} value={currentCompass.virtue1Score} setValue={(value) => setCurrentCompass({...currentCompass, virtue1Score: value})} submitCompass={postData}/>
-                    <CompassItem name={currentCompass.virtue2} value={currentCompass.virtue2Score} setValue={(value) => setCurrentCompass({...currentCompass, virtue2Score: value})} submitCompass={postData}/>
-                    <CompassItem name={currentCompass.virtue3} value={currentCompass.virtue3Score} setValue={(value) => setCurrentCompass({...currentCompass, virtue3Score: value})} submitCompass={postData}/>
+                    <CompassItem
+                        name={currentCompass.virtue1}
+                        value={currentCompass.virtue1Score}
+                        setValue={(value) => handleChange(value, 'virtue1Score')}
+                        note={currentCompass.virtue1Note ?? ''}
+                        setNote={(value) => handleChange(value, 'virtue1Note')}
+                    />
+                    <CompassItem
+                        name={currentCompass.virtue2}
+                        value={currentCompass.virtue2Score}
+                        setValue={(value) => handleChange(value, 'virtue2Score')}
+                        note={currentCompass.virtue2Note ?? ''}
+                        setNote={(value) => handleChange(value, 'virtue2Note')}
+                    />
+                    <CompassItem
+                        name={currentCompass.virtue3}
+                        value={currentCompass.virtue3Score}
+                        setValue={(value) => handleChange(value, 'virtue3Score')}
+                        note={currentCompass.virtue3Note ?? ''}
+                        setNote={(value) => handleChange(value, 'virtue3Note')}
+                    />
                 <Separator height={RFValue(220)} />
             </ScrollView>
         </KeyboardAvoidingView>

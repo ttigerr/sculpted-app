@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import { View, StyleSheet, Pressable } from "react-native";
 import { Text } from "src/modules/core/ui-library";
 import { RFValue } from "react-native-responsive-fontsize";
@@ -7,38 +7,22 @@ import Icon from "src/modules/core/components/icon";
 type CounterButtonProps = {
   value: number;
   setValue: (value: number) => void;
-  submitCompass: () => void;
   minValue : number;
   maxValue : number;
 };
 
-const CounterButton : React.FC<CounterButtonProps> = ({ value, setValue, submitCompass, minValue, maxValue }) => {
-  const shouldSubmitRef = useRef(false);
-  const prevValueRef = useRef(value);
-
+const CounterButton : React.FC<CounterButtonProps> = ({ value, setValue, minValue, maxValue }) => {
   const handleIncrement = () => {
     if (value < maxValue) {
-      shouldSubmitRef.current = true;
       setValue(value + 1);
     }
   };
 
   const handleDecrement = () => {
     if (value > minValue) {
-      shouldSubmitRef.current = true;
       setValue(value - 1);
     }
   };
-
-  useEffect(() => {
-    //if value has been changed by clicking the buttons and not but changing dates, post data
-    if(shouldSubmitRef.current && prevValueRef.current !== value){
-        submitCompass();
-        shouldSubmitRef.current = false;
-    }
-
-    prevValueRef.current = value;
-  }, [value])
 
   return (
     <View style={styles.container}>
