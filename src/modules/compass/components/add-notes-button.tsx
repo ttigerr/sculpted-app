@@ -1,18 +1,21 @@
 import React, { useState, useRef } from 'react';
-import { View, Pressable, StyleSheet, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, TextInput as AddNoteTextInput } from 'react-native';
+import { View, Pressable, StyleSheet, KeyboardAvoidingView, TextInput as AddNoteTextInput } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { Text } from 'src/modules/core/ui-library';
 import { theme } from 'src/config/theme';
 
-const AddNotesButton = () => {
-    const [note, setNote] = useState('');
+interface AddNotesButtonProps {
+    note: string;
+    setNote: (value: string) => void;
+};
+
+const AddNotesButton = ({note, setNote} : AddNotesButtonProps) => {
     const [showTextInput, setShowTextInput] = useState(true);
     const inputRef = useRef(null); // Reference for TextInput
 
     const handleSave = () => {
         if (note.trim()) {
             setShowTextInput(false);
-            console.log('Note saved:', note);
         }
     };
 

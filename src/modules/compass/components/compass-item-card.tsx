@@ -9,10 +9,11 @@ type CompassItemProps = {
   name: string;
   value: any;
   setValue: (value: number) => void;
-  submitCompass: () => void;
+  note: string;
+  setNote: (value: string) => void;
 };
 
-const CompassItem: React.FC<CompassItemProps> = ({name, value, setValue, submitCompass}) => {
+const CompassItem: React.FC<CompassItemProps> = ({name, value, setValue, note, setNote}) => {
   return (
     <>
       <View style={styles.container}>
@@ -20,10 +21,10 @@ const CompassItem: React.FC<CompassItemProps> = ({name, value, setValue, submitC
           <Text variant="h4" style={styles.title}>
             {name}
           </Text>
-          <CounterButton value={value} setValue={setValue} minValue={0} maxValue={10} submitCompass={submitCompass}/>
+          <CounterButton value={value} setValue={setValue} minValue={0} maxValue={10} />
         </View>
         <Separator height={RFValue(13)} />
-        <AddNotesButton color="#EE7933" />
+        <AddNotesButton note={note} setNote={setNote}/>
       </View>
       <Separator height={RFValue(8)} />
     </>
