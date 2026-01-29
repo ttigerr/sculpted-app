@@ -1,9 +1,8 @@
-import React, {useCallback, useState} from 'react';
+import React, { useMemo } from 'react';
 import {
   View,
   SafeAreaView,
   ScrollView,
-  FlatList,
   Pressable,
 } from 'react-native';
 import {
@@ -15,208 +14,188 @@ import {
 } from 'src/modules/core/ui-library';
 import useDashboard from './useDashboard';
 import MainWrapper from 'src/modules/core/components/wrapper/MainWrapper';
-import {NavigationPropsType} from 'src/utils/types';
-import {theme} from 'src/config/theme';
+import { NavigationPropsType } from 'src/utils/types';
+import { theme } from 'src/config/theme';
 import Icon from 'src/modules/core/components/icon';
 import styles from './styles';
-import {RFValue} from 'react-native-responsive-fontsize';
-import {navigationScreenNames} from 'src/utils/navigation-screen-names';
-import {SCREEN_WIDTH} from 'src/consts/constants';
-import SpiralBg from '@assets/img/ic-spiral-bg';
-import OvalBg from '@assets/img/ic-oval-bg';
+import { RFValue } from 'react-native-responsive-fontsize';
+import { navigationScreenNames } from 'src/utils/navigation-screen-names';
+import useTaskList from 'src/modules/todo/task-list/useTaskList';
+import { FULL_VIRTUE_SCORE } from 'src/consts/constants';
+import useTodoHome from 'src/modules/todo/home/useTodoHome';
 
-// Data for compass's content
-const COMPPASS_DATA = [
-  {
-    id: '1a',
-    title: 'Honesty',
-    status: true,
-    score: '10/10',
-  },
-  {
-    id: '2a',
-    title: 'Responsible',
-    status: true,
-    score: '10/10',
-  },
-  {
-    id: '3a',
-    title: 'Generous',
-    status: false,
-    score: '8.5/10',
-  },
-];
+type compassProps = {
+  virtue: string;
+  score: string | null;
+};
 
-type compassProps = {title: string; score: string; status: boolean};
-const CompassItem = ({title, score, status}: compassProps) => (
+type toDoProps = {
+  title: string;
+  status: boolean;
+};
+
+const CompassItem = ({ virtue, score }: compassProps) => (
   <View style={styles.cardTitleContainer}>
     <View style={styles.innerCardTitleContainer}>
-      <Text variant="body2">{title}</Text>
+      {virtue !== 'Add' ? (
+        <Text variant="body1" style={{ fontSize: 14 }}>{virtue}</Text>
+      ) : (
+        <Text variant="body1" style={{ fontSize: 14, color: '#6F6F70' }}>{virtue}</Text>
+      )}
     </View>
-    <Text variant="body2">{score}</Text>
-  </View>
-);
-
-// Data for To-do list's content
-const TODO_DATA = [
-  {
-    id: '1b',
-    title: 'Meal Prep',
-    status: true,
-  },
-  {
-    id: '2b',
-    title: 'Cooking Dinner',
-    status: true,
-  },
-  {
-    id: '3b',
-    title: 'Dishwashing',
-    status: false,
-  },
-];
-
-type toDoProps = {title: string; status: boolean};
-const ToDoProps = ({title, status}: toDoProps) => (
-  <View style={styles.cardTitleContainer}>
-    {status ? (
-      <View style={styles.toDoDot} />
-    ) : (
-      <View style={styles.defaultDot} />
+    {score !== null && (
+      <Text variant="body1" style={{ fontSize: 14 }}>
+        {score}/{FULL_VIRTUE_SCORE}
+      </Text>
     )}
-    <Text variant="body2">{title}</Text>
   </View>
 );
-const colorList = [
-  {offset: '0%', color: '#FFFFFF', opacity: '0.16'},
-  {offset: '100%', color: '#14191F', opacity: '0'},
-];
 
-const CARD_WIDTH = SCREEN_WIDTH / 2 - 20;
+const ToDoProps = ({ title, status }: toDoProps) => {
+  const isAdd = title.toLowerCase() === 'add';
+
+  return (
+    <View style={styles.cardTitleContainer}>
+      {isAdd ? (
+        <View style={[styles.defaultDot, { backgroundColor: "#161718" }]} />
+      ) : status ? (
+        <View style={styles.toDoDot} />
+      ) : (
+        <View style={styles.defaultDot} />
+      )}
+      <Text
+        variant="body1"
+        numberOfLines={1}
+        ellipsizeMode="tail"
+        style={{
+          fontSize: 14,
+          flex: 1,
+          color: isAdd ? '#7C7C7C' : '#FFFFFF',
+        }}
+      >
+        {title}
+      </Text>
+    </View>
+  );
+};
 
 const Dashboard = (navigationProps: NavigationPropsType) => {
-  const {userData} = useDashboard(navigationProps);
-  const [focused, setFocused] = useState(false);
+  const {
+    userData,
+    navigation,
+    goToJournalScreen,
+    onProfileInfoPressed,
+    progress,
+    focused,
+    finalCompassData,
+    compassItems
+  } = useDashboard(navigationProps);
 
-  // Navigate to Journal Screen
-  const {navigation} = navigationProps;
-  const goToJournalScreen = () => {
-    setFocused(prev => !prev);
-    navigation.navigate('Journal');
-  };
-  const onProfileInfoPressed = () => {
-    navigation.navigate(navigationScreenNames.profileNavigation);
-  };
+  const { completedTaskScore } = useTodoHome(navigationProps);
+  const { todayTaskList } = useTaskList(navigationProps);
 
   return (
     <MainWrapper>
       <SafeAreaView style={styles.mainContainer}>
         <ScrollView style={styles.scrollView}>
-          {/* Header parts contained avartar, greeting message and user's name */}
+          <Separator height={RFValue(20)} />
+
+          {/* Header */}
           <Pressable
             style={styles.headerContainer}
             onPress={onProfileInfoPressed}>
             <View style={styles.avartarBorder}>
-              <Avartar size={46} source={require('assets/img/profile.jpeg')} />
+              <Avartar size={61} source={require('assets/img/profile.jpeg')} />
             </View>
+
+            {/* Greeting message */}
             <View style={styles.innerHeaderContainer}>
-              <Text variant="caption" style={{paddingBottom: 10, fontSize: 14}}>
-                {"Let's start SCULPTING 👋"}
+              <Text variant="caption2">
+                {"Let's start SCULPTING "}
+                <Text>{"👋"}</Text>
               </Text>
               {userData && <Text variant="h3">{userData.name}</Text>}
             </View>
           </Pressable>
-          {/* Gretting message */}
-          <View>
-            <Text variant="h1">{'Every day, let’s get'}</Text>
-            <View>
-              <View style={styles.spiralTextDecorationContainer}>
-                <SpiralBg width={90} />
-              </View>
-              <Text variant="h1">{'closer to the best'}</Text>
-            </View>
-            <View style={{alignSelf: 'flex-start'}}>
-              <View style={styles.ovalTextDecorationContainer}>
-                <OvalBg width={70} />
-              </View>
-              <Text variant="h1">{'version of you!'}</Text>
-            </View>
-          </View>
-          {/* To-do list content */}
+
+          {/* To-do and Compass Cards */}
           <View style={styles.toDoListContainer}>
-            <Text variant="caption">{"Today's task"}</Text>
+            <Text variant="caption2">{"Trackers"}</Text>
+            <Separator height={RFValue(8)} />
             <View style={styles.cardContent}>
-              {/* Compass Content */}
-              <View style={styles.compassInnerCard}>
-                <Card
-                  style={styles.cardContainer}
-                  onPress={() =>
-                    navigation.navigate(navigationScreenNames.compassHome)
-                  }>
-                  {/* Card Header */}
-                  <View style={styles.cardTitleContainer}>
-                    <View style={styles.innerCardTitleContainer}>
-                      <View style={styles.compassBorder} />
-                      <Text variant="body1">{'Compass'}</Text>
-                    </View>
-                    <View style={styles.iconContainer}>
-                      <Icon name="compass" size="normal" />
-                    </View>
-                  </View>
-                  {/* Card List */}
-                  <FlatList
-                    data={COMPPASS_DATA}
-                    renderItem={({item}) => (
-                      <CompassItem
-                        title={item.title}
-                        score={item.score}
-                        status={item.status}
-                      />
-                    )}
-                  />
-                  {/* Progress Bar */}
-                  <CustomProgressBar color="#EE7933" progress={0.5} />
-                </Card>
-              </View>
-              {/* To-do List's content */}
+              {/* To-do Card */}
               <View style={styles.cardInner}>
                 <Card
                   style={styles.cardContainer}
                   onPress={() =>
                     navigation.navigate(navigationScreenNames.todoHome)
                   }>
-                  {/* Card Header */}
                   <View style={styles.cardTitleContainer}>
                     <View style={styles.innerCardTitleContainer}>
                       <View style={styles.toDoBorder} />
-                      <Text variant="body1">{'To-Do'}</Text>
+                      <Text variant="h6">{'To Do List'}</Text>
                     </View>
                     <View style={styles.iconContainer}>
                       <Icon name="to-do" size="normal" />
                     </View>
                   </View>
-                  {/* Card List */}
-                  <FlatList
-                    data={TODO_DATA}
-                    renderItem={({item}) => (
-                      <ToDoProps title={item.title} status={item.status} />
-                    )}
-                  />
-                  {/* Progress Bar */}
-                  <CustomProgressBar color="#FDDF38" progress={0.5} />
+                  {[0, 1, 2].map(index => {
+                    const item = todayTaskList[index];
+                    return (
+                      <ToDoProps
+                        key={item?.id ?? index}
+                        title={item?.title ?? 'Add'}
+                        status={item?.isCompleted ?? false}
+                      />
+                    );
+                  })}
+                  <CustomProgressBar color="#FDDF38" progress={completedTaskScore / 100} />
+                </Card>
+              </View>
+
+              {/* Compass Card */}
+              <View style={styles.compassInnerCard}>
+                <Card
+                  style={styles.cardContainer}
+                  onPress={() =>
+                    navigation.navigate(navigationScreenNames.compassHome)
+                  }>
+                  <View style={styles.cardTitleContainer}>
+                    <View style={styles.innerCardTitleContainer}>
+                      <View style={styles.compassBorder} />
+                      <Text variant="h6">{'Compass'}</Text>
+                    </View>
+                    <View style={styles.iconContainer}>
+                      <Icon name="compass" size="normal" />
+                    </View>
+                  </View>
+
+                  {/* comnpass's widget */}
+                  {compassItems.map((item, index) => (
+                    <CompassItem
+                      key={index}
+                      virtue={item.virtue}
+                      score={item.score}
+                    />
+                  ))}
+                  <CustomProgressBar color="#EE7933" progress={progress / 100} />
                 </Card>
               </View>
             </View>
           </View>
-          {/* Journal's content */}
+
+          {/* Journal Card */}
+          <Separator height={RFValue(20)} />
           <View>
+            <Text variant="caption2">{"Daily Journal"}</Text>
+            <Separator height={RFValue(8)} />
             <Card style={styles.journalCard} onPress={goToJournalScreen}>
               <View style={styles.journalContainer}>
                 <View style={styles.cardInner}>
-                  <Text variant="h4" style={{marginBottom: 10}}>
+                  <Text variant="h5" style={styles.journalTitleText}>
                     {'Fill out your journal'}
                   </Text>
-                  <Text variant="caption" style={{fontSize: RFValue(10)}}>
+                  <Text variant="caption3">
                     {
                       'Daily discipline, starts from doing the basics. Let’s make sure, we fill out our Journals & build from here'
                     }
@@ -250,3 +229,4 @@ const Dashboard = (navigationProps: NavigationPropsType) => {
 };
 
 export default Dashboard;
+

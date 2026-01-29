@@ -13,10 +13,25 @@ buildscript {
         mavenCentral()
          jcenter()
     }
+    
     dependencies {
         classpath("com.android.tools.build:gradle")
         classpath("com.facebook.react:react-native-gradle-plugin")
          classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+
+    allprojects {
+        repositories {
+            google()
+            mavenCentral()
+            jcenter()
+        }
+
+        configurations.all {
+            resolutionStrategy {
+            force 'androidx.browser:browser:1.7.0'
+            }
+        }
     }
 }
 

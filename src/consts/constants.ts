@@ -8,6 +8,11 @@ export const SCREEN_WIDTH = Dimensions.get('window').width;
 export const SCREEN_HEIGHT = Dimensions.get('window').height;
 export const REM = SCREEN_WIDTH / 375;
 
+// Term and condition URL
+export const TERM_AND_CONDITION = "https://sculpted.site/investors-glossary/terms-conditions";
+
+// Privacy statement URL
+export const PRIVACY_STATEMENT = "https://sculpted.site/investors-glossary/privacy-statement";
 
 export const SPLASH_SCREEN_DURATION = 2000;
 
@@ -21,3 +26,12 @@ export const TOAST_BASE_CONFIG = {
   text2: 'Unselect or add virtues to continue',
   visibilityTime: 2000
 }
+
+export const TOAST_EMAIL_CONFIG = {
+  type: 'error',
+  text1: 'Error - Failed to complete action',
+  text2: 'Please try again',
+  visibilityTime: 2000
+}
+
+export const FULL_VIRTUE_SCORE = 10;

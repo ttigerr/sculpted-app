@@ -44,6 +44,12 @@ import AddTask from 'assets/icons/ic-add-task.tsx';
 import LockFocus from 'assets/icons/ic-lock-focused.tsx';
 import Trash from 'assets/icons/ic-trash.tsx';
 import PlusRound from 'assets/icons/ic-plus-round.tsx';
+import CompassWidget from 'assets/icons/ic-compass-widget.tsx';
+import Apple from 'assets/icons/ic-apple.tsx';
+import Google from 'assets/icons/ic-google.tsx';
+import ThreeDots from 'assets/icons/ic-three-dots.tsx';
+import ToDoWidget from 'assets/icons/ic-to-do-widget.tsx';
+import BookmarkFocused from 'assets/icons/ic-bookmark-focused.tsx';
 
 const Icon = ({
   name,
@@ -142,6 +148,8 @@ const Icon = ({
       return <Compass {...localProps} />;
     case 'bookmark':
       return <Bookmark {...localProps} />;
+    case 'bookmarkFocused':
+      return <BookmarkFocused {...localProps} />;
     case 'add':
       return <Add {...localProps} />;
     case 'tick':
@@ -176,6 +184,16 @@ const Icon = ({
       return <PlusRound {...localProps} />;
     case 'trash':
       return <Trash {...localProps} />;
+    case 'compassWidget':
+      return <CompassWidget {...localProps} />
+    case 'apple':
+      return <Apple {...localProps} />
+    case 'google':
+      return <Google {...localProps} />
+    case 'threeDots':
+      return <ThreeDots {...localProps} />
+    case 'toDoWidget':
+      return <ToDoWidget {...localProps} />
     default:
       return <View />;
   }

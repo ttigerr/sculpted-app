@@ -1,11 +1,12 @@
-import {useRef, useState} from 'react';
-import {NavigationPropsType} from 'src/utils/types';
-import {useForm, FieldValues} from 'react-hook-form';
-import {navigationScreenNames} from 'src/utils/navigation-screen-names';
+import React, {useEffect, useRef, useState} from 'react';
+import { NavigationPropsType } from 'src/utils/types';
+import { useForm, FieldValues } from 'react-hook-form';
+import { navigationScreenNames } from 'src/utils/navigation-screen-names';
+import { useDispatch } from 'react-redux';
+import { setUserData, setToken } from 'src/store/slices/auth/authSlice';
+import { loginMockApiCall } from 'src/utils/api/mock-api-call';
 import {ScrollView, TextInput, Alert} from 'react-native';
-import {useDispatch} from 'react-redux';
-import {setUserData, setToken} from 'src/store/slices/auth/authSlice';
-import {authorize, refresh} from 'react-native-app-auth';
+import {AuthConfiguration, authorize, refresh} from 'react-native-app-auth';
 import {authConfig, signUpConfig} from 'src/config/auth-config';
 import {Buffer} from 'buffer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -42,10 +43,48 @@ const useLogin = (navigationProps: NavigationPropsType) => {
     minLength: {value: 8, message: 'Invalid password'},
   }
 
-  // const goToSignUp = () => navigation.navigate(navigationScreenNames.signUp)
+  const [source, setSource] = useState(''); // default fallback
 
+  useEffect(() => {
+    if (navigationProps.route.params?.source) {
+      setSource(navigationProps.route.params.source);
+    }
+  }, [navigationProps.route.params?.source]);
 
-  const goToForgotPassword = () => navigation.navigate(navigationScreenNames.emailVerification)
+  const goToSignUp = () => navigation.navigate(navigationScreenNames.signUp)
+
+  const onReturn = () => navigation.goBack()
+
+  const goToForgotPassword = () => {
+    navigation.navigate({
+      name: navigationScreenNames.emailVerification,
+      params: { source: 'auth' },
+      key: `auth-${Date.now()}`
+    })
+  }
+
+  // const onSubmit = handleSubmit(async data => {
+  //   setIsLoading(true);
+  //   try {
+  //     const response = await loginMockApiCall();
+  //     console.log('Login: ', response);
+      
+  //     dispatch(setUserData(response.user));
+  //     dispatch(setToken(response.token));
+      
+  //     navigation.navigate({
+  //       name: navigationScreenNames.bottomNavigation,
+  //       params: { source: source },
+  //     });
+  
+  //   } catch (error) {
+  //     console.error('Login failed:', error);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // });
+  
+
   
   const onSubmit = handleSubmit(async data => {
     setIsLoading(true);
@@ -73,7 +112,10 @@ const useLogin = (navigationProps: NavigationPropsType) => {
         }
       }
 
-      navigation.navigate(navigationScreenNames.bottomNavigation);
+      navigation.navigate({
+        name: navigationScreenNames.bottomNavigation,
+        params: { source: source },
+      });
     } catch (error) {
       console.error('Authentication error:', error);
       Alert.alert(
@@ -81,6 +123,7 @@ const useLogin = (navigationProps: NavigationPropsType) => {
         `Error: ${error.message}\nPlease check your credentials and try again.`
       );
     } finally {
+      console.log("Auth config", authConfig)
       setIsLoading(false);
     }
   })
@@ -157,7 +200,9 @@ const useLogin = (navigationProps: NavigationPropsType) => {
     inputRefs,
     scrollViewRef,
     storeInputPosition,
-    loading
+    loading,
+    onReturn,
+    goToSignUp,
   }
 }
 

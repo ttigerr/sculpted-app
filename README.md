@@ -40,6 +40,14 @@ or
 
 `$ yarn ios`
 
+#### Troubleshooting Android Build Issues
+
+If you encounter issues with Android build, try cleaning and rebuilding the project:
+
+```bash
+cd android && ./gradlew clean && ./gradlew :app:bundleRelease
+```
+
 ## Tech Stack
 
 Sculpted app includes the following rock-solid technical decisions out of the box:
@@ -93,7 +101,7 @@ Make sure the follow the Gitflow Workflow which is a Local tracking branch. We m
 - **bug**: reported by the user in STG/UAT and tester during their testing
 - **hotfix**: reported by the user in production
 
-Let’s use a simple pattern like this.
+Let's use a simple pattern like this.
 
 - bug_bug_title
 - hotfix_hotfix_title

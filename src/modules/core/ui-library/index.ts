@@ -14,6 +14,7 @@ import ProgressBar from "./components/progress-bar";
 import CustomCheckBox from "./components/custom-check-box";
 import Sliders from "./components/slider";
 import CustomProgressBar from "./components/custom-progress-bar";
+import ListGroup from "./components/list-group";
 
 export {
   Button,
@@ -32,4 +33,5 @@ export {
   CustomCheckBox,
   Sliders,
   CustomProgressBar,
+  ListGroup,
 }

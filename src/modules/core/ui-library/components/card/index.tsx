@@ -3,6 +3,7 @@ import { StyleSheet, View } from "react-native";
 import { Card as CardItem, CardProps} from "react-native-paper";
 import LinearGradient from 'react-native-linear-gradient';
 import {theme} from 'src/config/theme';
+import { RFValue } from "react-native-responsive-fontsize";
 
 type CardPropItems = {
     width: number,
@@ -44,11 +45,10 @@ export default Card;
 
 const styles = StyleSheet.create ({
     container: {
-        flex:1,
-        padding: 15,
+        flex: 1,
+        padding: 19,
         backgroundColor: '#161718',
-        borderRadius: 30,
-        margin: 2,
+        borderRadius: 25,
     },
     
 });

@@ -1,5 +1,7 @@
 import { Moment } from "moment";
 export type NavigationType = {
+  setOptions(arg0: { headerLeft: () => any; }): unknown;
+  push: Function;
   navigate: Function;
   goBack: Function;
   dispatch: Function;
@@ -9,7 +11,10 @@ export type NavigationType = {
 export type NavigationPropsType = {
   navigation: NavigationType;
   route: {
-    params: any;
+    params?: {
+      source?: string;
+      [key: string]: any;
+    };
     key: string;
     name: string;
   };
@@ -37,7 +42,12 @@ export type Task = {
 export type DayListItem = {
   title: string;
   date: Moment | null;
+  dateString: string | null;
 };
+
+export type JournalReminder = {
+  time: string | null;
+}
 
 // REDUX STORE SLICES
 export interface AuthState {

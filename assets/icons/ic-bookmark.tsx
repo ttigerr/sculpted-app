@@ -7,24 +7,25 @@ function SvgComponent({width, height, fill, strokeColor}: IconProps) {
     <Svg
       width={width}
       height={height}
-      viewBox="0 0 50 51"
+      viewBox="0 0 36 36"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
       <Path
         clipRule="evenodd"
-        d="M42.325 12.72c0-6.017-4.114-8.43-10.038-8.43h-13.91c-5.741 0-10.044 2.249-10.044 8.03v32.208c0 1.587 1.709 2.587 3.092 1.811l13.961-7.831 13.84 7.818c1.386.78 3.099-.22 3.099-1.81V12.722z"
-        stroke={strokeColor}
-        strokeWidth={3.75}
+        d="M30.474 9.07c0-4.333-2.962-6.07-7.227-6.07H13.232C9.098 3 6 4.618 6 8.78v23.19a1.495 1.495 0 002.226 1.305l10.052-5.639 9.965 5.63a1.496 1.496 0 002.23-1.303V9.069z"
+        stroke="#fff"
+        strokeWidth={2.7}
         strokeLinecap="round"
         strokeLinejoin="round"
+        opacity={0.4}
       />
       <Path
-        opacity={0.4}
+        opacity={0.2}
         fillRule="evenodd"
         clipRule="evenodd"
-        d="M15.598 18.201c0-.46.373-.833.834-.833h17.623c.46 0 .833.373.833.833v2.083c0 .46-.373.834-.833.834H16.432a.833.833 0 01-.834-.834v-2.083z"
-        fill={fill}
+        d="M11.23 13.015a.6.6 0 01.6-.6h12.69a.6.6 0 01.6.6v1.5a.6.6 0 01-.6.6H11.83a.6.6 0 01-.6-.6v-1.5z"
+        fill="#fff"
       />
     </Svg>
   )

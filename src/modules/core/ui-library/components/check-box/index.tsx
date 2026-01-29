@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {View, Pressable, StyleSheet, Animated, Easing} from 'react-native';
+import { RFValue } from 'react-native-responsive-fontsize';
 import Icon from 'src/modules/core/components/icon';
 
 const CustomCheckbox = ({checked = false, onPress, children}) => {
@@ -36,15 +37,14 @@ const styles = StyleSheet.create({
   checkboxContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    margin: 8,
     flexDirection: 'row',
   },
   checkbox: {
-    width: 20,
+    width: RFValue(20),
     height: undefined,
     aspectRatio: 1 / 1,
     backgroundColor: '#1c1c1e', // Fondo oscuro
-    borderRadius: 6,
+    borderRadius: RFValue(6),
     justifyContent: 'center',
     alignItems: 'center',
     shadowColor: '#000',

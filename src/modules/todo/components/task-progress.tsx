@@ -1,54 +1,64 @@
 import React from 'react';
-import {View, Text, StyleSheet, Pressable} from 'react-native';
+import {View, StyleSheet, Pressable} from 'react-native';
 import {ProgressCircle} from 'react-native-svg-charts';
 import moment from 'moment';
 import {RFValue} from 'react-native-responsive-fontsize';
 import {TouchableRipple} from 'react-native-paper';
-import {Separator} from 'src/modules/core/ui-library';
+import {Separator, Text} from 'src/modules/core/ui-library';
 import {CARD_BORDER_RADIUS} from 'src/consts/constants';
 import {theme} from 'src/config/theme';
+import Icon from 'src/modules/core/components/icon';
 interface TaskProgressProps {
   date: Date;
   completedTasks: number;
   totalTasks: number;
+  completedPercent : number;
   onPress?: () => void;
 }
 
-const PROGRESS_CIRCLE_SIZE = 100;
+const PROGRESS_CIRCLE_SIZE = 114;
 
 const TaskProgress: React.FC<TaskProgressProps> = ({
   date,
   completedTasks,
   totalTasks,
+  completedPercent,
   onPress,
 }) => {
-  const progress = completedTasks / totalTasks;
+  const progress = completedPercent / 100;
 
   return (
     <TouchableRipple onPress={onPress} style={styles.touchable}>
       <View style={styles.container}>
         <View style={styles.leftContainer}>
           <View style={styles.dateContainer}>
-            <Text style={styles.dateText}>{moment(date).format('MMM DD')}</Text>
+            <Text variant="body4">{moment(date).format('MMM DD')}</Text>
           </View>
-          <Text style={styles.taskProgressText}>Task Progress</Text>
+          <Text variant="h6" style={styles.taskProgressText}>Task Progress</Text>
           <View style={styles.doneTextContainer}>
-            <Text style={styles.taskProportionText}>
-              {completedTasks}/{totalTasks}
+            <Text variant="h1" style={styles.taskProportionText}>
+              {completedTasks+ "/" + totalTasks}
             </Text>
-            <Text style={styles.taskDoneText}>Done</Text>
+            <Text style={styles.plusSign}>{totalTasks >= 99? "+" : null}</Text>
+            <Text variant="body2">{" Done"}</Text>
           </View>
         </View>
 
         <View style={styles.rigthContainer}>
-          <ProgressCircle
-            style={styles.progressCircle}
-            progress={progress}
-            progressColor={'#FFD700'}
-            backgroundColor={'#333'}
-            strokeWidth={16}
-          />
-          <Text style={styles.progressText}>{Math.round(progress * 100)}%</Text>
+          { completedTasks == 100? (
+            <Icon name="toDoWidget" size="normal"/>
+          ) : (
+            <>
+              <ProgressCircle
+                style={styles.progressCircle}
+                progress={progress}
+                progressColor={'#FFD700'}
+                backgroundColor={'#333'}
+                strokeWidth={16}
+              />
+              <Text variant="body" style={styles.progressText}>{Math.round(progress * 100)}%</Text>
+            </>
+          )}
         </View>
       </View>
     </TouchableRipple>
@@ -57,15 +67,13 @@ const TaskProgress: React.FC<TaskProgressProps> = ({
 
 const styles = StyleSheet.create({
   touchable: {
-    borderRadius: CARD_BORDER_RADIUS,
     overflow: 'hidden',
   },
   container: {
     flexDirection: 'row',
     backgroundColor: theme.colors.dashboardCardBackground,
-    borderRadius: CARD_BORDER_RADIUS,
-    paddingVertical: 16,
-    paddingHorizontal: 18,
+    borderRadius: 25,
+    padding: RFValue(16),
     alignItems: 'center',
     justifyContent: 'space-between',
   },
@@ -73,54 +81,56 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   dateContainer: {
-    backgroundColor: '#444',
+    backgroundColor: '#3d3e3f',
     borderRadius: 100,
-    height: 24,
-    width: 62,
+    height: 18,
+    width: 56,
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 15,
   },
   dateText: {
     color: theme.colors.primaryTextColor,
-    fontSize: 14,
+    fontSize: 12,
   },
   taskProgressText: {
     color: theme.colors.primaryTextColor,
-    fontSize: 18,
-    fontWeight: '600',
     maxWidth: 100,
-    marginBottom: 22,
+    paddingVertical: 15
   },
   doneTextContainer: {
     flexDirection: 'row',
-    alignItems: 'baseline',
+    alignItems: 'flex-end'
   },
   taskDoneText: {
     color: theme.colors.primaryTextColor,
-    fontSize: 14,
-    marginLeft: 8,
+    fontSize: 16,
   },
   progressCircle: {
-    width: PROGRESS_CIRCLE_SIZE,
-    height: PROGRESS_CIRCLE_SIZE + 5,
+    width: PROGRESS_CIRCLE_SIZE + 7,
+    height: PROGRESS_CIRCLE_SIZE + 7,
+    overflow: 'visible', // To prevent clipping
   },
   rigthContainer: {
     alignItems: 'center',
     justifyContent: 'center',
+    overflow: 'visible',
   },
   progressText: {
-    fontSize: 16,
     color: theme.colors.primaryTextColor,
-    fontWeight: 'bold',
+    fontWeight: '700',
     textAlign: 'center',
     position: 'absolute',
     textAlignVertical: 'center',
   },
   taskProportionText: {
-    color: '#fff',
-    fontSize: 32,
-    fontWeight: 'bold',
+    top: 5,
+    lineHeight: 33,
+    fontWeight: '700',
+  },
+  plusSign: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: '#FFFFFF',
   },
 });
 

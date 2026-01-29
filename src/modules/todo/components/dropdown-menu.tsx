@@ -1,16 +1,17 @@
-import React, {useState} from 'react';
-import {View, StyleSheet} from 'react-native';
+import React, { useRef, useState } from 'react';
 import {
-  Menu,
-  IconButton,
-  Divider,
+  View,
+  StyleSheet,
+  TouchableOpacity,
   Text,
-  MD3DarkTheme,
-} from 'react-native-paper';
-import {theme} from 'src/config/theme';
-import {PaperProvider} from 'react-native-paper';
-import {RFValue} from 'react-native-responsive-fontsize';
+  Modal,
+  Pressable,
+  findNodeHandle,
+  UIManager,
+} from 'react-native';
+import { RFValue } from 'react-native-responsive-fontsize';
 import Icon from 'src/modules/core/components/icon';
+import { theme } from 'src/config/theme';
 
 type DropdownMenuProps = {
   onShowCompletedPressed: (showCompleteValue: boolean) => void;
@@ -19,116 +20,141 @@ type DropdownMenuProps = {
   isSelectedAll: boolean;
 };
 
-const SELECTED_ICON_SIZE = 16;
+const SELECTED_ICON_SIZE = 15;
 
 const DropdownMenu = ({
   onShowCompletedPressed,
   onSelectAllPressed,
   isShowingCompleted,
   isSelectedAll,
-}: DropdownMenuProps) => {
-  const [visible, setVisible] = useState(false);
+} : DropdownMenuProps ) => {
 
-  const openMenu = () => setVisible(true);
+  const [visible, setVisible] = useState(false);
+  const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
+  const iconRef = useRef<TouchableOpacity>(null);
+
+  const openMenu = () => {
+    const handle = findNodeHandle(iconRef.current);
+    if (handle) {
+      UIManager.measure(handle, (_x, _y, _width, _height, pageX, pageY) => {
+        setMenuPosition({ x: pageX, y: pageY + _height });
+        setVisible(true);
+      });
+    }
+  };
+
   const closeMenu = () => setVisible(false);
 
+  const handleShowCompleted = () => {
+    closeMenu();
+    onShowCompletedPressed(isShowingCompleted);
+  };
+
+  const handleSelectAll = () => {
+    closeMenu();
+    onSelectAllPressed(isSelectedAll);
+  };
+
   return (
-    <Menu
-      visible={visible}
-      onDismiss={closeMenu}
-      theme={theme}
-      style={styles.menuContent}
-      anchor={
-        <IconButton
-          icon="dots-horizontal-circle-outline"
-          size={24}
-          iconColor="gray"
-          onPress={openMenu}
-        />
-      }
-      contentStyle={styles.menuContent}>
-      <Menu.Item
-        onPress={() => {
-          closeMenu();
-          onShowCompletedPressed(isShowingCompleted);
-        }}
-        title="Show Completed"
-        style={[styles.item, styles.firstItemBorder]}
-        titleStyle={styles.menuText}
-        trailingIcon={() => (
-          <View style={styles.selectedIconContainer}>
+    <View>
+      <TouchableOpacity onPress={openMenu} ref={iconRef}>
+        <Icon name="threeDots" />
+      </TouchableOpacity>
+      {visible && (
+        <Modal transparent animationType="none" visible={visible}>
+          <Pressable style={styles.overlay} onPress={closeMenu}>
             <View
               style={[
-                styles.selectedIconDot,
+                styles.menuContent,
                 {
-                  backgroundColor: isShowingCompleted
-                    ? theme.colors.todoScreenTextColor
-                    : theme.colors.avartarBadgeDefaultColor,
+                  top: menuPosition.y + 6,
+                  right: RFValue(16), // Adjust based on your layout
                 },
               ]}
-            />
-          </View>
-        )}
-      />
-      <Menu.Item
-        onPress={() => {
-          closeMenu();
-          onSelectAllPressed && onSelectAllPressed(isSelectedAll);
-        }}
-        title="Select All"
-        titleStyle={styles.menuText}
-        contentStyle={{flex: 1}}
-        style={styles.item}
-        trailingIcon={() => (
-          <View style={styles.selectedIconContainer}>
-            <Icon
-              name="tick"
-              fill={
-                isSelectedAll
-                  ? theme.colors.todoScreenTextColor
-                  : theme.colors.avartarBadgeDefaultColor
-              }
-              width={RFValue(8)}
-              height={RFValue(8)}
-            />
-          </View>
-        )}
-      />
-    </Menu>
+            >
+              <TouchableOpacity
+                style={[styles.item, styles.firstItemBorder]}
+                onPress={handleShowCompleted}
+              >
+                <Text style={styles.menuText}>Show Completed</Text>
+                <View style={styles.selectedIconContainer}>
+                  <View
+                    style={[
+                      styles.selectedIconDot,
+                      {
+                        backgroundColor: theme.colors.todoScreenTextColor,
+                      },
+                    ]}
+                  />
+                </View>
+              </TouchableOpacity>
+
+              <TouchableOpacity style={styles.item} onPress={handleSelectAll}>
+                <Text style={styles.menuText}>Select All</Text>
+                <View style={styles.selectedTickContainer}>
+                  <Icon
+                    name="tick"
+                    fill={theme.colors.todoScreenTextColor}
+                    width={RFValue(8)}
+                    height={RFValue(8)}
+                  />
+                </View>
+              </TouchableOpacity>
+            </View>
+          </Pressable>
+        </Modal>
+      )}
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  overlay: {
+    flex: 1,
+  },
   menuContent: {
+    position: 'absolute',
     backgroundColor: '#333',
-    borderRadius: 22,
-    alignItems: 'flex-start',
+    borderRadius: 17,
+    paddingVertical: 8,
+    width: 190,
+    elevation: 4,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    zIndex: 1000,
   },
   menuText: {
     color: theme.colors.textInputColor,
-    fontWeight: '600',
-    marginRight: 12,
-  },
-  anchorContainer: {
-    borderRadius: 50,
-    borderWidth: 1,
-    borderColor: theme.colors.caption,
+    fontWeight: '500',
+    fontSize: 16,
+    flex: 1,
   },
   item: {
-    color: theme.colors.textInputColor,
+    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 10,
-    width: '100%',
+    paddingVertical: 12,
+    paddingHorizontal: 15,
   },
   selectedIconContainer: {
     height: RFValue(SELECTED_ICON_SIZE),
-    width: undefined,
-    aspectRatio: 1 / 1,
+    aspectRatio: 1,
     padding: RFValue(2),
     borderWidth: 1,
     borderColor: theme.colors.listItemColor,
     borderRadius: 20,
+  },
+  selectedTickContainer: {
+    height: RFValue(SELECTED_ICON_SIZE),
+    aspectRatio: 1,
+    padding: RFValue(2),
+    borderWidth: 1,
+    borderColor: theme.colors.listItemColor,
+    borderRadius: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   selectedIconDot: {
     flex: 1,
@@ -141,3 +167,4 @@ const styles = StyleSheet.create({
 });
 
 export default DropdownMenu;
+

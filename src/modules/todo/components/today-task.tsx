@@ -1,7 +1,6 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import {RFValue} from 'react-native-responsive-fontsize';
-import {CARD_BORDER_RADIUS} from 'src/consts/constants';
 import Icon from 'src/modules/core/components/icon';
 import {Text} from 'src/modules/core/ui-library';
 import {theme} from 'src/config/theme';
@@ -22,9 +21,19 @@ const TodayTask: React.FC<TodayTaskProps> = ({taskCount, onPress}) => {
             <Icon name="to-do" size="small" />
           </View>
         </View>
-        <Text variant="h1" style={styles.taskCount}>
-          {taskCount}
-        </Text>
+        <View style={{
+            flexDirection: 'row',
+            justifyContent: taskCount >= 99 ? 'space-between' : 'flex-end',
+            alignItems: 'center'
+          }}
+        >
+          <Text style={styles.taskCount}>
+            {taskCount == 100 ? taskCount - 1: taskCount}
+          </Text>
+          <Text variant="body2"style={styles.plusText}>
+            {taskCount >= 99 ? "+" : null}
+          </Text>
+        </View>
       </View>
     </TouchableRipple>
   );
@@ -32,46 +41,49 @@ const TodayTask: React.FC<TodayTaskProps> = ({taskCount, onPress}) => {
 
 const styles = StyleSheet.create({
   touchable: {
-    flex: 1,
-    // maxHeight: 220,
-    borderRadius: CARD_BORDER_RADIUS,
     overflow: 'hidden',
+    flex: 1
   },
   container: {
     flex: 1,
     backgroundColor: theme.colors.dashboardCardBackground,
-    borderRadius: CARD_BORDER_RADIUS,
-    paddingHorizontal: RFValue(16),
-    paddingTop: RFValue(16),
+    borderRadius: 25,
+    padding: 16,
     justifyContent: 'space-between',
   },
   upperSection: {
     flexDirection: 'row',
-    alignItems: 'flex-start',
     justifyContent: 'space-between',
   },
   iconContainer: {
     width: 28,
-    height: undefined,
-    aspectRatio: 1 / 1,
+    height: 28,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#333',
+    backgroundColor: '#1f2021',
     borderRadius: 10,
   },
   title: {
     color: theme.colors.primaryTextColor,
-    fontSize: 18,
-    fontWeight: '600',
+    fontSize: 20,
+    fontWeight: '500',
     maxWidth: 90,
   },
   taskCount: {
     color: theme.colors.primaryTextColor,
-    fontSize: 84,
-    textAlign: 'right',
-    textAlignVertical: 'bottom',
-    lineHeight: 86,
+    fontSize: 90,
+    fontWeight: '500',
   },
+  plusText: {
+    fontSize: 40,
+    fontWeight: '700',
+    lineHeight: RFValue(0)
+  },
+  taskCountContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  }
 });
 
 export default TodayTask;

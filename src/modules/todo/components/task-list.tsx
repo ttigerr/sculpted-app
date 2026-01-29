@@ -1,13 +1,14 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState, useCallback} from 'react';
 import {
   View,
   StyleSheet,
   ScrollView,
   TouchableWithoutFeedback,
   TextInput,
+  Pressable,
 } from 'react-native';
 import {theme} from 'src/config/theme';
-import {Text} from 'src/modules/core/ui-library';
+import {Separator, Text} from 'src/modules/core/ui-library';
 import DropdownMenu from './dropdown-menu';
 import {Task} from 'src/utils/types';
 import Animated, {
@@ -19,6 +20,9 @@ import {PanGestureHandler} from 'react-native-gesture-handler';
 import {SCREEN_WIDTH} from 'src/consts/constants';
 import {RFValue} from 'react-native-responsive-fontsize';
 import Icon from 'src/modules/core/components/icon';
+import { useRoute } from '@react-navigation/native';
+import { navigationScreenNames } from 'src/utils/navigation-screen-names';
+
 const SWIPE_THRESHOLD = SCREEN_WIDTH * 0.3;
 const MAX_SWIPE_DISTANCE = -SCREEN_WIDTH * 0.5;
 
@@ -34,6 +38,7 @@ interface TaskListProps {
   isSelectedAll: boolean;
   onSelectAllPressed: (isSelectedAll: boolean) => void;
   handleToggleSelectItem: (id: string, isSelected: boolean) => void;
+  children: any;
 }
 
 const TaskItem: React.FC<
@@ -62,6 +67,8 @@ const TaskItem: React.FC<
   const inputs = useRef<Array<TextInput | null>>([]);
   const translateX = useSharedValue(0);
   const backgroundTranslateX = useSharedValue(0);
+  const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
+  const [numberOfLines, setNumberOfLines] = useState(0);
 
   useEffect(() => {
     if (inputs.current[0]) {
@@ -69,6 +76,7 @@ const TaskItem: React.FC<
     }
   }, []);
 
+  // To handle with the animations
   const animatedTranslateStyle = useAnimatedStyle(() => ({
     transform: [{translateX: translateX.value}],
   }));
@@ -96,6 +104,11 @@ const TaskItem: React.FC<
     }
   };
 
+  // to handle number of lines in text's scescription
+  const onTextLayout = useCallback(event => {
+    setNumberOfLines(event.nativeEvent.lines.length);
+  }, []);
+
   return (
     <>
       {isTemporary ? (
@@ -103,7 +116,7 @@ const TaskItem: React.FC<
           <TextInput
             style={styles.taskTitle}
             placeholder="Add a title"
-            cursorColor={'#FDDF38'}
+            placeholderTextColor={"#7C7C7C"}
             value={title}
             maxLength={40}
             onChangeText={text =>
@@ -116,7 +129,7 @@ const TaskItem: React.FC<
           />
           <TextInput
             style={styles.descriptionInput}
-            placeholder="Notes:"
+            placeholder="Description"
             value={description}
             multiline
             maxLength={200}
@@ -127,6 +140,8 @@ const TaskItem: React.FC<
               )
             }
             ref={input => (inputs.current[1] = input)}
+            
+            autoFocus
           />
         </View>
       ) : (
@@ -139,47 +154,62 @@ const TaskItem: React.FC<
             enabled={!isSelectedAll}
             onGestureEvent={handleGestureEvent}
             onEnded={handleGestureEnd}>
-            {/* <TouchableRipple
-              onPress={onPress}
-              rippleColor="rgba(0, 0, 0, .32)"
-              style={styles.touchable}> */}
-            <Animated.View
-              style={[styles.taskContainer, animatedTranslateStyle]}>
-              <View>
-                <Text style={styles.taskTitle}>{title}</Text>
-                {description && (
-                  <Text style={styles.taskDescription}>{description}</Text>
-                )}
-              </View>
-              <TouchableWithoutFeedback
-                onPress={event => {
-                  event.stopPropagation();
-                  if (isSelectedAll) {
-                    handleToggleSelectItem && handleToggleSelectItem();
-                  } else onToggleComplete && onToggleComplete();
-                }}>
-                <View style={[styles.itemOuterCircle]}>
-                  <View
-                    style={[
-                      styles.itemInnerCircle,
-                      isCompleted && {
-                        backgroundColor: theme.colors.todoScreenTextColor,
-                      },
-                      isSelectedAll && {
-                        backgroundColor: theme.colors.todoSelectingItemColor,
-                      },
-                    ]}>
-                    {isSelected && (
-                      <Icon
-                        name="tick"
-                        fill={theme.colors.background}
-                        width={RFValue(9)}
-                        height={RFValue(9)}
-                      />
-                    )}
+              
+            <Animated.View style={[styles.taskContainer, animatedTranslateStyle]}>
+              <View style={{ flexDirection: 'row-reverse', alignItems: 'center' }}>
+                {/* Dot component on the right */}
+                <TouchableWithoutFeedback
+                  onPress={event => {
+                    event.stopPropagation();
+                    if (isSelectedAll) {
+                      handleToggleSelectItem && handleToggleSelectItem();
+                    } else onToggleComplete && onToggleComplete();
+                  }}>
+                  <View style={styles.itemOuterCircle}>
+                    <View
+                      style={[
+                        styles.itemInnerCircle,
+                        (isCompleted || isSelectedAll) && {
+                          backgroundColor: theme.colors.todoScreenTextColor,
+                        },
+                      ]}>
+                      {isSelected && (
+                        <Icon
+                          name="tick"
+                          fill={theme.colors.background}
+                          width={RFValue(9)}
+                          height={RFValue(9)}
+                        />
+                      )}
+                    </View>
                   </View>
+                </TouchableWithoutFeedback>
+
+                {/* Text content on the left */}
+                <View style={{ flex: 1 }}>
+                  <Text style={styles.taskTitle}>{title}</Text>
+                  {description ? (
+                    <>
+                      {/* Wrap a description when hit more than 2 lines  */}
+                      <Pressable onPress={() => setIsDescriptionExpanded(prev => !prev)}>
+                        <Text
+                          style={styles.descriptionInput}
+                          numberOfLines={isDescriptionExpanded ? undefined : 2}
+                          ellipsizeMode="tail"
+                          onTextLayout={onTextLayout}
+                        >
+                          {description}
+                        </Text>
+                        {numberOfLines >= 2 && (
+                          <Text style={[styles.descriptionInput, {opacity: 0.6}]}>
+                            {isDescriptionExpanded ? '...Show less' : '... more'}
+                          </Text>
+                        )}
+                      </Pressable>
+                    </>
+                  ) : null}
                 </View>
-              </TouchableWithoutFeedback>
+              </View>
             </Animated.View>
             {/* </TouchableRipple> */}
           </PanGestureHandler>
@@ -201,22 +231,29 @@ const TaskList: React.FC<TaskListProps> = ({
   isSelectedAll,
   onSelectAllPressed,
   handleToggleSelectItem,
+  children,
+  
 }) => {
+  const route = useRoute();
+
   return (
     <View style={styles.container}>
-      <View style={styles.headerContainer}>
-        <Text variant="paragraph" style={styles.header}>
-          Lists
-        </Text>
-        {!isSelectedAll && (
-          <DropdownMenu
-            isSelectedAll={isSelectedAll}
-            isShowingCompleted={isShowingCompleted}
-            onShowCompletedPressed={onShowCompletedPressed}
-            onSelectAllPressed={onSelectAllPressed}
-          />
-        )}
-      </View>
+      {/* Do not show only Journal screen */}
+      {route.name !== navigationScreenNames.journal && (
+        <View style={styles.headerContainer}>
+          <Text variant="paragraph" style={styles.header}>
+            {route.name == navigationScreenNames.todoIncomplete ? "Tasks" : "Lists"}
+          </Text>
+          {!isSelectedAll && route.name !== navigationScreenNames.todoIncomplete &&(
+            <DropdownMenu
+              isSelectedAll={isSelectedAll}
+              isShowingCompleted={isShowingCompleted}
+              onShowCompletedPressed={onShowCompletedPressed}
+              onSelectAllPressed={onSelectAllPressed}
+            />
+          )}
+        </View>
+      )}
       <ScrollView>
         {taskList.map(task => (
           <TaskItem
@@ -237,17 +274,21 @@ const TaskList: React.FC<TaskListProps> = ({
             }
           />
         ))}
+        {children}
         {newTask && (
-          <TaskItem
-            id={newTask.id}
-            key={newTask.id}
-            creationDate={newTask.creationDate}
-            title={newTask.title}
-            description={newTask.description}
-            isCompleted={newTask.isCompleted}
-            setNewTask={setNewTask}
-            isTemporary={newTask.isTemporary}
-          />
+          <>
+            <TaskItem
+              id={newTask.id}
+              key={newTask.id}
+              creationDate={newTask.creationDate}
+              title={newTask.title}
+              description={newTask.description}
+              isCompleted={newTask.isCompleted}
+              setNewTask={setNewTask}
+              isTemporary={newTask.isTemporary}
+            />
+            <Separator height={RFValue(15)}/>
+          </>
         )}
       </ScrollView>
     </View>
@@ -262,12 +303,15 @@ const styles = StyleSheet.create({
     color: '#FFF',
     fontSize: 16,
     fontWeight: '500',
-    marginBottom: 10,
+    opacity: 0.4
   },
   taskContainer: {
-    backgroundColor: theme.colors.dashboardCardFilledBackground,
-    borderRadius: 20,
-    padding: 15,
+    backgroundColor: theme.colors.dashboardCardBackground,
+    borderRadius: 24,
+    paddingLeft: 20,
+    paddingTop: RFValue(12),
+    paddingRight: 16,
+    paddingBottom: RFValue(16),
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -281,12 +325,14 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     marginBottom: 4,
-    maxWidth: RFValue(280),
+    flexShrink: 1, 
+    flexWrap: 'wrap', 
   },
   taskDescription: {
     color: '#888',
     fontSize: 14,
-    maxWidth: RFValue(280),
+    flexShrink: 1,  
+    flexWrap: 'wrap', 
   },
   statusCircle: {
     width: 20,
@@ -303,6 +349,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    marginBottom: RFValue(15)
   },
   titleInput: {
     color: theme.colors.textInputColor,
@@ -313,13 +360,15 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   taskCardContainer: {
-    marginBottom: 10,
+    marginBottom: RFValue(15),
   },
   addTaskCard: {
-    backgroundColor: theme.colors.dashboardCardFilledBackground,
-    borderRadius: 20,
-    padding: 15,
-    marginBottom: 10,
+    backgroundColor: theme.colors.dashboardCardBackground,
+    borderRadius: 24,
+    paddingLeft: 20,
+    paddingTop: RFValue(12),
+    paddingRight: 16,
+    paddingBottom: RFValue(16),
   },
   deleteBackground: {
     position: 'absolute',
@@ -330,28 +379,29 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFD600', // Yellow background for delete
     alignItems: 'flex-end',
     justifyContent: 'center',
-    borderRadius: 22,
+    borderRadius: 25,
     paddingRight: 20,
   },
   deleteText: {
     color: '#000',
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: '500',
   },
   itemOuterCircle: {
     width: 26,
-    height: undefined,
-    aspectRatio: 1 / 1,
-    borderRadius: 20,
+    height: 26,
+    borderRadius: 100,
     borderWidth: 1,
     borderColor: '#888',
     padding: 2,
-  },
-  itemInnerCircle: {
-    flex: 1,
-    borderRadius: 10,
+    marginLeft: 10,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  itemInnerCircle: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 1000,
   },
 });
 

@@ -22,13 +22,16 @@ const OtpInput: React.FC<OtpInputProps> = ({control, name, rules}) => {
   const handleChangeText = (
     text: string,
     index: number,
-    otp: OtpValue,
-    onChange: (value: OtpValue) => void,
+    otp: number[],
+    onChange: (value: number[]) => void,
   ) => {
-    const newOtp: OtpValue = [...otp] as OtpValue;
-    newOtp[index] = text;
+    let numericValue = parseInt(text, 10);
+    if (isNaN(numericValue)) numericValue = 0; // fallback for non-numeric
+  
+    const newOtp = [...otp];
+    newOtp[index] = numericValue;
     onChange(newOtp);
-
+  
     if (text && index < 3) {
       inputs.current[index + 1]?.focus();
     }
@@ -36,6 +39,7 @@ const OtpInput: React.FC<OtpInputProps> = ({control, name, rules}) => {
       Keyboard.dismiss();
     }
   };
+   
 
   const handleBackspace = (
     e: any,
@@ -54,12 +58,11 @@ const OtpInput: React.FC<OtpInputProps> = ({control, name, rules}) => {
   return (
     <Controller
       control={control}
-      name={name}
-      defaultValue={['', '', '', '']}
+      name="otpCode"
+      defaultValue={[0, 0, 0, 0]}
       rules={rules}
       render={({field: {onChange, value}}) => {
-        const otp =
-          Array.isArray(value) && value.length === 4 ? value : ['', '', '', ''];
+        const otp = Array.isArray(value) && value.length === 4 ? value as OtpValue : [0, 0, 0, 0];
         return (
           <View style={styles.container}>
             {otp.map((digit, index) => (
@@ -68,10 +71,8 @@ const OtpInput: React.FC<OtpInputProps> = ({control, name, rules}) => {
                 style={styles.input}
                 keyboardType="numeric"
                 maxLength={1}
-                value={digit}
-                onChangeText={text =>
-                  handleChangeText(text, index, otp, onChange)
-                }
+                value={digit ? digit.toString() : ''}
+                onChangeText={text => handleChangeText(text, index, otp, onChange)}
                 onKeyPress={e => handleBackspace(e, index, otp, onChange)}
                 ref={input => (inputs.current[index] = input)}
               />
@@ -87,14 +88,13 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    padding: 10,
   },
   input: {
     borderWidth: 2,
     borderColor: theme.colors.textInputBorderColor,
-    borderRadius: 20,
-    width: RFValue(74),
-    height: RFValue(74),
+    borderRadius: 25,
+    width: 80,
+    height: 80,
     textAlign: 'center',
     fontSize: RFValue(24),
     color: theme.colors.textInputColor,

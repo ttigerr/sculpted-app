@@ -3,7 +3,7 @@ export const navigationScreenNames = {
   login: 'Login',
   profile: 'ProfileMain',
   edit: 'ProfileEdit',
-  dashborad: 'Dashboard',
+  dashboard: 'Dashboard',
   journal: 'Journal',
   authNavigation: 'AuthNavigation',
   profileNavigation: 'ProfileNavigation',

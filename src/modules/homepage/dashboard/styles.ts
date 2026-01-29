@@ -7,19 +7,22 @@ import { SCREEN_WIDTH } from "src/consts/constants";
 const styles = StyleSheet.create ({
     mainContainer: {
         flex: 1,
-        marginTop: 70,
+        marginTop: RFValue(15),
     },
     scrollView: {
-        paddingHorizontal: 15,
+        paddingHorizontal: RFValue(16),
     },
     headerContainer: {
         display: 'flex',
+        flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
         marginBottom: 20,
     },
     innerHeaderContainer: {
+        gap: 10,
         paddingLeft: 20,
+        justifyContent: 'center'
     },
     avartarBorder: {
         borderWidth: 2,
@@ -32,7 +35,7 @@ const styles = StyleSheet.create ({
     cardContent: {
         flexDirection: 'row',
         justifyContent:'space-between',
-        marginVertical: RFValue(10),
+        gap: 10
     },
     cardContainer: {
         // width: (SCREEN_WIDTH / 2) - 10,
@@ -40,10 +43,13 @@ const styles = StyleSheet.create ({
         justifyContent: 'center',
         alignContent: 'center',
     },
+    cardTiltText: {
+        fontSize: 16,
+        lineHeight: RFValue(0)
+    },
     compassInnerCard: {
         flex: 1,
         justifyContent: 'center',
-        marginRight: RFValue(5),
     },
     cardInner: {
         flex: 1,
@@ -61,7 +67,7 @@ const styles = StyleSheet.create ({
         display: 'flex',
         flexDirection: "row",
         marginBottom: RFValue(20),
-        alignItems: 'center', 
+        alignItems: 'center',
     },
     innerCardTitleContainer: {
         flex: 1,
@@ -70,16 +76,14 @@ const styles = StyleSheet.create ({
     },
     compassBorder: {
         height: 28,
-        width: 0,
-        borderWidth: 3,
+        borderWidth: 2,
         borderRadius: 3,
         borderColor: "#EE7933",
-        marginRight: 5,
+        marginRight: RFValue(5),
     },
     toDoBorder: {
         height: 28,
-        width: 0,
-        borderWidth: 3,
+        borderWidth: 2,
         borderRadius: 3,
         borderColor: "#FDDF38",
         marginRight: RFValue(5),
@@ -92,18 +96,22 @@ const styles = StyleSheet.create ({
         marginRight: RFValue(5),
     },
     toDoDot: {
-        height: RFValue(10),
-        width: RFValue(10),
+        height: RFValue(13),
+        width: RFValue(13),
         borderRadius: 21,
+        borderColor: '#1f2025',
+        borderWidth: 1,
         backgroundColor: "#FDDF38",
         marginRight: RFValue(5),
     },
     defaultDot: {
-        height: 13,
-        width: 13,
+        height: RFValue(13),
+        width: RFValue(13),
+        borderWidth: 1,
+        borderColor: '#1f2025',
         borderRadius: 21,
-        backgroundColor: "#2C2D2F",
-        marginRight: 5,
+        backgroundColor: "#1f2021",
+        marginRight: RFValue(5),
     },
     progressBar: {
         display: 'flex',
@@ -132,6 +140,13 @@ const styles = StyleSheet.create ({
         position: 'absolute',
         bottom: 0,
         right: 0
+    },
+    journalTitleText: {
+        marginBottom: 10, 
+    },
+    journalDescriptionText: {
+        fontSize: 12, 
+        fontWeight: '400'
     }
 });
 

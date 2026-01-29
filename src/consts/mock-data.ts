@@ -1,6 +1,6 @@
 export const userMockData = {
-  name: 'Muiz Mannan',
-  email: 'muiz.mannan@mail.com',
+  name: 'Nicholas Kratochvil',
+  email: 'Nick@sculpted.site',
   gender: null,
   birthday: null,
   profilePictureUrl: '',

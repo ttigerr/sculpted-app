@@ -5,21 +5,20 @@ import { theme } from "src/config/theme";
 const styles = StyleSheet.create ({
     mainContainer: {
         flex: 1,
-        marginTop: 70,
+        marginTop: RFValue(20),
     },
     scrollView: {
-        paddingHorizontal: 15,
+        paddingHorizontal: RFValue(16),
     },
     headerContainer: {
-        flexDirection:'row',
-        justifyContent:'space-between',
+        flexDirection: 'row',
         alignItems: 'center',
-        position: 'relative'
+        justifyContent: 'center',
+        paddingVertical: RFValue(15)
     },
-    dividerContainer: {
+    contentcontainer: {
         flexDirection:'row',
         alignItems: 'center',
-        marginVertical: RFValue(30),
     },
     divider: {
         borderColor: '#3b3c3d', 
@@ -27,15 +26,25 @@ const styles = StyleSheet.create ({
         flex: 1, 
         height: 1
     },
+    floatingButton: {
+        position: 'relative',
+        height: 50,
+        width: 50,
+    },
     divider1: {
         borderColor: '#3b3c3d', 
         borderWidth: 0.7, 
         height: 0.5,
-        marginVertical: RFValue(30),
+    },
+    backButton: {
+        left: 0, 
+        position: 'absolute',
     },
     text: {
         color: "#9BA0A5",
         marginRight: 10,
+        fontSize: 16,
+        fontWeight: '500',
     },
     text1: {
         marginRight: 10,
@@ -64,6 +73,28 @@ const styles = StyleSheet.create ({
         borderRadius: 50,
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    appBar: {
+        backgroundColor: theme.colors.background,
+        justifyContent: 'space-between',
+        flexDirection: 'row',
+        paddingHorizontal: RFValue(16),
+        paddingBottom: RFValue(10)
+    },
+    titleStyle: {
+        color: '#FFFFFF',
+        fontSize: RFValue(12),
+    },
+    buttonContainer: {
+        paddingVertical: 15,
+        borderTopWidth: 1,
+        borderTopColor: '#FFFFFF14',
+        alignItems: 'center',
+      },
+    primaryButtonText: {
+        fontSize: 18,
+        fontWeight: '500',
+        textTransform: 'capitalize'
     },
     
 });

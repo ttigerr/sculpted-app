@@ -6,20 +6,23 @@ import { RFValue } from "react-native-responsive-fontsize";
 const styles = StyleSheet.create({
   containedContainer: {
     backgroundColor: '#FFFFFF00',
-    paddingVertical: 6
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   outlinedContainer: {
     borderWidth: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
     borderColor: theme.colors.outlinedButtonBorderColor,
-    paddingVertical: 6,
-    borderRadius: 200,
+    paddingVertical: RFValue(6),
+    borderRadius: 25,
   },
   gradientContainer: {
-    borderRadius: 200,
+    borderRadius: 25,
   },
   buttonText: {
-    fontSize: 18,
-    fontWeight: '600'
+    justifyContent: 'center',
+    color: theme.colors.buttonText,
   },
 });
 

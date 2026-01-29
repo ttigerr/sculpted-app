@@ -1,7 +1,8 @@
-import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {StyleSheet, View, TouchableOpacity} from 'react-native';
 import React from 'react';
-import {Chip} from 'src/modules/core/ui-library';
+import {Chip, Text} from 'src/modules/core/ui-library';
 import {ChipProps} from 'react-native-paper';
+import { RFValue } from 'react-native-responsive-fontsize';
 
 type ItemProps = ChipProps & {
   label: string;
@@ -17,7 +18,9 @@ const SkillsChip: React.FC<ItemProps> = ({
 }) => {
   return (
     <Chip selected={selected} style={styles.chip} onPress={onPress} {...props}>
-      {label}
+      {
+        <Text variant="paragraph1">{label}</Text>
+      }
     </Chip>
   );
 };
@@ -26,6 +29,7 @@ export default SkillsChip;
 
 const styles = StyleSheet.create({
   chip: {
-    marginRight: 12,
+    height: 34,
+    marginRight: 7,
   },
 });

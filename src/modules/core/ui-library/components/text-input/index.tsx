@@ -11,6 +11,7 @@ import {Controller, FieldValues, Control} from 'react-hook-form';
 import {theme} from 'src/config/theme';
 import Text from '../text';
 import Icon from 'src/modules/core/components/icon';
+import { RFValue } from 'react-native-responsive-fontsize';
 
 type MtxInputPropsType = React.ComponentPropsWithRef<typeof TextInputBase> & {
   placeholder?: string;
@@ -50,6 +51,8 @@ type MtxInputPropsType = React.ComponentPropsWithRef<typeof TextInputBase> & {
   isPasswordRepeat?: boolean;
   bottomLabel?: string;
   left?: React.ReactNode;
+  height?: number;
+  borderRoundness?: number;
 };
 
 const TextInput = forwardRef<TextInputBase, MtxInputPropsType>(
@@ -76,6 +79,8 @@ const TextInput = forwardRef<TextInputBase, MtxInputPropsType>(
       hasBorderError,
       bottomLabel,
       left,
+      height,
+      borderRoundness,
       ...rest
     },
     ref,
@@ -85,15 +90,22 @@ const TextInput = forwardRef<TextInputBase, MtxInputPropsType>(
 
     return (
       <View style={styles.container}>
-        <Text style={styles.label} variant="caption">
-          {label}
-        </Text>
         <Controller
           name={name}
           control={control}
           rules={rules}
           render={({field: {onChange, onBlur, value}, fieldState: {error}}) => (
             <>
+              <View style={{flexDirection: 'row',}}>
+                <Text style={styles.label} variant="body2">
+                  {label}
+                </Text>
+                {error && (
+                    <Text style={styles.errorLabel} variant="body2">
+                      {"*" + error.message}
+                    </Text>
+                  )}
+              </View>
               <PaperTextInput
                 ref={ref}
                 maxLength={maxLength}
@@ -103,11 +115,12 @@ const TextInput = forwardRef<TextInputBase, MtxInputPropsType>(
                 textColor={theme.colors.textInputColor}
                 placeholderTextColor={theme.colors.textInputBorderColor}
                 placeholder={placeholder}
-                theme={{roundness: 200}}
-                style={styles.input}
+                theme={{roundness: borderRoundness}}
+                style={[styles.input, {height: height}]}
                 value={value}
                 onChangeText={onChange}
                 onBlur={onBlur}
+                textAlignVertical='top'
                 left={left && <PaperTextInput.Icon icon={() => left} />}
                 right={
                   isPassword && (
@@ -125,11 +138,6 @@ const TextInput = forwardRef<TextInputBase, MtxInputPropsType>(
                 secureTextEntry={showPassword}
                 {...rest}
               />
-              {error && (
-                <Text style={styles.errorLabel} variant="caption">
-                  {error.message}
-                </Text>
-              )}
             </>
           )}
         />
@@ -142,20 +150,20 @@ export default TextInput;
 
 const styles = StyleSheet.create({
   label: {
+    flex: 1,
     color: theme.colors.textInputColor,
-    marginBottom: 10,
-    marginLeft: 8,
-    fontSize: 12,
+    marginBottom: RFValue(5),
+    fontWeight: '500',
   },
-  container: {},
   input: {
     fontSize: 16,
     color: theme.colors.textInputFocusBorderColor,
     backgroundColor: '#00000000',
   },
   errorLabel: {
-    color: 'red',
-    alignSelf: 'flex-end',
-    marginTop: 8,
+    color: "#FF505A",
+    lineHeight: RFValue(0),
+    fontSize: RFValue(12),
   },
 });
+

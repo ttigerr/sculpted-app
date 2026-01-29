@@ -14,7 +14,7 @@ const HomeNavigation = () => {
   return (
     <Stack.Navigator screenOptions={defaultConfig}>
       <Stack.Screen
-        name={navigationScreenNames.dashborad}
+        name={navigationScreenNames.dashboard}
         component={Dashboard}
       />
       {/* <Stack.Screen name={navigationScreenNames.journal} component={Journal} /> */}

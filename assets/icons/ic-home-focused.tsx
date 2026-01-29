@@ -1,4 +1,5 @@
 import * as React from "react"
+import { RFValue } from "react-native-responsive-fontsize";
 import Svg, { Path } from "react-native-svg"
 import IconProps from 'src/modules/core/components/icon/types/iconTypes';
 
@@ -7,13 +8,14 @@ function SvgComponent({width, height}: IconProps) {
     <Svg
       width={width}
       height={height}
-      viewBox="0 0 30 36"
+      viewBox="0 0 30 32"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-
     >
       <Path
-        d="M10.702 28.16v-4.587c0-1.17.956-2.12 2.136-2.12h4.31c.567 0 1.11.224 1.51.621.401.398.626.937.626 1.5v4.586a1.82 1.82 0 00.535 1.3c.345.346.815.54 1.305.54h2.942a5.19 5.19 0 003.665-1.499 5.114 5.114 0 001.519-3.634V11.8a3.709 3.709 0 00-1.343-2.853L17.9 1.014a4.646 4.646 0 00-5.923.106L2.201 8.947A3.711 3.711 0 00.75 11.8v13.053C.75 27.696 3.071 30 5.934 30h2.874a1.847 1.847 0 001.854-1.827l.04-.013z"
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M11.95 1.325a4.933 4.933 0 016.367 0l9.411 7.951a5.466 5.466 0 011.939 4.176v12.354a5.467 5.467 0 01-5.467 5.466h-4.267A1.733 1.733 0 0118.2 29.54v-7.067h-6.4v7.067c0 .957-.776 1.733-1.733 1.733h-4A5.467 5.467 0 01.6 25.806V13.452c0-1.61.71-3.137 1.939-4.176l9.41-7.951z"
         fill="#fff"
       />
     </Svg>

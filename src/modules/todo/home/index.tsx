@@ -1,4 +1,4 @@
-import {StyleSheet, ScrollView, View} from 'react-native';
+import {StyleSheet, ScrollView, View, SafeAreaView} from 'react-native';
 import React from 'react';
 import MainWrapper from 'src/modules/core/components/wrapper/MainWrapper';
 import {RFValue} from 'react-native-responsive-fontsize';
@@ -7,49 +7,68 @@ import BackButton from 'src/modules/core/components/back-button';
 import {NavigationPropsType} from 'src/utils/types';
 import useTodoHome from './useTodoHome';
 import {secondaryGradientColorList} from 'src/consts/arrays';
-import SearchBar from '../components/search-bar';
-import DayPicker from '../components/day-picker';
 import TaskProgress from '../components/task-progress';
 import TodayTask from '../components/today-task';
 import InfoCard from '../components/info-card';
-import CompassScore from 'src/modules/compass/components/compass-info-card';
+import useTaskList from '../task-list/useTaskList';
+import useScheduledTaskList from '../schedule/useTodoSchedule';
 
 const TodoHome = (props: NavigationPropsType) => {
-  const {goBack, onTaskProgressPress, onIncompletePress, onScheduledPress} =
-    useTodoHome(props);
+
+  const {
+    goBack, 
+    onTaskProgressPress, 
+    onIncompletePress, 
+    onScheduledPress,
+    totalCompletedTodayTaskLists,
+    completedTaskScore,
+    inCompletedTasks,
+    totalScheduledTasks,
+    totalTasks,
+  } = useTodoHome(props);
+  
   return (
     <MainWrapper colorArray={secondaryGradientColorList}>
-      <ScrollView style={styles.container}>
-        <View style={styles.navigationBarContainer}>
-          <BackButton style={styles.backButton} onPress={goBack} />
-          <Text variant="paragraph" style={styles.navigationTitle}>
-            {'To-do List'}
-          </Text>
-        </View>
-        <Separator height={RFValue(24)} />
-        <TaskProgress date={new Date()} completedTasks={30} totalTasks={40} />
-        <Separator height={RFValue(16)} />
-        <View style={styles.cardsContainer}>
-          <TodayTask taskCount={30} onPress={onTaskProgressPress} />
-          <Separator width={RFValue(10)} />
-          <View style={styles.infoCardsContainer}>
-            <InfoCard
-              iconName="schedule"
-              taskCount={5}
-              infoText="Scheduled"
-              onPress={onScheduledPress}
-            />
-            <Separator height={RFValue(10)} />
-            <InfoCard
-              iconName="tick-square"
-              taskCount={7}
-              infoText="Incomplete"
-              onPress={onIncompletePress}
-            />
+      <SafeAreaView style={styles.container}>
+        <ScrollView style={styles.scrollView}>
+          <Separator height={RFValue(20)}/>
+
+          {/* Top navigation */}
+          <View style={styles.navigationBarContainer}>
+            <BackButton style={styles.backButton} onPress={goBack} />
+            <Text variant="h6">
+              {'To-do List'}
+            </Text>
           </View>
-        </View>
-        <Separator height={RFValue(220)} />
-      </ScrollView>
+          <Separator height={RFValue(20)} />
+          
+          {/* Task progress */}
+          <TaskProgress date={new Date()} completedTasks={totalCompletedTodayTaskLists} completedPercent={completedTaskScore} totalTasks={totalTasks} />
+          <Separator height={RFValue(12)} />
+          <View style={styles.cardsContainer}>
+            <View style={{flex: 1}}>
+              <TodayTask taskCount={totalCompletedTodayTaskLists} onPress={onTaskProgressPress}/>
+            </View>
+            <Separator width={RFValue(7)} />
+            <View style={styles.infoCardsContainer}>
+              <InfoCard
+                iconName="tick-square"
+                taskCount={inCompletedTasks}
+                infoText="Incomplete"
+                onPress={onIncompletePress}
+              />
+              <Separator height={RFValue(7)} />
+              <InfoCard
+                iconName="schedule"
+                taskCount={totalScheduledTasks}
+                infoText="Scheduled"
+                onPress={onScheduledPress}
+              />
+            </View>
+          </View>
+          <Separator height={RFValue(220)} />
+        </ScrollView>
+      </SafeAreaView>
     </MainWrapper>
   );
 };
@@ -58,8 +77,11 @@ export default TodoHome;
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: RFValue(82),
-    paddingHorizontal: RFValue(16),
+    flex: 1,
+    marginTop: RFValue(15),
+  },
+  scrollView: {
+    marginHorizontal: RFValue(16),
   },
   navigationBarContainer: {
     flexDirection: 'row',
@@ -77,4 +99,8 @@ const styles = StyleSheet.create({
   infoCardsContainer: {
     flex: 1,
   },
+  navigationTitle: {
+    fontSize: 16,
+    fontWeight: '500'
+  }
 });

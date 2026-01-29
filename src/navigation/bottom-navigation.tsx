@@ -1,92 +1,120 @@
+import { useEffect, useState } from 'react';
 import {StyleSheet} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeNavigation from './home-navigation';
 import ProfileNavigation from './profile-navigation';
 import Icon from 'src/modules/core/components/icon';
-import {theme} from 'src/config/theme';
-import LinearGradient from 'react-native-linear-gradient';
-import {RFValue} from 'react-native-responsive-fontsize';
+import {navigationScreenNames} from 'src/utils/navigation-screen-names';
+import ProfileMain from 'src/modules/profile/profile-main';
+import Dashboard from 'src/modules/homepage/dashboard';
+import Journal from 'src/modules/homepage/journal';
+import { RFValue } from 'react-native-responsive-fontsize';
+import { NavigationPropsType } from 'src/utils/types';
 
-const Tab = createBottomTabNavigator();
 
-const colorList = [
-  {offset: '0%', color: '#535456', opacity: '0.65'},
-  {offset: '65%', color: '#696E75', opacity: '0.65'},
-];
+const BottomNavigation = (navigationProps: NavigationPropsType) => {
+  const Tab = createBottomTabNavigator();
+  const [source, setSource] = useState<string | null>(null); // use null to indicate loading
 
-const BottomNavigation = () => {
+  useEffect(() => {
+    const incomingSource = navigationProps.route.params?.source || 'tab'; // fallback default
+    setSource(incomingSource);
+  }, [navigationProps.route.params?.source]);
+
+  if (source === null) return null;
   return (
     <Tab.Navigator
-      screenOptions={({route}) => ({
-        tabBarIcon: ({color, focused}) => {
+      initialRouteName={
+        source === 'auth'
+          ? navigationScreenNames.homeNavigation
+          : navigationScreenNames.profileNavigation
+      }
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused }) => {
           let iconName;
           switch (route.name) {
-            case 'Stat':
-              iconName = focused ? 'statFocused' : 'stat';
+            case navigationScreenNames.journal:
+              iconName = focused ? 'bookmarkFocused' : 'bookmark';
               break;
-            case 'Home':
+            case navigationScreenNames.homeNavigation:
               iconName = focused ? 'homeFocused' : 'home';
               break;
-            case 'Profile':
+            case navigationScreenNames.profileNavigation:
               iconName = focused ? 'profileFocused' : 'profile';
               break;
           }
-          return <Icon name={iconName} size={focused ? 'medium' : 'normal'} />;
+          return (
+            <Icon
+              name={iconName}
+              width={32}
+              height={32}
+              strokeColor="#FFFFFF"
+              fill="#FFFFFF"
+            />
+          );
         },
         tabBarShowLabel: false,
-        tabBarBackground: () => (
-          <LinearGradient
-            colors={theme.gradientColors.gradientBottomNav}
-            start={{x: 0.5, y: 0}}
-            end={{x: 0.5, y: 1}}
-            style={styles.linearGradient}
-          />
-        ),
         tabBarActiveTintColor: 'white',
         tabBarStyle: styles.tabBarStyle,
+        tabBarIconStyle: {
+          justifyContent: 'center',
+          alignItems: 'center',
+        },
+        tabBarItemStyle: {
+          justifyContent: 'center',
+          alignItems: 'center',
+        },
       })}
-      initialRouteName="HomeNavigation">
+    >
       <Tab.Screen
-        name="Stat"
-        component={HomeNavigation}
+        name={navigationScreenNames.journal}
+        component={Journal}
         options={{
           headerShown: false,
-          tabBarLabel: 'Stat',
+          tabBarLabel: 'Journal',
         }}
+        initialParams={{ source: 'tab' }}
       />
       <Tab.Screen
-        name="Home"
+        name={navigationScreenNames.homeNavigation}
         component={HomeNavigation}
         options={{
+          title: 'Dashboard',
           headerShown: false,
           tabBarLabel: 'Home',
         }}
       />
       <Tab.Screen
-        name="Profile"
+        name={navigationScreenNames.profileNavigation}
         component={ProfileNavigation}
         options={{
           headerShown: false,
           tabBarLabel: 'Profile',
         }}
+        initialParams={{ source: 'tab' }}
       />
     </Tab.Navigator>
   );
 };
-
-export default BottomNavigation;
+ export default BottomNavigation
 
 const styles = StyleSheet.create({
   tabBarStyle: {
-    height: 80,
-    borderTopRightRadius: 25,
-    borderTopLeftRadius: 25,
+    height: RFValue(80),
     position: 'absolute',
+    borderTopLeftRadius: 25,
+    borderTopRightRadius: 25,
+    alignSelf: 'center',
+    backgroundColor: '#242526',
+    bottom: 0,
+    borderTopWidth: 0,          
+    elevation: 0,           
+    
   },
-  linearGradient: {
-    flex: 1,
-    marginTop: -10,
-    borderRadius: 25,
-    // opacity: 0.65,
-  },
+  // linearGradient: {
+  //   flex: 1,
+  //   marginTop: -10,
+  //   borderRadius: 25,
+  //   // opacity: 0.65,
+  // },
 });

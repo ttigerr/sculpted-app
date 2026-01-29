@@ -7,6 +7,7 @@ import React from 'react';
 import {theme} from 'src/config/theme';
 import {Text} from '@ui-library';
 import {LinearGradient} from 'react-native-linear-gradient';
+import { RFValue } from 'react-native-responsive-fontsize';
 
 const Chip: React.FC<PaperChipProps> = ({
   children,
@@ -44,20 +45,24 @@ const styles = StyleSheet.create({
     backgroundColor: '#00000000',
   },
   gradientContainer: {
-    borderRadius: 100,
+    justifyContent: 'center',
+    borderRadius: 13,
     borderWidth: 1,
   },
   text: {
+    fontSize: 16,
     color: theme.colors.buttonText,
   },
   outlinedContainer: {
+    justifyContent: 'center',
     borderWidth: 1,
     borderColor: theme.colors.outlinedButtonBorderColor,
-    borderRadius: 100,
+    borderRadius: 13,
     alignItems: 'center',
     backgroundColor: '#00000000',
   },
   outlinedText: {
+    fontSize: 16,
     color: theme.colors.outlinedButtonBorderColor,
     textAlign: 'center',
   },

@@ -15,7 +15,7 @@ const Link: React.FC<LinkProps & ViewProps> = ({
 }) => {
   return (
     <TouchableWithoutFeedback onPress={onPress} {...rest}>
-      <Text variant="body" style={[styles.text, style]}>
+      <Text variant="body1" style={[styles.text, style]}>
         {label}
       </Text>
     </TouchableWithoutFeedback>

@@ -55,7 +55,7 @@ export const tasksListMock = [
     id: '3',
     title: 'Send message back to Andrew',
     description: 'Send the invoice for next week',
-    isCompleted: false,
+    isCompleted: true,
     creationDate: +moment().subtract(5, 'days'), // Hace 5 días
     scheduledDate: +moment().subtract(5, 'days'), // Hace 5 días
   },
@@ -71,25 +71,25 @@ export const tasksListMock = [
     id: '5',
     title: 'Finish off work from yesterday',
     description: 'Get complete by Sunday',
-    isCompleted: false,
-    creationDate: +moment().subtract(7, 'days'), // Hace 7 días
-    scheduledDate: +moment().subtract(7, 'days'), // Hace 7 días
+    isCompleted: true,
+    creationDate: +moment(), // Hace 7 días
+    scheduledDate: +moment(), // Hace 7 días
   },
   {
     id: '6',
     title: 'Project Brainstorm',
     description: 'Discuss new ideas with the team',
     isCompleted: true,
-    creationDate: +moment().subtract(10, 'days'), // Hace 10 días
-    scheduledDate: +moment().subtract(10, 'days'), // Hace 10 días
+    creationDate: +moment().subtract(7, 'days'), // Hace 10 días
+    scheduledDate: +moment().subtract(7, 'days'), // Hace 10 días
   },
   {
     id: '7',
     title: 'Doctor Appointment',
     description: 'Routine check-up',
-    isCompleted: false,
-    creationDate: +moment().subtract(20, 'days'), // Hace 20 días
-    scheduledDate: +moment().subtract(20, 'days'), // Hace 20 días
+    isCompleted: true,
+    creationDate: +moment().subtract(3, 'days'), // Hace 20 días
+    scheduledDate: +moment().subtract(5, 'days'), // Hace 20 días
   },
   {
     id: '8',
@@ -122,5 +122,5 @@ export const tasksListMock = [
     isCompleted: false,
     creationDate: +moment().add(7, 'days'), // En 7 días
     scheduledDate: +moment().add(7, 'days'), // En 7 días
-  }
+  },
 ];

@@ -14,7 +14,7 @@ const CustomProgressBar: React.FC<ProgressBarProps> = ({
         <View style={styles.container}>
             <ProgressBars progress={progress} color={color} style={[styles.progressBar, style]} />
         </View>
-        <Text variant="body2" style={{marginLeft: 10}}>{ progress * 100 }{"%"}</Text>
+        <Text variant="body2" style={[styles.progressBarText,{color: progress <= 0? "#6F6F70" : "#FFFFFF"}]}>{ progress * 100 }{"%"}</Text>
     </View>
   
 );
@@ -34,4 +34,9 @@ const styles = StyleSheet.create ({
         flexDirection: 'row',
         alignItems: 'center',
     },
+    progressBarText: {
+        marginLeft: 10,
+        fontSize: 12,
+        fontWeight: '500',
+    }
 })

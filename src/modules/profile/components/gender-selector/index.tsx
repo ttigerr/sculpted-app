@@ -27,7 +27,7 @@ const GenderSelector: React.FC<GenderSelectorProps> = ({
 
   return (
     <View style={styles.container}>
-      <Text variant="caption" style={styles.label}>
+      <Text variant="body2" style={styles.label}>
         Gender
       </Text>
       <View style={styles.optionsContainer}>
@@ -39,15 +39,15 @@ const GenderSelector: React.FC<GenderSelectorProps> = ({
             {selected === option ? (
               <LinearGradient
                 colors={theme.gradientColors.button}
-                style={[styles.option, styles.gradientBackground]}
+                style={[styles.option, styles.gradientBackground, { justifyContent: 'center', alignItems: 'center' }]}
                 start={{x: 0, y: 0}}
                 end={{x: 1, y: 0}}>
-                <Text variant="paragraph" style={styles.selectedText}>
+                <Text variant="paragraph1" style={styles.optionText}>
                   {option}
                 </Text>
               </LinearGradient>
             ) : (
-              <Text variant="paragraph" style={styles.optionText}>
+              <Text variant="paragraph1" style={styles.optionText}>
                 {option}
               </Text>
             )}
@@ -64,23 +64,25 @@ const styles = StyleSheet.create({
   },
   label: {
     color: theme.colors.textInputColor,
-    marginBottom: 10,
-    marginLeft: 8,
-    fontSize: 12,
+    marginBottom: RFValue(5),
+    fontWeight: '500',
   },
   optionsContainer: {
+    height: 50,
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
     backgroundColor: '#00000000',
-    borderRadius: 36,
-    padding: 5,
+    borderRadius: 17,
+    paddingHorizontal: RFValue(4),
     borderWidth: 1,
     borderColor: theme.colors.textInputBorderColor,
+    
   },
   option: {
-    paddingVertical: RFValue(10),
+    height: 38,
     paddingHorizontal: 32,
-    borderRadius: RFValue(200),
+    borderRadius: 14,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -89,9 +91,7 @@ const styles = StyleSheet.create({
   },
   optionText: {
     fontSize: 16,
-  },
-  selectedText: {
-    color: theme.colors.buttonText,
+    fontWeight: "500",
   },
   gradientBackground: {
     width: '100%',

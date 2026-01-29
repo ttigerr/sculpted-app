@@ -7,7 +7,7 @@ import {Text} from 'src/modules/core/ui-library';
 import {theme} from 'src/config/theme';
 import {Separator} from 'src/modules/core/ui-library';
 import {IconSize} from 'src/modules/core/components/icon/types/iconTypes';
-import {TouchableRipple} from 'react-native-paper';
+import {TouchableRipple, } from 'react-native-paper';
 
 interface InfoCardProps {
   taskCount: number;
@@ -31,12 +31,15 @@ const InfoCard: React.FC<InfoCardProps> = ({
           <View style={styles.iconBackground}>
             <Icon name={iconName} size={iconSize} />
           </View>
-          <Text variant="paragraph" style={styles.taskCount}>
-            {taskCount}
-          </Text>
+          <View style={styles.taskCountContainer}>
+            <Text variant="h1" style={styles.taskCount}>
+              {taskCount >= 100 ? taskCount = 99: taskCount}
+            </Text>
+            <Text variant="body1"style={styles.plusText}>{taskCount >= 99 ? "+" : null}</Text>
+          </View>
         </View>
-        <Separator height={RFValue(10)} />
-        <Text variant="caption" style={styles.infoText}>
+        <Separator height={RFValue(16)} />
+        <Text variant="h6" style={styles.infoText}>
           {infoText}
         </Text>
       </View>
@@ -46,15 +49,15 @@ const InfoCard: React.FC<InfoCardProps> = ({
 
 const styles = StyleSheet.create({
   touchable: {
-    flex: 1,
-    borderRadius: CARD_BORDER_RADIUS,
     overflow: 'hidden',
   },
   container: {
     flex: 1,
     backgroundColor: theme.colors.dashboardCardBackground,
-    borderRadius: CARD_BORDER_RADIUS,
-    padding: RFValue(16),
+    borderRadius: 25,
+    paddingHorizontal: 16,
+    paddingBottom: 16,
+    paddingTop: 10,
     justifyContent: 'space-between',
   },
   iconContainer: {
@@ -63,23 +66,29 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   iconBackground: {
-    padding: 4,
-    borderRadius: 20,
-    backgroundColor: '#22222293',
+    paddingHorizontal: 4,
+    paddingVertical: 3,
+    borderRadius: 9,
+    backgroundColor: '#1f2021',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   infoText: {
-    color: theme.colors.primaryTextColor,
-    fontSize: 14,
-    fontWeight: '600',
     maxWidth: RFValue(100),
   },
   taskCount: {
     color: theme.colors.primaryTextColor,
-    fontSize: 34,
-    textAlign: 'right',
-    textAlignVertical: 'bottom',
-    lineHeight: 36,
+    fontSize: 40,
+    textAlign: 'center',
+    lineHeight: 40.5,
   },
+  taskCountContainer: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  plusText: {
+    fontWeight: '700'
+  }
 });
 
 export default InfoCard;

@@ -3,6 +3,7 @@ import { NavigationPropsType } from 'src/utils/types';
 import { useForm, FieldValues } from 'react-hook-form';
 import { navigationScreenNames } from 'src/utils/navigation-screen-names';
 import moment from 'moment';
+import useProfileMain from '../profile-main/useProfileMain';
 
 type EditProfileFormData = {
   email: string;
@@ -14,6 +15,9 @@ const useEditProfile = (navigationProps: NavigationPropsType) => {
   const { navigation } = navigationProps;
   const [date, setDate] = React.useState(moment());
   const [open, setOpen] = React.useState(false);
+  const [isConfirmationModalVisible, setIsConfirmationModalVisible] = useState<boolean>(false);
+  const [loading, setIsLoading] = useState<boolean>(false);
+  const [bdDate, setBdDate] = useState(new Date());
 
   const onCancelButtonPressed = () => {
     navigation.goBack();
@@ -33,7 +37,19 @@ const useEditProfile = (navigationProps: NavigationPropsType) => {
 
   const onRemindersPress = () => {
     navigation.navigate(navigationScreenNames.reminderEdit, {from: navigationScreenNames.profileNavigation})
-}
+  }
+
+  const onConfirmationModalClose = () => {
+    setIsConfirmationModalVisible(false)
+  }
+
+  const onConfirmDateSelector = () => {
+    setOpen(false)
+  }
+
+  const onGoBack = () => {
+    setIsConfirmationModalVisible(true)
+  }
 
   return {
     date,
@@ -43,7 +59,13 @@ const useEditProfile = (navigationProps: NavigationPropsType) => {
     onCancelButtonPressed,
     onDismissSingle,
     onConfirmDate,
-    onRemindersPress
+    onRemindersPress,
+    isConfirmationModalVisible,
+    onConfirmationModalClose,
+    onGoBack,
+    bdDate,
+    setBdDate,
+    onConfirmDateSelector,
   }
 }
 

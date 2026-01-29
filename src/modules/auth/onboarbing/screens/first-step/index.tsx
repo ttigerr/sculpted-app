@@ -5,7 +5,7 @@ import {
   ScrollView,
   SafeAreaView,
 } from 'react-native';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import MainWrapper from 'src/modules/core/components/wrapper/MainWrapper';
 import {
   ProgressBar,
@@ -31,49 +31,59 @@ const FirstStep = (props: NavigationPropsType) => {
 
   return (
     <MainWrapper>
-      <ScrollView style={styles.container}>
-        <View style={styles.navigationBarContainer}>
-          <BackButton style={styles.backButton} onPress={goBack} />
-          <View style={styles.progressBarContainer}>
-            <ProgressBar progress={0.5} />
+      <SafeAreaView style={styles.container}>
+        <ScrollView style={styles.scrollView}>
+          <Separator height={RFValue(20)} />
+          <View style={styles.navigationBarContainer}>
+            <BackButton style={styles.backButton} onPress={goBack} />
+            <View style={styles.progressBarContainer}>
+              <ProgressBar progress={0.5} />
+            </View>
           </View>
-        </View>
-        <Separator height={RFValue(32)} />
-        <View style={styles.contentContainer}>
-          <Text variant="h3" style={styles.h3}>
-            {'STEP 1/2'}
-          </Text>
-          <Text variant="h1" style={styles.h1}>
-            {'What are 3 virtues you strive to embody every single day?'}
-          </Text>
-          <Text variant="paragraph" style={styles.paragraph}>
-            {
-              'Reflect on your compass daily to ensure you stay true to your values and continuously grow.'
-            }
-          </Text>
-          <Separator height={RFValue(24)} />
-          <FlatList
-            data={onboardingTenses}
-            contentContainerStyle={{
-              flexDirection: 'row',
-              flexWrap: 'wrap',
-              justifyContent: 'center',
-            }}
-            ItemSeparatorComponent={() => <Separator width={4} height={12} />}
-            renderItem={({item}) => (
-              <SkillsChip
-                label={item}
-                selected={selectedChips.includes(item)}
-                onPress={() => toggleChip(item)}
-              />
-            )}
-            ListFooterComponent={() => <Separator height={RFValue(180)} />}
-          />
-        </View>
-        <Separator height={RFValue(100)} />
-      </ScrollView>
+          <Separator height={RFValue(20)} />
+          <View style={styles.contentContainer}>
+            <Text variant="h3" style={styles.h3}>
+              {'STEP 1/2'}
+            </Text>
+            <Separator height={RFValue(14)} />
+            <Text variant="h1" style={styles.titleText}>
+              {'What are 3 virtues you strive to embody every single day?'}
+            </Text>
+            <Separator height={RFValue(14)} />
+            <Text variant="paragraph" style={styles.paragraph}>
+              {
+                'Reflect on your compass daily to ensure you stay true to your values and continuously grow.'
+              }
+            </Text>
+            <Separator height={RFValue(20)} />
+            <FlatList
+              data={onboardingTenses}
+              contentContainerStyle={{
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                justifyContent: 'center',
+              }}
+              ItemSeparatorComponent={() => <Separator width={RFValue(7)} height={RFValue(7)} />}
+              renderItem={({item}) => (
+                <SkillsChip
+                  label={item}
+                  selected={selectedChips.includes(item)}
+                  onPress={() => toggleChip(item)}
+                />
+              )}
+              ListFooterComponent={() => <Separator height={RFValue(180)} />}
+            />
+          </View>
+          <Separator height={RFValue(100)} />
+        </ScrollView>
+      </SafeAreaView>
       <SafeAreaView style={styles.buttonContainer}>
-        <Button onPress={onSubmit} label="Continue" />
+        <Button 
+          onPress={onSubmit} 
+          label="Continue" 
+          height={62} 
+          buttonFontSize={24}
+        />
       </SafeAreaView>
       <Toast config={toastConfig} />
     </MainWrapper>
@@ -84,43 +94,50 @@ export default FirstStep;
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: RFValue(82),
+    flex: 1,
+    marginTop: RFValue(15),
+  },
+  scrollView: {
+    paddingHorizontal: RFValue(16)
   },
   progressBarContainer: {
-    width: RFValue(167),
+    width: 167,
   },
   navigationBarContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
+    paddingVertical: RFValue(13),
   },
   backButton: {
     position: 'absolute',
-    left: RFValue(16),
+    left: 0,
   },
   contentContainer: {
-    alignItems: 'center',
-    paddingHorizontal: 20,
+    alignItems: 'center'
   },
   h3: {
     color: theme.colors.caption,
   },
-  h1: {
+  titleText: {
     textAlign: 'center',
-    paddingHorizontal: RFValue(16),
-    marginBottom: RFValue(16),
+    textTransform: 'capitalize',
+    letterSpacing: 0.56,
+    lineHeight: 35,
   },
   paragraph: {
     color: theme.colors.caption,
     textAlign: 'center',
+    fontSize: 14,
+    letterSpacing: RFValue(0.28),
+    textTransform: 'capitalize',
   },
-
   buttonContainer: {
     position: 'absolute',
-    bottom: 0,
-    right: 20,
-    left: 20,
+    bottom: RFValue(20),
+    right: RFValue(16),
+    left: RFValue(16),
     backgroundColor: theme.colors.background,
-    paddingTop: 20,
+    paddingTop: 30,
   },
 });

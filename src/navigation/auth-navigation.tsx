@@ -2,7 +2,7 @@ import * as React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {navigationScreenNames} from 'src/utils/navigation-screen-names';
 import SignUp from 'src/modules/auth/sign-up';
-import Login from 'src/modules/auth/login';
+import SimpleLogin from 'src/modules/auth/simple-login';
 import OnboardingFirstStep from 'src/modules/auth/onboarbing/screens/first-step';
 import OnboardingSecondStep from 'src/modules/auth/onboarbing/screens/second-step';
 import EmailVerification from 'src/modules/auth/forgot-password/email-verification/email-verification';
@@ -16,11 +16,12 @@ const defaultConfig = {
 };
 
 const AuthNavigation = () => {
+
   return (
     <Stack.Navigator
       screenOptions={defaultConfig}
       initialRouteName={navigationScreenNames.login}>
-      <Stack.Screen name={navigationScreenNames.login} component={Login} />
+      <Stack.Screen name={navigationScreenNames.login} component={SimpleLogin} />
       <Stack.Screen name={navigationScreenNames.signUp} component={SignUp} />
       <Stack.Screen
         name={navigationScreenNames.onboardingFirstStep}
@@ -33,6 +34,7 @@ const AuthNavigation = () => {
       <Stack.Screen
         name={navigationScreenNames.emailVerification}
         component={EmailVerification}
+        initialParams={{source: 'auth'}} // To indicate a source
       />
       <Stack.Screen
         name={navigationScreenNames.otpVerification}

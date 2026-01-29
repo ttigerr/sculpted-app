@@ -1,53 +1,70 @@
 import React from 'react';
-import {View, StyleSheet, Pressable} from 'react-native';
-import {Modal} from 'react-native-paper';
-import {Text} from '../../ui-library';
+import {
+  Modal,
+  View,
+  StyleSheet,
+  Pressable,
+  Platform,
+  TouchableWithoutFeedback,
+} from 'react-native';
+import {BlurView} from '@react-native-community/blur';
+import {Text, Separator} from '../../ui-library';
 import Icon from '../icon';
 import {theme} from 'src/config/theme';
+import {RFValue} from 'react-native-responsive-fontsize';
 
 interface ConfirmationModalProps {
   visible: boolean;
   title: string;
+  description: string;
   onClose: () => void;
-  onPrimaryAction: () => void;
-  onSecondaryAction: () => void;
-  primaryButtonText?: string;
-  secondaryButtonText?: string;
+  children?: React.ReactNode;
 }
 
 const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
   visible,
   title,
   onClose,
-  onPrimaryAction,
-  onSecondaryAction,
-  primaryButtonText = 'Confirm',
-  secondaryButtonText = 'Cancel',
+  children,
+  description,
 }) => {
   return (
     <Modal
+      transparent
+      animationType="fade"
       visible={visible}
-      onDismiss={onClose}
-      contentContainerStyle={styles.modalContainer}>
-      <View style={styles.header}>
-        <Text variant="h3" style={styles.title}>
-          {title}
-        </Text>
-        <Pressable onPress={onClose} style={styles.iconContainer}>
-          <Icon name="cancel" width={12} height={12} />
-        </Pressable>
-      </View>
-      <View style={styles.actions}>
-        <Pressable style={styles.buttonContainer} onPress={onPrimaryAction}>
-          <Text variant="paragraph" style={styles.primaryButtonText}>
-            {primaryButtonText}
-          </Text>
-        </Pressable>
-        <Pressable style={styles.buttonContainer} onPress={onSecondaryAction}>
-          <Text variant="paragraph" style={styles.secondaryButtonText}>
-            {secondaryButtonText}
-          </Text>
-        </Pressable>
+      onRequestClose={onClose}>
+      <TouchableWithoutFeedback onPress={onClose}>
+        <View style={styles.modalOverlay}>
+          {/* Blur Background */}
+          <BlurView
+            style={StyleSheet.absoluteFill}
+            blurType= 'dark'
+            blurAmount={3}
+          />
+        </View>
+      </TouchableWithoutFeedback>
+
+      {/* Modal Content */}
+      <View style={styles.modalContainer}>
+        <View style={styles.modalView}>
+          <View style={styles.header}>
+            <View style={styles.titleContainer}>
+              <Text variant="body" style={styles.title}>
+                {title}
+              </Text>
+              <Separator height={RFValue(12)} />
+              <Text variant="body" style={styles.descriptionText}>
+                {description}
+              </Text>
+              <Separator height={RFValue(20)} />
+            </View>
+            <Pressable onPress={onClose}>
+              <Icon name="cancel" width={12} height={12} />
+            </Pressable>
+          </View>
+          <View>{children}</View>
+        </View>
       </View>
     </Modal>
   );
@@ -55,47 +72,45 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
 
 export default ConfirmationModal;
 
+
 const styles = StyleSheet.create({
+  modalOverlay: {
+    ...StyleSheet.absoluteFillObject,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'transparent'
+  },
   modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalView: {
     backgroundColor: theme.colors.listItemColor,
     borderRadius: 30,
-    margin: 20,
+    marginHorizontal: RFValue(16),
     borderWidth: 1,
     borderColor: '#FFFFFF14',
+    width: '90%',
   },
   header: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 20,
-    padding: 20,
+    alignItems: 'flex-start',
+    paddingHorizontal: 20,
+    paddingTop: 20,
+  },
+  titleContainer: {
+    flex: 1,
+    marginRight: 25,
   },
   title: {
-    fontSize: 16,
-    maxWidth: 250,
+    fontSize: 18,
+    fontWeight: '500',
   },
-  iconContainer: {
-    marginTop: 10,
+  descriptionText: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: '#6f6f6f',
   },
-  actions: {
-    alignItems: 'center',
-  },
-  buttonContainer: {
-    width: '100%',
-    paddingVertical: 16,
-    borderTopWidth: 1,
-    borderTopColor: '#FFFFFF14',
-    alignItems: 'center',
-  },
-  primaryButtonText: {
-    color: theme.colors.todoScreenTextColor,
-    fontSize: 16,
-  },
-  secondaryButton: {
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-  },
-  secondaryButtonText: {
-    color: theme.colors.paragraph,
-    fontSize: 16,
-  },
+
 });

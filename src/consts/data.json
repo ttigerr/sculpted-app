@@ -1,0 +1,35 @@
+{
+    "compass": [
+        {
+            "id": 0,
+            "creationDate": "",
+            "virtue1": "",
+            "virtue1Score": 0,
+            "virtue1Note": "",
+            "virtue2": "",
+            "virtue2Score": 0,
+            "virtue2Note": "",
+            "virtue3": "",
+            "virtue3Score": 0,
+            "virtue3Note": "",
+            "overallScore": 0
+        }
+    ],
+    "journalReminder" : [
+        {
+            "time": ""
+        }
+    ],
+    "toDoList": [
+        {
+            "id": 0,
+            "userId": "",
+            "title": "",
+            "description": "",
+            "isCompleted": false,
+            "creationDate": "2023-10-05T12:00:00.000Z",
+            "scheduledDate" : "2023-10-05T12:00:00.000Z"
+        }
+    ]
+}
+  

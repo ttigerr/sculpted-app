@@ -5,8 +5,8 @@ import IconProps from 'src/modules/core/components/icon/types/iconTypes';
 function SvgComponent({width, height, strokeColor = '#F4F4F4'}: IconProps) {
   return (
     <Svg
-      width={width}
-      height={height}
+      width={20}
+      height={22}
       viewBox="0 0 20 22"
       fill="none"
       xmlns="http://www.w3.org/2000/svg">

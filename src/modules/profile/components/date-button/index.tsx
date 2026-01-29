@@ -3,6 +3,7 @@ import Icon from 'src/modules/core/components/icon';
 import React from 'react';
 import {Text} from 'src/modules/core/ui-library';
 import {theme} from 'src/config/theme';
+import { RFValue } from 'react-native-responsive-fontsize';
 
 type DateButtonProps = {
   innerText: string;
@@ -12,7 +13,7 @@ type DateButtonProps = {
 const DateButton: React.FC<DateButtonProps> = ({innerText, label, onPress}) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.label} variant="caption">
+      <Text style={styles.label} variant="body2">
         {label}
       </Text>
       <Pressable style={styles.inputContainer} onPress={onPress}>
@@ -29,17 +30,15 @@ const styles = StyleSheet.create({
   container: {},
   label: {
     color: theme.colors.textInputColor,
-    marginBottom: 10,
-    marginLeft: 8,
-    fontSize: 12,
+    marginBottom: RFValue(5),
+    fontWeight: '500',
   },
   inputContainer: {
+    height: 50,
     borderWidth: 1,
     borderColor: theme.colors.textInputBorderColor,
-    borderRadius: 100,
-    paddingVertical: 16,
-    paddingLeft: 14,
-    paddingRight: 24,
+    borderRadius: 17,
+    padding: 15,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',

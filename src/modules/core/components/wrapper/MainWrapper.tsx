@@ -26,9 +26,9 @@ const MainWrapper: React.FC<MainWrapperPropsType> = ({
   <>
     <CustomStatusBar theme="light" />
     <View style={[styles.container, StyleSheet.absoluteFill]}></View>
-    <View style={styles.topGradient}>
+    {/* <View style={styles.topGradient}>
       <RadialGradient x="0%" y="0%" rx="50%" ry="50%" colorList={colorArray} />
-    </View>
+    </View> */}
     {children}
   </>
 );

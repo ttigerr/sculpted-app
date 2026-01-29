@@ -24,7 +24,7 @@ const SearchBar = ({
         editable={editable}
         placeholder={placeholder}
         style={styles.textInput}
-        placeholderTextColor={theme.colors.editTextInputColor}
+        placeholderTextColor={"#FFFFFF"}
         onChangeText={onChangeText}
         autoComplete="off"
         autoCorrect={false}
@@ -43,13 +43,14 @@ const styles = StyleSheet.create({
     borderWidth: RFValue(1),
     borderRadius: 100,
     flexDirection: 'row',
-    paddingHorizontal: 10,
+    paddingHorizontal: 15,
     paddingVertical: IOS ? 10 : 0,
     alignItems: 'center',
   },
   textInput: {
-    color: theme.colors.editTextInputColor,
-    marginLeft: RFValue(10),
+    color: "#FFFFFF",
+    marginLeft: RFValue(11),
     fontSize: 16,
+    fontWeight: '500',
   },
 });
