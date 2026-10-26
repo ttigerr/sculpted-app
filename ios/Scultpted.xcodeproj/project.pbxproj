@@ -13,6 +13,7 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		18EDD808FB913B386335442B /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A78B0394099F3D233A995A /* ExpoModulesProvider.swift */; };
 		4049AD73E5BA4796A4750E29 /* HelveticaNeueMedium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 978E1D0903ED4607BDAD4047 /* HelveticaNeueMedium.otf */; };
+		7DCC603436ED3B1AB29E7B60 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 4B6A560802943A35DAAF0C48 /* PrivacyInfo.xcprivacy */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		B51C31D5160C4849A35F3966 /* HelveticaNeueRoman.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7455A114379A40E1AD213202 /* HelveticaNeueRoman.otf */; };
 		E012F209614429609E13A9BD /* libPods-Scultpted-ScultptedTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40D18C6B476B047CF1CC481F /* libPods-Scultpted-ScultptedTests.a */; };
@@ -42,6 +43,7 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Scultpted/main.m; sourceTree = "<group>"; };
 		3D62F3C84959C54A458F9004 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-Scultpted-ScultptedTests/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 		40D18C6B476B047CF1CC481F /* libPods-Scultpted-ScultptedTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Scultpted-ScultptedTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4B6A560802943A35DAAF0C48 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = Scultpted/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		5268F8A4238421F2BE05BFBB /* Pods-Scultpted.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Scultpted.release.xcconfig"; path = "Target Support Files/Pods-Scultpted/Pods-Scultpted.release.xcconfig"; sourceTree = "<group>"; };
 		5EDB17E39FCFDAA905B8DF0C /* Pods-Scultpted-ScultptedTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Scultpted-ScultptedTests.release.xcconfig"; path = "Target Support Files/Pods-Scultpted-ScultptedTests/Pods-Scultpted-ScultptedTests.release.xcconfig"; sourceTree = "<group>"; };
 		7455A114379A40E1AD213202 /* HelveticaNeueRoman.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = HelveticaNeueRoman.otf; path = ../assets/fonts/HelveticaNeueRoman.otf; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				4B6A560802943A35DAAF0C48 /* PrivacyInfo.xcprivacy */,
 			);
 			name = Scultpted;
 			sourceTree = "<group>";
@@ -291,6 +294,7 @@
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				4049AD73E5BA4796A4750E29 /* HelveticaNeueMedium.otf in Resources */,
 				B51C31D5160C4849A35F3966 /* HelveticaNeueRoman.otf in Resources */,
+				7DCC603436ED3B1AB29E7B60 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
