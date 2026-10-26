@@ -3,13 +3,12 @@ import { NavigationPropsType } from 'src/utils/types';
 import { useForm, FieldValues } from 'react-hook-form';
 import { navigationScreenNames } from 'src/utils/navigation-screen-names';
 import { useDispatch } from 'react-redux';
-import { setUserData, setToken } from 'src/store/slices/auth/authSlice';
-import { loginMockApiCall } from 'src/utils/api/mock-api-call';
+import { setUserData } from 'src/store/slices/auth/authSlice';
 import {ScrollView, TextInput, Alert} from 'react-native';
-import {AuthConfiguration, authorize, refresh} from 'react-native-app-auth';
+import {AuthConfiguration, authorize} from 'react-native-app-auth';
 import {authConfig, signUpConfig} from 'src/config/auth-config';
-import {Buffer} from 'buffer';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { setTokens } from 'src/config/storage/token-storage';
+import { verifyIdToken } from 'src/config/auth/verify-id-token';
 
 type LoginFormData = {
   email: string;
@@ -27,10 +26,10 @@ const useLogin = (navigationProps: NavigationPropsType) => {
   
   const { control, handleSubmit, formState: { errors, isValid }, getValues } = useForm<FieldValues | LoginFormData>({
     defaultValues: {
-      email: 'email@email.com',
-      password: 'Matrix123',
-      rememberMe: false
-    }
+      email: '',
+      password: '',
+      rememberMe: false,
+    },
   })
   const emailPattern = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/i;
   const passwordPattern = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,32}$/;
@@ -63,52 +62,28 @@ const useLogin = (navigationProps: NavigationPropsType) => {
     })
   }
 
-  // const onSubmit = handleSubmit(async data => {
-  //   setIsLoading(true);
-  //   try {
-  //     const response = await loginMockApiCall();
-  //     console.log('Login: ', response);
-      
-  //     dispatch(setUserData(response.user));
-  //     dispatch(setToken(response.token));
-      
-  //     navigation.navigate({
-  //       name: navigationScreenNames.bottomNavigation,
-  //       params: { source: source },
-  //     });
-  
-  //   } catch (error) {
-  //     console.error('Login failed:', error);
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // });
-  
-
-  
-  const onSubmit = handleSubmit(async data => {
+  const onSubmit = handleSubmit(async () => {
     setIsLoading(true);
     try {
       const authState = await authorize(authConfig);
 
       if (authState.idToken) {
         try {
-          const base64Url = authState.idToken.split('.')[1];
-          const decodedToken = Buffer.from(base64Url, 'base64').toString('utf8');
-          const userInfo = JSON.parse(decodedToken);
+          const claims = verifyIdToken(authState.idToken);
+          const email = claims.emails?.[0] || claims.email || '';
 
-          const userData = {
-            token: authState.accessToken,
-            id: userInfo.sub,
-            name: userInfo.given_name || userInfo.name,
-            email: userInfo.emails[0],
-            refreshToken: authState.refreshToken,
-          };
-          dispatch(setUserData(userData));
-          await AsyncStorage.setItem('token', authState.accessToken); //save token in storage.
+          await setTokens(authState.accessToken, authState.refreshToken);
+          dispatch(
+            setUserData({
+              token: authState.accessToken,
+              id: claims.sub,
+              name: claims.given_name || claims.name || '',
+              email,
+            }),
+          );
         } catch (decodeError) {
-          console.error('Token decode error:', decodeError);
-          Alert.alert('Error', 'Failed to decode user information');
+          Alert.alert('Error', 'Failed to verify user information');
+          return;
         }
       }
 
@@ -117,13 +92,11 @@ const useLogin = (navigationProps: NavigationPropsType) => {
         params: { source: source },
       });
     } catch (error) {
-      console.error('Authentication error:', error);
       Alert.alert(
         'Authentication Failed',
-        `Error: ${error.message}\nPlease check your credentials and try again.`
+        `Error: ${(error as Error).message}\nPlease check your credentials and try again.`,
       );
     } finally {
-      console.log("Auth config", authConfig)
       setIsLoading(false);
     }
   })
@@ -152,35 +125,28 @@ const useLogin = (navigationProps: NavigationPropsType) => {
 
       if (authState.idToken) {
         try {
-          const base64Url = authState.idToken.split('.')[1];
-          const decodedToken = Buffer.from(base64Url, 'base64').toString('utf8');
-          const userInfo = JSON.parse(decodedToken);
-
+          const claims = verifyIdToken(authState.idToken);
           const firstName =
-            userInfo.given_name ||
-            (userInfo.name ? userInfo.name.split(' ')[0] : '') ||
+            claims.given_name ||
+            (claims.name ? claims.name.split(' ')[0] : '') ||
             '';
-          const email = userInfo.emails?.[0] || userInfo.email || '';
+          const email = claims.emails?.[0] || claims.email || '';
 
-          const userData = {
-            token: authState.accessToken,
-            id: userInfo.sub,
-            name: firstName,
-            email: email,
-            fullName:
-              userInfo.name ||
-              `${firstName} ${userInfo.family_name || ''}`.trim(),
-            refreshToken: authState.refreshToken,
-          };
-          dispatch(setUserData(userData));
+          await setTokens(authState.accessToken, authState.refreshToken);
+          dispatch(
+            setUserData({
+              token: authState.accessToken,
+              id: claims.sub,
+              name: firstName,
+              email,
+            }),
+          );
           navigation.navigate(navigationScreenNames.onboardingFirstStep);
         } catch (decodeError) {
-          console.error('Token decode error:', decodeError);
-          Alert.alert('Error', 'Failed to decode user information');
+          Alert.alert('Error', 'Failed to verify user information');
         }
       }
     } catch (error) {
-      console.error('Sign-up error:', error);
       Alert.alert('Error', 'Failed to complete sign-up process');
     } finally {
       setIsLoading(false);

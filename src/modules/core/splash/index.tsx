@@ -1,16 +1,17 @@
 import React, {useEffect} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import MainWrapper from '../components/wrapper/MainWrapper';
 import Animated, {
   useSharedValue,
   withTiming,
   Easing,
+  runOnJS,
 } from 'react-native-reanimated';
 import {SplashLogo, SplashVector} from 'assets/img';
 import {SCREEN_WIDTH, SPLASH_SCREEN_DURATION} from 'src/consts/constants';
 
 interface SplashProps {
-  onAnimationFinished: Function;
+  onAnimationFinished: () => void;
 }
 
 const Splash: React.FC<SplashProps> = ({onAnimationFinished}) => {
@@ -18,14 +19,22 @@ const Splash: React.FC<SplashProps> = ({onAnimationFinished}) => {
   const vectorOpacity = useSharedValue(0);
 
   useEffect(() => {
-    logoOpacity.value = withTiming(1, {
-      duration: SPLASH_SCREEN_DURATION,
-      easing: Easing.inOut(Easing.ease),
-    });
     vectorOpacity.value = withTiming(1, {
       duration: SPLASH_SCREEN_DURATION,
       easing: Easing.linear,
     });
+    // Fire onAnimationFinished when the logo fade-in completes — this is the
+    // signal App.tsx uses to swap splash out for the main navigator.
+    logoOpacity.value = withTiming(
+      1,
+      {
+        duration: SPLASH_SCREEN_DURATION,
+        easing: Easing.inOut(Easing.ease),
+      },
+      finished => {
+        if (finished) runOnJS(onAnimationFinished)();
+      },
+    );
   }, []);
 
   return (

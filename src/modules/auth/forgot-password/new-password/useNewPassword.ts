@@ -16,9 +16,9 @@ const useNewPassword = (navigationProps: NavigationPropsType) => {
   const { navigation } = navigationProps;
   const { control, handleSubmit, formState: { errors, isValid }, getValues, watch } = useForm<NewPasswordFormData>({
     defaultValues: {
-      password: 'Matrix-123',
-      confirmPassword: 'Matrix-123'
-    }
+      password: '',
+      confirmPassword: '',
+    },
   })
   const password = watch('password');
   const confirmPassword = watch('confirmPassword');

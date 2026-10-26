@@ -50,16 +50,18 @@ export type JournalReminder = {
 }
 
 // REDUX STORE SLICES
+// Date-like fields are stored as ISO strings so redux-persist can round-trip them.
+// Convert at the UI edge with moment()/new Date() as needed.
 export interface AuthState {
   token: string | null;
-  tokenStartDate: Date | undefined;
+  tokenStartDate: string | null;
   user: {
     id: string;
     name: string;
     email: string;
     gender?: 'Male' | 'Female' | 'Other' | null;
-    birthday: Date | null;
-    profilePictureUrl?: string; 
+    birthday: string | null;
+    profilePictureUrl?: string;
   };
   error: boolean | object | null;
   accountState: 'ACTIVE' | 'DELETED';

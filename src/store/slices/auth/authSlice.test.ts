@@ -3,6 +3,7 @@ import { AuthState } from 'src/utils/types';
 import { AnyAction } from 'redux';
 
 const userData = {
+  id: '',
   name: '',
   email: '',
   gender: null,
@@ -15,7 +16,7 @@ describe('Auth Slice', () => {
   beforeEach(() => {
     initialState = {
       token: null,
-      tokenStartDate: undefined,
+      tokenStartDate: null,
       user: userData,
       error: false,
       accountState: 'ACTIVE',

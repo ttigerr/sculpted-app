@@ -1,61 +1,103 @@
 import {useState} from 'react';
 import {NavigationPropsType} from 'src/utils/types';
 import {navigationScreenNames} from 'src/utils/navigation-screen-names';
-import {AuthConfiguration, authorize} from 'react-native-app-auth';
-import {authConfig, signUpConfig} from 'src/config/auth-config';
+// Azure B2C auth — temporarily disabled while .env credentials are set up.
+// To re-enable: uncomment these imports and the handler bodies below.
+// import {AuthConfiguration, authorize} from 'react-native-app-auth';
+// import {authConfig, signUpConfig} from 'src/config/auth-config';
+// import {verifyIdToken} from 'src/config/auth/verify-id-token';
+// import {setTokens} from 'src/config/storage/token-storage';
 import {useDispatch} from 'react-redux';
 import {setUserData} from 'src/store/slices/auth/authSlice';
-import {Buffer} from 'buffer';
 import {Alert} from 'react-native';
 import InAppBrowser from 'react-native-inappbrowser-reborn';
 import { PRIVACY_STATEMENT, TERM_AND_CONDITION } from 'src/consts/constants';
+import { userMockData, jwtMockData } from 'src/consts/mock-data';
 
 const useSimpleLogin = ({navigation}: NavigationPropsType) => {
   const [loading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
 
+  // --- MOCK AUTH (temporary) ---
+  // Short-circuit the OAuth flow so the app can be exercised without a
+  // configured Azure B2C tenant. The real implementations are preserved
+  // below as a block comment — swap them back in once .env has valid
+  // AZURE_* values.
+  const handleSignUp = async () => {
+    setIsLoading(true);
+    try {
+      dispatch(
+        setUserData({
+          token: jwtMockData,
+          id: 'mock-user-id',
+          name: userMockData.name,
+          email: userMockData.email,
+        }),
+      );
+      navigation.navigate(navigationScreenNames.onboardingFirstStep, {
+        params: { source: 'auth' },
+        key: `auth-${Date.now()}`,
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleLogin = async () => {
+    setIsLoading(true);
+    try {
+      dispatch(
+        setUserData({
+          token: jwtMockData,
+          id: 'mock-user-id',
+          name: userMockData.name,
+          email: userMockData.email,
+        }),
+      );
+      navigation.navigate(navigationScreenNames.bottomNavigation, {
+        source: 'auth',
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  /* --- REAL AUTH (restore when AZURE_* env vars are configured) ---
   const handleSignUp = async () => {
     setIsLoading(true);
     try {
       const authState = await authorize(signUpConfig as AuthConfiguration);
-
-      if (authState.idToken) {
-        try {
-          const base64Url = authState.idToken.split('.')[1];
-          const decodedToken = Buffer.from(base64Url, 'base64').toString(
-            'utf8',
-          );
-          const userInfo = JSON.parse(decodedToken);
-
-          const firstName =
-            userInfo.given_name ||
-            (userInfo.name ? userInfo.name.split(' ')[0] : '') ||
-            '';
-          const email = userInfo.emails?.[0] || userInfo.email || '';
-
-          const userData = {
-            token: authState.accessToken,
-            id: userInfo.sub,
-            name: firstName,
-            email: email,
-            fullName:
-              userInfo.name ||
-              `${firstName} ${userInfo.family_name || ''}`.trim(),
-            refreshToken: authState.refreshToken,
-          };
-          dispatch(setUserData(userData));
-          navigation.navigate(navigationScreenNames.onboardingFirstStep, {
-            params: { source: 'auth' },
-            key: `auth-${Date.now()}`,
-          });
-        } catch (decodeError) {
-          console.error('Token decode error:', decodeError);
-          Alert.alert('Error', 'Failed to decode user information');
-        }
+      if (!authState?.idToken) {
+        Alert.alert('Sign-up incomplete', 'No ID token was returned from the sign-up flow.');
+        return;
       }
+      let claims;
+      try {
+        claims = verifyIdToken(authState.idToken);
+      } catch (decodeError) {
+        Alert.alert('Error verifying token', (decodeError as Error).message);
+        return;
+      }
+      const firstName =
+        claims.given_name ||
+        (claims.name ? claims.name.split(' ')[0] : '') ||
+        '';
+      const email = claims.emails?.[0] || claims.email || '';
+      await setTokens(authState.accessToken, authState.refreshToken);
+      dispatch(
+        setUserData({
+          token: authState.accessToken,
+          id: claims.sub,
+          name: firstName,
+          email,
+        }),
+      );
+      navigation.navigate(navigationScreenNames.onboardingFirstStep, {
+        params: { source: 'auth' },
+        key: `auth-${Date.now()}`,
+      });
     } catch (error) {
-      console.error('Sign-up error:', error);
-      Alert.alert('Error', 'Failed to complete sign-up process');
+      Alert.alert('Sign-up error', (error as Error)?.message ?? String(error));
     } finally {
       setIsLoading(false);
     }
@@ -65,40 +107,37 @@ const useSimpleLogin = ({navigation}: NavigationPropsType) => {
     setIsLoading(true);
     try {
       const authState = await authorize(authConfig);
-
-      if (authState.idToken) {
-        try {
-          const base64Url = authState.idToken.split('.')[1];
-          const decodedToken = Buffer.from(base64Url, 'base64').toString('utf8');
-          const userInfo = JSON.parse(decodedToken);
-
-          const userData = {
-            token: authState.accessToken,
-            id: userInfo.sub,
-            name: userInfo.given_name || userInfo.name,
-            email: userInfo.emails[0],
-            refreshToken: authState.refreshToken,
-          };
-          dispatch(setUserData(userData));
-        } catch (decodeError) {
-          console.error('Token decode error:', decodeError);
-          Alert.alert('Error', 'Failed to decode user information');
-        }
+      if (!authState?.idToken) {
+        Alert.alert('Login incomplete', 'No ID token was returned from the login flow.');
+        return;
       }
-
+      let claims;
+      try {
+        claims = verifyIdToken(authState.idToken);
+      } catch (decodeError) {
+        Alert.alert('Error verifying token', (decodeError as Error).message);
+        return;
+      }
+      const email = claims.emails?.[0] || claims.email || '';
+      await setTokens(authState.accessToken, authState.refreshToken);
+      dispatch(
+        setUserData({
+          token: authState.accessToken,
+          id: claims.sub,
+          name: claims.given_name || claims.name || '',
+          email,
+        }),
+      );
       navigation.navigate(navigationScreenNames.bottomNavigation, {
         source: 'auth',
       });
     } catch (error) {
-      console.error('Authentication error:', error);
-      Alert.alert(
-        'Authentication Failed',
-        `Error: ${(error as Error).message}\nPlease check your credentials and try again.`,
-      );
+      Alert.alert('Authentication failed', (error as Error)?.message ?? String(error));
     } finally {
       setIsLoading(false);
     }
   };
+  */
 
   const handleOpenTermUrl =  async() => {
     //Linking.openURL(TERM_AND_CONDITION).catch(err => console.error('Failed to open URL:', err));

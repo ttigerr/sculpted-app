@@ -31,7 +31,6 @@ export const authConfig: AuthConfiguration = {
     prompt: 'login' as const,
     include_granted_scopes: 'true',
   },
-  dangerouslyAllowInsecureHttpRequests: true,
 };
 
 export const signUpConfig: AuthConfiguration = {
@@ -57,5 +56,4 @@ export const signUpConfig: AuthConfiguration = {
     prompt: 'login' as const,
     include_granted_scopes: 'true',
   },
-  dangerouslyAllowInsecureHttpRequests: true,
 };
