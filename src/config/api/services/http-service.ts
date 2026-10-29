@@ -133,3 +133,16 @@ export function get<T>(url: string, options: { signal?: AbortSignal; timeoutMs?:
 export function post<T>(url: string, body: unknown, options: { signal?: AbortSignal; timeoutMs?: number } = {}): Promise<T> {
   return request<T>(url, { method: 'POST', body, ...options });
 }
+
+export function put<T>(url: string, body: unknown, options: { signal?: AbortSignal; timeoutMs?: number } = {}): Promise<T> {
+  return request<T>(url, { method: 'PUT', body, ...options });
+}
+
+export function patch<T>(url: string, body: unknown, options: { signal?: AbortSignal; timeoutMs?: number } = {}): Promise<T> {
+  return request<T>(url, { method: 'PATCH', body, ...options });
+}
+
+// `delete` is a reserved word in JavaScript, hence `del`.
+export function del<T = void>(url: string, options: { signal?: AbortSignal; timeoutMs?: number } = {}): Promise<T> {
+  return request<T>(url, { method: 'DELETE', ...options });
+}
