@@ -34,6 +34,13 @@ export const TOAST_SAVE_ERROR_CONFIG = {
   visibilityTime: 3000
 }
 
+export const TOAST_DELETE_ERROR_CONFIG = {
+  type: 'error',
+  text1: "Couldn't delete your account.",
+  text2: 'Nothing was deleted. Check your internet connection and try again.',
+  visibilityTime: 4000
+}
+
 export const TOAST_EMAIL_CONFIG = {
   type: 'error',
   text1: 'Error - Failed to complete action',

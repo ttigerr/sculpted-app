@@ -6,6 +6,7 @@ export type NavigationType = {
   goBack: Function;
   dispatch: Function;
   reset: Function;
+  getParent?: () => NavigationType | undefined;
 };
 
 export type NavigationPropsType = {

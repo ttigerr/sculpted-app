@@ -1,3 +1,4 @@
+import { jest, it, expect, beforeEach } from '@jest/globals';
 import { uploadLocalCompassOnce } from './compass-migration';
 import { compassService } from './compass-service';
 
@@ -12,8 +13,8 @@ jest.mock('./compass-service', () => ({
   compassService: { getUserCompass: jest.fn(), postCompass: jest.fn() },
 }));
 
-const getUserCompass = compassService.getUserCompass as jest.Mock;
-const postCompass = compassService.postCompass as jest.Mock;
+const getUserCompass = compassService.getUserCompass as ReturnType<typeof jest.fn<(...args: any[]) => any>>;
+const postCompass = compassService.postCompass as ReturnType<typeof jest.fn<(...args: any[]) => any>>;
 
 const entry = (creationDate: string, score = 5) => ({
   id: 123,

@@ -26,10 +26,9 @@ import BackButton from 'src/modules/core/components/back-button';
 import LoadingModal from 'src/modules/core/components/loading-modal';
 
 const ProfileMain = (props : NavigationPropsType) => {
-  const {userData, fromDashboard} = useProfileMain(props);
-
   const {
-    onBackButtonPressed, 
+    userData,
+    onBackButtonPressed,
     goToEditScreen, 
     resetPassword, 
     journalReminder,
@@ -39,6 +38,7 @@ const ProfileMain = (props : NavigationPropsType) => {
     onConfirmationModalClose,
     deleteAccount,
     handleSignOut,
+    handleDeleteAccount,
     loading
   } = useProfileMain(props);
 
@@ -177,7 +177,7 @@ const ProfileMain = (props : NavigationPropsType) => {
         onClose={onConfirmationModalClose}
         children={
           <>
-            <Pressable style={styles.buttonContainer} onPress={handleSignOut}>
+            <Pressable style={styles.buttonContainer} onPress={handleDeleteAccount}>
               <Text variant="delete" style={styles.primaryButtonText}>
                   {"Delete Account"}
               </Text>
