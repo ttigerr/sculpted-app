@@ -6,6 +6,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import moment from 'moment';
 import mockCompass from 'src/consts/data.json'
 import { compassService } from 'src/config/api/services/compass-service';
+import { uploadLocalCompassOnce } from 'src/config/api/services/compass-migration';
 
 const userDataSelector = (state: any) => state.auth.user;
 
@@ -50,6 +51,8 @@ const useDashboard = (props: NavigationPropsType) => {
     // Fetch today's compass entry from the API
     const fetchData = async () => {
         try {
+            // Move any pre-API compass entries off the phone first, so they show up below.
+            await uploadLocalCompassOnce();
             const today = moment().format('YYYY-MM-DD');
             const entries = await compassService.getUserCompass(today, today);
             setCompassData(entries);
