@@ -18,10 +18,22 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 22
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
+
+      # .env is gitignored, so recreate it from repository variables.
+      # These values are bundled into the app (public), so variables, not secrets.
+      - name: Create .env
+        run: |
+          cat > .env <<EOF
+          BACKEND_BASE_URL=${{ vars.BACKEND_BASE_URL }}
+          AZURE_TENANT_NAME=${{ vars.AZURE_TENANT_NAME }}
+          AZURE_CLIENT_ID=${{ vars.AZURE_CLIENT_ID }}
+          AZURE_USER_SIGNIN_FLOW=${{ vars.AZURE_USER_SIGNIN_FLOW }}
+          AZURE_USER_SIGNUP_FLOW=${{ vars.AZURE_USER_SIGNUP_FLOW }}
+          EOF
 
       - name: Install Fastlane
         run: gem install fastlane -NV

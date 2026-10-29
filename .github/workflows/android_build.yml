@@ -10,10 +10,10 @@ jobs:
     runs-on: macos-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Install Java
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           java-version: 17
           distribution: adopt
@@ -23,9 +23,9 @@ jobs:
         uses: gradle/wrapper-validation-action@v1
 
       - name: Setup Node  
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '22'
           cache: 'yarn'
 
       - name: Run Yarn Install
@@ -33,13 +33,25 @@ jobs:
              npm i -g corepack
              yarn install
 
+      # .env is gitignored, so recreate it from repository variables.
+      # These values are bundled into the app (public), so variables, not secrets.
+      - name: Create .env
+        run: |
+          cat > .env <<EOF
+          BACKEND_BASE_URL=${{ vars.BACKEND_BASE_URL }}
+          AZURE_TENANT_NAME=${{ vars.AZURE_TENANT_NAME }}
+          AZURE_CLIENT_ID=${{ vars.AZURE_CLIENT_ID }}
+          AZURE_USER_SIGNIN_FLOW=${{ vars.AZURE_USER_SIGNIN_FLOW }}
+          AZURE_USER_SIGNUP_FLOW=${{ vars.AZURE_USER_SIGNUP_FLOW }}
+          EOF
+
       - name: Build application
         run: |
              cd android
              ./gradlew assembleRelease
 
       - name: Upload application
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: app
           path: android/app/build/outputs/apk/release/app-release.apk
