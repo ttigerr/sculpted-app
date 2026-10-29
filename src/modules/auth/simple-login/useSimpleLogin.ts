@@ -6,13 +6,13 @@ import {navigationScreenNames} from 'src/utils/navigation-screen-names';
 // import {AuthConfiguration, authorize} from 'react-native-app-auth';
 // import {authConfig, signUpConfig} from 'src/config/auth-config';
 // import {verifyIdToken} from 'src/config/auth/verify-id-token';
-// import {setTokens} from 'src/config/storage/token-storage';
+import {setTokens} from 'src/config/storage/token-storage';
 import {useDispatch} from 'react-redux';
 import {setUserData} from 'src/store/slices/auth/authSlice';
 import {Alert} from 'react-native';
 import InAppBrowser from 'react-native-inappbrowser-reborn';
 import { PRIVACY_STATEMENT, TERM_AND_CONDITION } from 'src/consts/constants';
-import { userMockData, jwtMockData } from 'src/consts/mock-data';
+import { userMockData, devAccessToken } from 'src/consts/mock-data';
 
 const useSimpleLogin = ({navigation}: NavigationPropsType) => {
   const [loading, setIsLoading] = useState(false);
@@ -23,17 +23,24 @@ const useSimpleLogin = ({navigation}: NavigationPropsType) => {
   // configured Azure B2C tenant. The real implementations are preserved
   // below as a block comment — swap them back in once .env has valid
   // AZURE_* values.
+  // The token is saved to the keychain because http-service reads it from
+  // there for every API request.
+  const mockSignIn = async () => {
+    await setTokens(devAccessToken);
+    dispatch(
+      setUserData({
+        token: devAccessToken,
+        id: 'dev-user',
+        name: userMockData.name,
+        email: userMockData.email,
+      }),
+    );
+  };
+
   const handleSignUp = async () => {
     setIsLoading(true);
     try {
-      dispatch(
-        setUserData({
-          token: jwtMockData,
-          id: 'mock-user-id',
-          name: userMockData.name,
-          email: userMockData.email,
-        }),
-      );
+      await mockSignIn();
       navigation.navigate(navigationScreenNames.onboardingFirstStep, {
         params: { source: 'auth' },
         key: `auth-${Date.now()}`,
@@ -46,14 +53,7 @@ const useSimpleLogin = ({navigation}: NavigationPropsType) => {
   const handleLogin = async () => {
     setIsLoading(true);
     try {
-      dispatch(
-        setUserData({
-          token: jwtMockData,
-          id: 'mock-user-id',
-          name: userMockData.name,
-          email: userMockData.email,
-        }),
-      );
+      await mockSignIn();
       navigation.navigate(navigationScreenNames.bottomNavigation, {
         source: 'auth',
       });
