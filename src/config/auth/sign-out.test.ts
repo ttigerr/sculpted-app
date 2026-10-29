@@ -16,6 +16,11 @@ jest.mock('src/config/storage/token-storage', () => ({
   clearTokens: jest.fn(async () => {}),
 }));
 
+// The store's task slice imports the API client; no requests are made here.
+jest.mock('src/config/api/services/http-service', () => ({
+  get: jest.fn(), post: jest.fn(), patch: jest.fn(), del: jest.fn(),
+}));
+
 jest.spyOn(persistor, 'flush').mockResolvedValue(undefined as never);
 
 beforeEach(() => {
