@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { NavigationPropsType } from 'src/utils/types';
-import { VIRTUES_MAX_SELECTION, TOAST_BASE_CONFIG } from 'src/consts/constants';
+import { VIRTUES_MAX_SELECTION, TOAST_BASE_CONFIG, TOAST_SAVE_ERROR_CONFIG } from 'src/consts/constants';
 import Toast from 'react-native-toast-message';
 import { navigationScreenNames } from 'src/utils/navigation-screen-names';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import moment from 'moment';
+import { Compass } from 'src/models/compass/compass';
+import { compassService } from 'src/config/api/services/compass-service';
 
 const useOnboardingFirstStep = (props: NavigationPropsType) => {
 
   const {navigation} = props;
   const [selectedChips, setSelectedChips] = useState<string[]>([]);
+  const submittingRef = useRef(false);
   const [source, setSource] = useState(''); // default fallback
 
   useEffect(() => {
@@ -59,8 +61,8 @@ const useOnboardingFirstStep = (props: NavigationPropsType) => {
   if (selectedChips.length === VIRTUES_MAX_SELECTION) {
     const today = moment().format('YYYY-MM-DD');
 
-    const newVirtueGroup = {
-      id: Date.now(),
+    // The server assigns the id and computes overallScore.
+    const newVirtueGroup: Compass = {
       creationDate: today,
       virtue1: selectedChips[0],
       virtue1Score: 0,
@@ -74,30 +76,19 @@ const useOnboardingFirstStep = (props: NavigationPropsType) => {
       overallScore: 0,
     };
 
+    // Ignore extra taps while the request is in flight.
+    if (submittingRef.current) return;
+    submittingRef.current = true;
     try {
-      const storedData = await AsyncStorage.getItem('compass');
-
-      let updatedData: any[] = [];
-
-      if (storedData) {
-        const json = JSON.parse(storedData);
-        updatedData = Array.isArray(json) ? json : (json?.compass || []);
-
-        const isTodayExist = updatedData.some(
-          (item) => moment(item.creationDate).isSame(today, 'day')
-        );
-
-        if (isTodayExist) {
-          Toast.show({ text1: 'You have already selected 3 virtues for today.' });
-          return;
-        } else {
-          updatedData.push(newVirtueGroup);
-        }
-      } else {
-        updatedData = [newVirtueGroup];
+      // POST overwrites an existing entry for the same day, so check first
+      // to avoid wiping today's scores and notes.
+      const todayEntries = await compassService.getUserCompass(today, today);
+      if (todayEntries.length > 0) {
+        Toast.show({ text1: 'You have already selected 3 virtues for today.' });
+        return;
       }
 
-      await AsyncStorage.setItem('compass', JSON.stringify(updatedData));
+      await compassService.postCompass(newVirtueGroup);
 
       navigation.navigate({
         name: navigationScreenNames.onboardingSecondStep,
@@ -105,6 +96,9 @@ const useOnboardingFirstStep = (props: NavigationPropsType) => {
       });
     } catch (error) {
       console.error('Error saving compass data:', error);
+      Toast.show(TOAST_SAVE_ERROR_CONFIG);
+    } finally {
+      submittingRef.current = false;
     }
   } else {
     Toast.show(TOAST_BASE_CONFIG);

@@ -51,19 +51,6 @@ const useOnboardingSecond = (props : NavigationPropsType) => {
         }
     }
 
-    // To display saved data for compass items
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const storedData = await AsyncStorage.getItem('compass');
-                console.log("Your saved data: " + storedData)
-            } catch (error) {
-                console.error('Error fetching compass data:', error);
-            }
-        };
-        fetchData();
-    }, []);
-
     return {
         date,
         loading,

@@ -27,6 +27,13 @@ export const TOAST_BASE_CONFIG = {
   visibilityTime: 2000
 }
 
+export const TOAST_SAVE_ERROR_CONFIG = {
+  type: 'error',
+  text1: "Couldn't save your changes.",
+  text2: 'Check your internet connection and try again.',
+  visibilityTime: 3000
+}
+
 export const TOAST_EMAIL_CONFIG = {
   type: 'error',
   text1: 'Error - Failed to complete action',

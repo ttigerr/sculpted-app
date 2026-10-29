@@ -2,10 +2,10 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { NavigationPropsType } from 'src/utils/types';
 import { navigationScreenNames } from 'src/utils/navigation-screen-names';
 import { useSelector } from 'react-redux';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
 import moment from 'moment';
 import mockCompass from 'src/consts/data.json'
+import { compassService } from 'src/config/api/services/compass-service';
 
 const userDataSelector = (state: any) => state.auth.user;
 
@@ -47,34 +47,15 @@ const useDashboard = (props: NavigationPropsType) => {
         });
     };
 
-    // Fetch and filter compass data for today
+    // Fetch today's compass entry from the API
     const fetchData = async () => {
         try {
-            const storedData = await AsyncStorage.getItem('compass');
-            const todayDate = moment().startOf('day');
-            let compassArray: any[] = [];
-
-            if (storedData) {
-                const json = JSON.parse(storedData);
-                if (Array.isArray(json)) {
-                compassArray = json;
-                } else if (json?.compass && Array.isArray(json.compass)) {
-                compassArray = json.compass;
-                }
-            }
-
-            const filteredData = compassArray.filter((item) => {
-                if (!item.creationDate) {
-                    return false;
-                }
-            const itemDate = moment(item.creationDate, 'YYYY-MM-DD').startOf('day');
-            return itemDate.isSame(todayDate, 'day');
-        });
-        setCompassData(filteredData);
-
+            const today = moment().format('YYYY-MM-DD');
+            const entries = await compassService.getUserCompass(today, today);
+            setCompassData(entries);
         } catch (error) {
-        console.log('Error fetching compass data:', error);
-        setCompassData([]);
+            // Keep showing the last loaded data rather than blanking the dashboard.
+            console.log('Error fetching compass data:', error);
         }
     };
 
