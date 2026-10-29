@@ -111,6 +111,24 @@ install the new build **over it**. Don't uninstall, which would wipe the old dat
 | 6.7 | Log in again | Empty dashboard (a brand-new account) | [ ] | [ ] |
 | 6.8 | 🗄️ Run the SQL | Only the new account, with no old entries | [ ] | [ ] |
 
+## 7. To-do list
+
+| # | Do this | Expected | iOS | Android |
+|---|---|---|---|---|
+| 7.1 | Open **To-do** on a new account | Empty lists, counts 0, progress 0% (not "NaN") | [ ] | [ ] |
+| 7.2 | **Task list** → add a task with title and description → save | Appears in the list. API terminal: `POST /api/tasks 201` | [ ] | [ ] |
+| 7.3 | Try saving with an empty title or description | "Title and description can't be empty"; nothing sent | [ ] | [ ] |
+| 7.4 | Tick the task done | Ticks instantly. `PATCH /api/tasks/… 200` | [ ] | [ ] |
+| 7.5 | Go back to **To-do home** and the **dashboard** | Counts and today's progress reflect the tick (all screens agree) | [ ] | [ ] |
+| 7.6 | API stopped → tick a task | Ticks, then un-ticks with *"Couldn't save your changes."* | [ ] | [ ] |
+| 7.7 | API stopped → add a task → save | Error message; what you typed is kept so you can retry | [ ] | [ ] |
+| 7.8 | Swipe a task to delete it | Disappears. `DELETE /api/tasks/… 204` | [ ] | [ ] |
+| 7.9 | Select several tasks → delete → confirm | All selected tasks on that day disappear | [ ] | [ ] |
+| 7.10 | **Scheduled** → pick a future day → add a task | Shows under that day, and in the **Journal**'s tomorrow list if it's tomorrow | [ ] | [ ] |
+| 7.11 | Leave a task unticked → open **Incomplete** | It's listed; tick it there and it disappears from Incomplete | [ ] | [ ] |
+| 7.12 | Close the app fully and reopen | All tasks are still there (they came from the server) | [ ] | [ ] |
+| 7.13 | Sign out, log in again | Same tasks come back | [ ] | [ ] |
+
 ---
 
 ## Known issues (don't report these)
@@ -120,6 +138,7 @@ install the new build **over it**. Don't uninstall, which would wipe the old dat
 - **"Deactivate Account" does nothing.** Waiting on a product decision.
 - **Session expiry stays on the current screen.** If the server rejects the
   login, data is cleared but the app doesn't jump to the login screen.
-- **To-do screens use sample data.** Tasks aren't connected to the API yet.
+- **Tasks can't be edited after saving.** Only add, tick, and delete exist in
+  the app today.
 - **Profile shows fixed values** ("Male", "15/09/2004", "@Username") and the
   journal reminder is stored only on the phone.
