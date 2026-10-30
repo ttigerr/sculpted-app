@@ -12,6 +12,7 @@ import {
 } from 'redux-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import authReducer from './slices/auth/authSlice';
+import tasksReducer from './slices/tasks/tasksSlice';
 import { AuthState } from 'src/utils/types';
 
 // Strip the access token (and derived timestamp) from the persisted auth
@@ -35,7 +36,8 @@ const persistConfig = {
   transforms: [authPersistTransform],
 };
 
-const rootReducer = combineReducers({ auth: authReducer });
+// Only `auth` is persisted (see whitelist above); tasks always come from the API.
+const rootReducer = combineReducers({ auth: authReducer, tasks: tasksReducer });
 // redux-persist's inferred preloadedState generic doesn't line up with
 // configureStore's stricter signature in RTK 2.x. The runtime behavior is
 // correct; casting through unknown quiets the type mismatch.
