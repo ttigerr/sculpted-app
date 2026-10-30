@@ -32,6 +32,7 @@ const ToDoSchedule = (props: NavigationPropsType) => {
     toggleScheduleTaskCompletion,
     scheduledTaskList,
     handleAddScheduledTask,
+    handleEditScheduledTask,
     newScheduledTask,
     setNewScheduledTask,
     scrollViewRef,
@@ -129,7 +130,7 @@ const ToDoSchedule = (props: NavigationPropsType) => {
               isSelectedAll={isSelectedAll}
               onSelectAllPressed={onSelectAllPressed}
               taskList={filteredTasks}
-              onTaskPress={(task) => console.log(task)}
+              onTaskPress={handleEditScheduledTask}
               handleToggleComplete={toggleScheduleTaskCompletion}
               newTask={newScheduledTask}
               setNewTask={setNewScheduledTask}
