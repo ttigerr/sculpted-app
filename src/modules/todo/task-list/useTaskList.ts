@@ -1,114 +1,59 @@
-import React, {useEffect, useMemo, useRef, useState} from 'react';
-import { DayListItem, NavigationPropsType, Task } from 'src/utils/types';
-import { VIRTUES_MAX_SELECTION } from 'src/consts/constants';
+import {useEffect, useMemo, useRef, useState} from 'react';
+import { NavigationPropsType, Task } from 'src/utils/types';
 import { navigationScreenNames } from 'src/utils/navigation-screen-names';
-import { tasksListMock } from 'src/consts/arrays';
 import moment from 'moment';
-import { Alert, Keyboard } from 'react-native';
+import { Keyboard } from 'react-native';
 import { useRoute } from '@react-navigation/native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import useTasks, { completedFirst, taskDay } from '../hooks/useTasks';
+import useTaskListState from '../hooks/useTaskListState';
 
 export type TaskListProps = {
   tasks: Task[];
 };
 
 const useTaskList = (props: NavigationPropsType) => {
-  const [searchQuery, setSearchQuery] = useState<string>('');
-  const [toDoListData, setToDoListData] = useState([]);
-  const startDate = moment().subtract(7, 'days').startOf('day'); // From the past 7 days
-  const endDate = moment().endOf('day'); // Today's date
-
-   // Load compass data from AsyncStorage
-   useEffect(() => {
-    const fetchData = async () => {
-        try {
-            const storedData = await AsyncStorage.getItem('toDoList');
-            if (storedData) {
-                const parsedData = JSON.parse(storedData);
-                if (Array.isArray(parsedData)) {
-                    setToDoListData(parsedData);
-                } else if (parsedData?.compass) {
-                    setToDoListData(parsedData.compass);
-                } else {
-                    setToDoListData([]);
-                }
-            } else {
-              setToDoListData([]);
-            }
-        } catch (error) {
-          console.error('Error fetching compass data:', error);
-          setToDoListData([]);
-    }};
-    fetchData(); 
-    console.log("Here is", toDoListData)
-  }, []);
-
-  // Filters only today and last 7 days
-  const [taskList, setTaskList] = useState<Task[]>(
-    tasksListMock
-      .filter(task => {
-        const created = moment(task.creationDate);
-        const scheduled = moment(task.scheduledDate);
-        return (
-          created.isBetween(startDate, endDate, 'day', '[]') ||
-          scheduled.isBetween(startDate, endDate, 'day', '[]')
-        );
-      })
-
-      // Rearrange task orders
-      .sort((a, b) => {
-        if (a.isCompleted === b.isCompleted) return 0;
-        return a.isCompleted ? -1 : 1; // Completed goes on top
-      })
-  );
-
-  // Filters only today's task
-  const todayTaskList = useMemo(() => {
-    const today = moment().startOf('day');
-  
-    return tasksListMock
-      .filter(
-        task => moment(task.creationDate).isSame(today, 'day') || moment(task.scheduledDate).isSame(today, 'day')
-      )
-      .sort((a, b) => {
-        if (a.isCompleted === b.isCompleted) return 0;
-        return a.isCompleted ? -1 : 1;
-      });
-  }, [tasksListMock]); // Add other dependencies if needed
-  
-
-  const [completedTodayTaskList, setCompletedtodayTaskList] = useState<Task[]>(
-    tasksListMock.filter(
-      task => task.isCompleted && 
-        moment(task.creationDate).isSame(moment(), 'day')
-    )
-  ); 
-
-  const [filteredTasks, setFilteredTasks] = useState(taskList);
-  const [selectedDay, setSelectedDay] = useState<moment.Moment | null>(moment().startOf('day'));
-  
-  const hasTodayTask = filteredTasks.some(task =>
-    moment(task.creationDate).isSame(moment(), 'day') ||
-    moment(task.scheduledDate).isSame(moment(), 'day')
-  );
-  const [inCompletedTaskList, setInCompletedTaskList] = useState<Task[]>(
-    tasksListMock.filter(task => {
-      const created = moment(task.creationDate);
-      const scheduled = moment(task.scheduledDate);
-      return (
-        !task.isCompleted &&
-        (created.isBetween(startDate, endDate, 'day', '[]') ||
-        scheduled.isBetween(startDate, endDate, 'day', '[]'))
-      );
-    })
-  );
-  const [newTask, setNewTask] = useState<Task | null>(null);
-  const [isAdding, setIsAdding] = useState<boolean>(false);
-  const [isShowingCompleted, setIsShowingCompleted] = useState<boolean>(false);
-  const [isSelectedAll, setIsSelectedAll] = useState<boolean>(false);
-  const [isConfirmationModalVisible, setIsConfirmationModalVisible] = useState<boolean>(false);
-  const scrollViewRef = useRef(null);
+  const { tasks, isLoading } = useTasks();
   const route = useRoute();
+  const scrollViewRef = useRef<any>(null);
+  const [isConfirmationModalVisible, setIsConfirmationModalVisible] = useState<boolean>(false);
+
+  // Today and the past 7 days
+  const recentTasks = useMemo(() => {
+    const startDate = moment().subtract(7, 'days').startOf('day');
+    const endDate = moment().endOf('day');
+    return tasks.filter(task => taskDay(task).isBetween(startDate, endDate, 'day', '[]'));
+  }, [tasks]);
+
+  const list = useTaskListState(recentTasks, {
+    initialDay: moment().startOf('day'),
+    defaultNewTaskDay: () => moment(),
+  });
+
+  // Today's tasks only (dashboard, to-do home, journal)
+  const todayTaskList = useMemo(
+    () => tasks.filter(task => taskDay(task).isSame(moment(), 'day')).sort(completedFirst),
+    [tasks],
+  );
+  const completedTodayTaskList = useMemo(
+    () => todayTaskList.filter(task => task.isCompleted),
+    [todayTaskList],
+  );
+  const inCompletedTaskList = useMemo(
+    () => recentTasks.filter(task => !task.isCompleted),
+    [recentTasks],
+  );
+
+  const hasTodayTask = list.filteredTasks.some(task => taskDay(task).isSame(moment(), 'day'));
+
+  const handleAddTask = () => {
+    list.handleAddTask();
+    // Only not to directly jump on add task in Journal screen
+    if (route.name !== navigationScreenNames.journal) {
+      setTimeout(() => {
+        scrollViewRef.current?.scrollToEnd({ animated: true });
+      }, 300);
+    }
+  };
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () => {
@@ -119,124 +64,6 @@ const useTaskList = (props: NavigationPropsType) => {
     };
   }, []);
 
-  const handleSearch = (query: string) => {
-    setSearchQuery(query);
-    const filtered = tasksListMock.filter(task => {
-      const isInDateRange =
-        moment(task.creationDate).isBetween(startDate, endDate, 'day', '[]') ||
-        moment(task.scheduledDate).isBetween(startDate, endDate, 'day', '[]');
-  
-      const matchesQuery = task.title.toLowerCase().includes(query.toLowerCase());
-  
-      return isInDateRange && (!query || matchesQuery);
-    });
-    setFilteredTasks(filtered);
-  };
-  
-
-  const toggleTaskCompletion = (taskId: string) => {
-    setTaskList(prevTasks =>
-      prevTasks.map(task =>
-        task.id === taskId ? { ...task, isCompleted: !task.isCompleted } : task
-      )
-    );
-  };
-
-  const handleSaveTask = () => {
-    if (newTask && newTask.title && newTask.description) {
-      setTaskList(prevTaskList => [...prevTaskList, newTask]);
-      setNewTask(null);
-      setIsAdding(false);
-    } else {
-      Alert.alert("Title and description can't be empty");
-    }
-  };
-
-  const handleCancelEdit = () => {
-    setNewTask(null);
-      setIsAdding(false);
-  }
-
-  const handleAddTask = () => {
-    const tempTask: Task = {
-      id: Date.now().toString(),
-      creationDate: moment().toDate(),
-      title: '',
-      description: '',
-      isCompleted: false,
-      isTemporary: true,
-    };
-    setNewTask(tempTask);
-    setIsAdding(true);
-    
-    // Only not to directly jump on add task in Journal screen
-    if (route.name !== navigationScreenNames.journal) {
-      setTimeout(() => {
-        if (scrollViewRef.current) {
-          scrollViewRef.current?.scrollToEnd({ animated: true });
-        }
-      }, 300);
-    }
-  };
-
-  const handleDeleteTask = (taskId: string) => {
-    setTaskList(prevTasks =>
-      prevTasks.filter(task => task.id !== taskId)
-    );
-  };
-
-  const handleShowCompleted = (showCompletedOnly: boolean) => {
-    if (!showCompletedOnly) {
-      setTaskList(taskList.filter(task => task.isCompleted));
-    } else {
-      setTaskList(tasksListMock);
-    }
-    setIsShowingCompleted(!isShowingCompleted);
-  };
-
-  const onSelectAllPressed = () => {
-    setIsSelectedAll(!isSelectedAll)
-    setTaskList(taskList.map(task => ({...task, isSelected: true})));
-  }
-
-  const handleCancelSelecting = () => {
-    setIsSelectedAll(false)
-    setTaskList(taskList.map(task => ({...task, isSelected: false})));
-  }
-
-  const handleToggleSelectItem = (taskId: String, isSelected: boolean) => {
-    setTaskList(taskList.map((item) =>
-      item.id === taskId
-        ? { ...item, isSelected: !isSelected}
-        : item
-    ));
-  }
-
-  const handleDateFilter = (dayItem: DayListItem) => {
-    if (!dayItem.date) {
-        setFilteredTasks(taskList); // "All" selected
-        setSelectedDay(null);
-    } else {
-      const selected = dayItem.date.clone().startOf('day');
-      const filtered = taskList.filter(task =>
-        moment(task.scheduledDate).isSame(selected, 'day')
-      );
-      setFilteredTasks(filtered);
-      setSelectedDay(selected);
-    }
-  };
-
-  useEffect(() => {
-    if (selectedDay) {
-      const filtered = taskList.filter(task =>
-        moment(task.scheduledDate).isSame(selectedDay, 'day')
-      );
-      setFilteredTasks(filtered);
-    } else {
-      setFilteredTasks(taskList);
-    }
-  }, [taskList, selectedDay]);
-  
   const onDeleteSelectedTaskPressed = () => {
     setIsConfirmationModalVisible(true)
   }
@@ -248,56 +75,40 @@ const useTaskList = (props: NavigationPropsType) => {
   // Handles remove all items
   const removeSelectedTasks = () => {
     onConfirmationModalClose();
-    handleCancelSelecting();
-  
-    const updatedList = taskList.filter(task => {
-      const isSelected = task.isSelected;
-
-      // If no selectedDay, delete from all dates
-      const isSameDate = selectedDay ? moment(task.scheduledDate).isSame(selectedDay, 'day') : true;
-      return !(isSelected && isSameDate);
-    });
-  
-    setTaskList(updatedList);
-  
-    // Filters based on selectedDay (or show all if null)
-    const filtered = selectedDay
-      ? updatedList.filter(task =>
-          moment(task.scheduledDate).isSame(selectedDay, 'day')
-        )
-      : updatedList;
-    setFilteredTasks(filtered);
+    list.removeSelectedTasks();
   };
-  
+
   const { navigation } = props
 
   const goBack = () => navigation.goBack();
   return {
-    taskList,
+    taskList: list.taskList,
+    isLoading,
     goBack,
-    handleSearch,
-    toggleTaskCompletion,
+    handleSearch: list.handleSearch,
+    toggleTaskCompletion: list.toggleTaskCompletion,
     handleAddTask,
-    newTask,
-    setNewTask,
+    handleEditTask: list.handleEditTask,
+    newTask: list.newTask,
+    setNewTask: list.setNewTask,
     scrollViewRef,
-    isAdding,
-    handleSaveTask,
-    handleCancelEdit,
-    handleDeleteTask,
-    isShowingCompleted,
-    handleShowCompleted,
-    isSelectedAll,
-    onSelectAllPressed,
-    handleCancelSelecting,
-    handleToggleSelectItem,
+    isAdding: list.isAdding,
+    handleSaveTask: list.handleSaveTask,
+    handleCancelEdit: list.handleCancelEdit,
+    handleDeleteTask: list.handleDeleteTask,
+    isShowingCompleted: list.isShowingCompleted,
+    handleShowCompleted: list.handleShowCompleted,
+    isSelectedAll: list.isSelectedAll,
+    onSelectAllPressed: list.onSelectAllPressed,
+    handleCancelSelecting: list.handleCancelSelecting,
+    handleToggleSelectItem: list.handleToggleSelectItem,
     isConfirmationModalVisible,
     onDeleteSelectedTaskPressed,
     onConfirmationModalClose,
     removeSelectedTasks,
     inCompletedTaskList,
-    handleDateFilter,
-    filteredTasks,
+    handleDateFilter: list.handleDateFilter,
+    filteredTasks: list.filteredTasks,
     todayTaskList,
     completedTodayTaskList,
     hasTodayTask,

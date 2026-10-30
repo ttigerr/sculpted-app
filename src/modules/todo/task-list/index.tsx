@@ -30,6 +30,7 @@ const TodoTaskList = (props: NavigationPropsType) => {
     toggleTaskCompletion,
     taskList,
     handleAddTask,
+    handleEditTask,
     newTask,
     setNewTask,
     scrollViewRef,
@@ -131,7 +132,7 @@ const TodoTaskList = (props: NavigationPropsType) => {
                   isSelectedAll={isSelectedAll}
                   onSelectAllPressed={onSelectAllPressed}
                   taskList={filteredTasks}
-                  onTaskPress={(task) => console.log(task)}
+                  onTaskPress={handleEditTask}
                   handleToggleComplete={toggleTaskCompletion}
                   newTask={newTask}
                   setNewTask={setNewTask}
