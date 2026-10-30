@@ -29,6 +29,9 @@ const TodoIncomplete = (props: NavigationPropsType) => {
     goBack,
     handleSearch,
     toggleTaskCompletion,
+    handleEditTask,
+    newTask,
+    setNewTask,
     scrollViewRef,
     isAdding,
     handleSaveTask,
@@ -124,8 +127,10 @@ const TodoIncomplete = (props: NavigationPropsType) => {
                   isSelectedAll={isSelectedAll}
                   onSelectAllPressed={onSelectAllPressed}
                   taskList={filteredTasks}
-                  onTaskPress={(task) => console.log(task)}
+                  onTaskPress={handleEditTask}
                   handleToggleComplete={toggleTaskCompletion}
+                  newTask={newTask}
+                  setNewTask={setNewTask}
                   onTaskDelete={handleDeleteTask}
                   handleToggleSelectItem={handleToggleSelectItem}
                 />
