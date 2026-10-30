@@ -16,7 +16,7 @@ import {RFValue} from 'react-native-responsive-fontsize';
 interface ConfirmationModalProps {
   visible: boolean;
   title: string;
-  description: string;
+  description?: string;
   onClose: () => void;
   children?: React.ReactNode;
 }
@@ -53,10 +53,14 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
               <Text variant="body" style={styles.title}>
                 {title}
               </Text>
-              <Separator height={RFValue(12)} />
-              <Text variant="body" style={styles.descriptionText}>
-                {description}
-              </Text>
+              {description ? (
+                <>
+                  <Separator height={RFValue(12)} />
+                  <Text variant="body" style={styles.descriptionText}>
+                    {description}
+                  </Text>
+                </>
+              ) : null}
               <Separator height={RFValue(20)} />
             </View>
             <Pressable onPress={onClose}>
