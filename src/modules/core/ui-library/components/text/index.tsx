@@ -1,8 +1,7 @@
-import React from 'react';
-import {customText, TextProps} from 'react-native-paper';
+import {customText} from 'react-native-paper';
+import {fontConfig} from 'src/config/theme';
 
-const Text = customText<
-  'h1' & 'h2' & 'h3' & 'h4' & 'body' & 'body1' & 'body2' & 'paragraph' & 'caption' & 'delete' & 'greeting'
->();
+// Any text style defined in the theme's fontConfig can be used as a variant.
+const Text = customText<keyof typeof fontConfig>();
 
 export default Text;
