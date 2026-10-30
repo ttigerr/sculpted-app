@@ -32,7 +32,7 @@ export type Color = {
 export type Task = {
   id: string;
   creationDate: Date | number;
-  scheduledDate: Date | number;
+  scheduledDate?: Date | number | null;
   title: string;
   description: string;
   isCompleted: boolean;
