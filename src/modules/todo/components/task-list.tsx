@@ -30,15 +30,15 @@ interface TaskListProps {
   taskList: Task[];
   onTaskPress: (task: Task) => void;
   handleToggleComplete: (id: string) => void;
-  newTask: Task | null;
+  newTask?: Task | null;
   setNewTask?: any;
   onTaskDelete: (id: string) => void;
-  isShowingCompleted: boolean;
-  onShowCompletedPressed: (isShowingCompleted: boolean) => void;
-  isSelectedAll: boolean;
-  onSelectAllPressed: (isSelectedAll: boolean) => void;
-  handleToggleSelectItem: (id: string, isSelected: boolean) => void;
-  children: any;
+  isShowingCompleted?: boolean;
+  onShowCompletedPressed?: (isShowingCompleted: boolean) => void;
+  isSelectedAll?: boolean;
+  onSelectAllPressed?: (isSelectedAll: boolean) => void;
+  handleToggleSelectItem: (id: string, isSelected?: boolean) => void;
+  children?: React.ReactNode;
 }
 
 const TaskItem: React.FC<
@@ -226,13 +226,12 @@ const TaskList: React.FC<TaskListProps> = ({
   newTask,
   setNewTask,
   onTaskDelete,
-  isShowingCompleted,
-  onShowCompletedPressed,
-  isSelectedAll,
-  onSelectAllPressed,
+  isShowingCompleted = false,
+  onShowCompletedPressed = () => {},
+  isSelectedAll = false,
+  onSelectAllPressed = () => {},
   handleToggleSelectItem,
   children,
-  
 }) => {
   const route = useRoute();
   // The draft is either an existing task being edited (shown in its place)
