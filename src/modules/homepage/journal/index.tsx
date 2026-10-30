@@ -35,6 +35,7 @@ const Journal = (props : NavigationPropsType) => {
     const {
         toggleTaskCompletion,
         handleAddTask,
+        handleEditTask,
         newTask,
         setNewTask,
         scrollViewRef,
@@ -53,7 +54,9 @@ const Journal = (props : NavigationPropsType) => {
         newScheduledTask,
         setNewScheduledTask,
         handleAddScheduledTask,
+        handleEditScheduledTask,
         handleSaveScheduledTask,
+        handleScheduleCancelEdit,
         isScheduleAdding,
         isShowingScheduleCompleted,
         handleShowScheduleCompleted,
@@ -106,7 +109,7 @@ const Journal = (props : NavigationPropsType) => {
                         <PaperButton
                             textColor={theme.colors.h1}
                             mode="text"
-                            onPress={handleCancelEdit}>
+                            onPress={handleScheduleCancelEdit}>
                             {'Cancel'}
                         </PaperButton>
                         <PaperButton
@@ -141,7 +144,7 @@ const Journal = (props : NavigationPropsType) => {
                         isShowingCompleted={isShowingCompleted}
                         onShowCompletedPressed={handleShowCompleted}
                         taskList={filteredTasks}
-                        onTaskPress={task => console.log(task)}
+                        onTaskPress={handleEditTask}
                         handleToggleComplete={toggleTaskCompletion}
                         newTask={newTask}
                         setNewTask={setNewTask}
@@ -222,7 +225,7 @@ const Journal = (props : NavigationPropsType) => {
                         isShowingCompleted={isShowingScheduleCompleted}
                         onShowCompletedPressed={handleShowScheduleCompleted}
                         taskList={scheduledTaskList}
-                        onTaskPress={task => console.log(task)}
+                        onTaskPress={handleEditScheduledTask}
                         handleToggleComplete={toggleScheduleTaskCompletion}
                         newTask={newScheduledTask}
                         setNewTask={setNewScheduledTask}
