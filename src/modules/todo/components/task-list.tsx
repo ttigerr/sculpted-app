@@ -46,7 +46,7 @@ const TaskItem: React.FC<
     onToggleComplete?: () => void;
     handleToggleSelectItem?: () => void;
     onPress?: () => void;
-    onTaskDelete: () => void;
+    onTaskDelete?: () => void;
     setNewTask?: any;
     isSelectedAll?: boolean;
   }
@@ -98,7 +98,7 @@ const TaskItem: React.FC<
     if (translateX.value < -SWIPE_THRESHOLD) {
       translateX.value = withTiming(-SCREEN_WIDTH);
       backgroundTranslateX.value = withTiming(-SCREEN_WIDTH);
-      setTimeout(onTaskDelete, 300); // Delay to complete the swipe-out animation before deletion
+      setTimeout(() => onTaskDelete?.(), 300); // Delay to complete the swipe-out animation before deletion
     } else {
       translateX.value = withTiming(0);
     }
@@ -185,28 +185,28 @@ const TaskItem: React.FC<
                   </View>
                 </TouchableWithoutFeedback>
 
-                {/* Text content on the left */}
+                {/* Text content on the left; tap to edit */}
                 <View style={{ flex: 1 }}>
-                  <Text style={styles.taskTitle}>{title}</Text>
-                  {description ? (
-                    <>
-                      {/* Wrap a description when hit more than 2 lines  */}
-                      <Pressable onPress={() => setIsDescriptionExpanded(prev => !prev)}>
-                        <Text
-                          style={styles.descriptionInput}
-                          numberOfLines={isDescriptionExpanded ? undefined : 2}
-                          ellipsizeMode="tail"
-                          onTextLayout={onTextLayout}
-                        >
-                          {description}
-                        </Text>
-                        {numberOfLines >= 2 && (
-                          <Text style={[styles.descriptionInput, {opacity: 0.6}]}>
-                            {isDescriptionExpanded ? '...Show less' : '... more'}
-                          </Text>
-                        )}
-                      </Pressable>
-                    </>
+                  <Pressable onPress={onPress} disabled={isSelectedAll}>
+                    <Text style={styles.taskTitle}>{title}</Text>
+                    {description ? (
+                      <Text
+                        style={styles.descriptionInput}
+                        numberOfLines={isDescriptionExpanded ? undefined : 2}
+                        ellipsizeMode="tail"
+                        onTextLayout={onTextLayout}
+                      >
+                        {description}
+                      </Text>
+                    ) : null}
+                  </Pressable>
+                  {/* Wrap a description when hit more than 2 lines  */}
+                  {description && numberOfLines >= 2 ? (
+                    <Pressable onPress={() => setIsDescriptionExpanded(prev => !prev)}>
+                      <Text style={[styles.descriptionInput, {opacity: 0.6}]}>
+                        {isDescriptionExpanded ? '...Show less' : '... more'}
+                      </Text>
+                    </Pressable>
                   ) : null}
                 </View>
               </View>
@@ -235,6 +235,22 @@ const TaskList: React.FC<TaskListProps> = ({
   
 }) => {
   const route = useRoute();
+  // The draft is either an existing task being edited (shown in its place)
+  // or a new task (shown at the end).
+  const isEditingExisting = !!newTask && taskList.some(task => task.id === newTask.id);
+
+  const renderDraft = (draft: Task) => (
+    <TaskItem
+      id={draft.id}
+      key={draft.id}
+      creationDate={draft.creationDate}
+      title={draft.title}
+      description={draft.description}
+      isCompleted={draft.isCompleted}
+      setNewTask={setNewTask}
+      isTemporary
+    />
+  );
 
   return (
     <View style={styles.container}>
@@ -255,7 +271,11 @@ const TaskList: React.FC<TaskListProps> = ({
         </View>
       )}
       <ScrollView>
-        {taskList.map(task => (
+        {taskList.map(task => isEditingExisting && task.id === newTask!.id ? (
+          <View key={task.id} style={styles.taskCardContainer}>
+            {renderDraft(newTask!)}
+          </View>
+        ) : (
           <TaskItem
             creationDate={task.creationDate}
             id={task.id}
@@ -275,18 +295,9 @@ const TaskList: React.FC<TaskListProps> = ({
           />
         ))}
         {children}
-        {newTask && (
+        {newTask && !isEditingExisting && (
           <>
-            <TaskItem
-              id={newTask.id}
-              key={newTask.id}
-              creationDate={newTask.creationDate}
-              title={newTask.title}
-              description={newTask.description}
-              isCompleted={newTask.isCompleted}
-              setNewTask={setNewTask}
-              isTemporary={newTask.isTemporary}
-            />
+            {renderDraft(newTask)}
             <Separator height={RFValue(15)}/>
           </>
         )}
