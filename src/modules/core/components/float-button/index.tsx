@@ -1,6 +1,5 @@
 import React from 'react';
-import {View, TouchableOpacity, StyleSheet} from 'react-native';
-import { ButtonProps } from 'react-native-paper';
+import {View, TouchableOpacity, StyleSheet, StyleProp, ViewStyle} from 'react-native';
 import {theme} from 'src/config/theme';
 import Icon from '../icon';
 import { useRoute } from '@react-navigation/native';
@@ -11,9 +10,10 @@ type FloatingButtonProps = {
   iconName?: string;
   width?: number;
   height?: number;
+  style?: StyleProp<ViewStyle>;
 };
 
-const FloatingButton: React.FC<FloatingButtonProps & ButtonProps> = ({
+const FloatingButton: React.FC<FloatingButtonProps> = ({
   onPress,
   iconName = 'plusRound',
   width,
