@@ -125,9 +125,18 @@ install the new build **over it**. Don't uninstall, which would wipe the old dat
 | 7.8 | Swipe a task to delete it | Disappears. `DELETE /api/tasks/… 204` | [ ] | [ ] |
 | 7.9 | Select several tasks → delete → confirm | All selected tasks on that day disappear | [ ] | [ ] |
 | 7.10 | **Scheduled** → pick a future day → add a task | Shows under that day, and in the **Journal**'s tomorrow list if it's tomorrow | [ ] | [ ] |
-| 7.11 | Leave a task unticked → open **Incomplete** | It's listed; tick it there and it disappears from Incomplete | [ ] | [ ] |
-| 7.12 | Close the app fully and reopen | All tasks are still there (they came from the server) | [ ] | [ ] |
-| 7.13 | Sign out, log in again | Same tasks come back | [ ] | [ ] |
+| 7.11 | Leave a task unticked → open **Incomplete** → tick it | It stays on screen, shown ticked. Tap again to un-tick | [ ] | [ ] |
+| 7.12 | After 7.11, go back and reopen **Incomplete** | The ticked task is gone now | [ ] | [ ] |
+| 7.13 | Close the app fully and reopen | All tasks are still there (they came from the server) | [ ] | [ ] |
+| 7.14 | Sign out, log in again | Same tasks come back | [ ] | [ ] |
+| 7.15 | Tap a task's title → change title and description → **Done** | Form opens in the task's place; changes show. `PATCH /api/tasks/… 200` | [ ] | [ ] |
+| 7.16 | Tap a task → change something → **Cancel** | Original text is back; nothing sent | [ ] | [ ] |
+| 7.17 | Tap a task → **Done** without changing anything | Form closes; **no** `PATCH` sent | [ ] | [ ] |
+| 7.18 | Tap a task → clear the title → **Done** | "Title and description can't be empty"; form stays | [ ] | [ ] |
+| 7.19 | API stopped → edit a task → **Done** | *"Couldn't save your changes."*; form stays with your text | [ ] | [ ] |
+| 7.20 | Edit a task on **Incomplete**, **Scheduled** and both Journal lists | Works the same everywhere; other screens show the new text | [ ] | [ ] |
+| 7.21 | Journal → tap a **tomorrow** task → **Cancel** | Form closes (this Cancel used to do nothing) | [ ] | [ ] |
+| 7.22 | Long description → tap **… more** | Expands the text; does **not** open the edit form | [ ] | [ ] |
 
 ---
 
@@ -138,7 +147,7 @@ install the new build **over it**. Don't uninstall, which would wipe the old dat
 - **"Deactivate Account" does nothing.** Waiting on a product decision.
 - **Session expiry stays on the current screen.** If the server rejects the
   login, data is cleared but the app doesn't jump to the login screen.
-- **Tasks can't be edited after saving.** Only add, tick, and delete exist in
-  the app today.
+- **A task's day can't be changed** when editing; only its title and
+  description.
 - **Profile shows fixed values** ("Male", "15/09/2004", "@Username") and the
   journal reminder is stored only on the phone.
