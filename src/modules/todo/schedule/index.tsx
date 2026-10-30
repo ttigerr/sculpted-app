@@ -7,7 +7,7 @@ import {
   Pressable,
   SafeAreaView,
 } from 'react-native';
-import React, {useRef} from 'react';
+import React from 'react';
 import MainWrapper from 'src/modules/core/components/wrapper/MainWrapper';
 import {RFValue} from 'react-native-responsive-fontsize';
 import {Separator, Text} from 'src/modules/core/ui-library';
@@ -16,9 +16,8 @@ import {NavigationPropsType} from 'src/utils/types';
 import {secondaryGradientColorList} from 'src/consts/arrays';
 import SearchBar from '../components/search-bar';
 import TaskList from '../components/task-list';
-import useTaskList from '../task-list/useTaskList';
 import FloatingButton from 'src/modules/core/components/float-button';
-import {Appbar, Button} from 'react-native-paper';
+import {Appbar} from 'react-native-paper';
 import {theme} from 'src/config/theme';
 import ConfirmationModal from 'src/modules/core/components/confirmation-modal';
 import DayPicker from 'src/modules/todo/components/day-picker';
@@ -30,7 +29,6 @@ const ToDoSchedule = (props: NavigationPropsType) => {
     goBack,
     handleSearch,
     toggleScheduleTaskCompletion,
-    scheduledTaskList,
     handleAddScheduledTask,
     handleEditScheduledTask,
     newScheduledTask,
